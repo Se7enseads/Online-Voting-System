@@ -10,8 +10,8 @@ from flask_migrate import Migrate
 app = Flask(
     __name__,
     static_url_path='',
-    static_folder='../client/build',
-    template_folder='../client/build'
+    static_folder='../frontend/dist',
+    template_folder='../frontend/dist'
 )
 
 app.config['SQLALCHEMY_DATABASE_URI'] =  "sqlite:///app.db" # os.getenv('DATABASE_URI')
@@ -30,12 +30,12 @@ api = Api(api_bp)
 # login_manager.login_view = "login"
 
 @app.errorhandler(404)
-def not_found():
+def not_found(e):
     return render_template("index.html")
 
 
-@login_required
 class Profile(Resource):
+    @login_required
     def get(self):
         prez = CandidateModel.query.filter_by(post="President").all()
         vice = CandidateModel.query.filter_by(post="Vice-President").all()
@@ -51,6 +51,7 @@ class Profile(Resource):
 
         return response_body, 200
 
+    @login_required
     def post(self):
         president = request.form.get('president')
         vice_prez = request.form.get('vice-president')
@@ -100,14 +101,15 @@ class Candidate(Resource):
 api.add_resource(Candidate, '/candidate')
 
 
-@login_required
 class CandidateRegister(Resource):
+    @login_required
     def get(self):
         if current_user.admin != 1:
             logout_user()
             return jsonify(
                 success=False,
-                message='You do not have required authorization'
+                message='You do not have required authorization',
+                admin=1
             )
         return jsonify(
             success=True,

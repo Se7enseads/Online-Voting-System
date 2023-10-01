@@ -5,14 +5,19 @@ name = "pypi"
 
 [packages]
 flask = "*"
-flask-login = "*"
-flask-sqlalchemy = "*"
-jinja2 = "*"
-markupsafe = "*"
-werkzeug = "==2.0.3"
-flask-restful = "*"
 flask-migrate = "*"
+flask-restful = "*"
+flask-sqlalchemy = "*"
+gunicorn = "*"
+honcho = "*"
+importlib-metadata = "*"
+psycopg2-binary = "*"
 python-dotenv = "*"
+sqlalchemy-serializer = "*"
+flask-cors = "*"
+werkzeug = "==2.0.3"
+sqlalchemy = "==1.4.32"
+flask-login = "*"
 
 [dev-packages]
 
