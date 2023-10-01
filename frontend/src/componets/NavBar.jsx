@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
+  // Assuming you have a user state that tracks authentication
+  const isAuthenticated = true; // Replace with your actual authentication state
+  const isAdmin = true; // Replace with your actual admin state
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -19,7 +23,7 @@ function NavBar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="navbar-collapse collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to="/" className="nav-link">
@@ -37,7 +41,7 @@ function NavBar() {
               </Link>
             </li>
             {/* Check if the user is not authenticated */}
-            {!current_user.is_authenticated && (
+            {!isAuthenticated && (
               <React.Fragment>
                 <li className="nav-item">
                   <Link to="/auth/login" className="nav-link">
@@ -52,7 +56,7 @@ function NavBar() {
               </React.Fragment>
             )}
             {/* Check if the user is an admin */}
-            {current_user.admin === 1 && (
+            {isAdmin && (
               <li className="nav-item">
                 <Link to="/candidate_register" className="nav-link">
                   Register Candidate
@@ -60,7 +64,7 @@ function NavBar() {
               </li>
             )}
             {/* Check if the user is authenticated */}
-            {current_user.is_authenticated && (
+            {isAuthenticated && (
               <li className="nav-item">
                 <Link to="/auth/logout" className="nav-link">
                   Logout
@@ -68,7 +72,7 @@ function NavBar() {
               </li>
             )}
             {/* Check if the user is authenticated and not an admin */}
-            {current_user.is_authenticated && current_user.admin !== 1 && (
+            {isAuthenticated && !isAdmin && (
               <li className="nav-item">
                 <Link to="/profile" className="nav-link">
                   Vote
