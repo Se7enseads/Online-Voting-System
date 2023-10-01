@@ -1,2 +1,2 @@
 web: npm run dev --prefix frontend
-api: gunicorn --chdir server views:app
+api: gunicorn --chdir server app:app
