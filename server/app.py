@@ -14,7 +14,7 @@ app = Flask(
     template_folder='../frontend/dist'
 )
 
-app.config['SQLALCHEMY_DATABASE_URI'] =  "sqlite:///app.db" # os.getenv('DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] =  "sqlite:///instance/app.db" # os.getenv('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 migrate = Migrate(app, db)
