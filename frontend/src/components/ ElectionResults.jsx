@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 function ElectionResults() {
   const [chartData, setChartData] = useState({
-    labels: [],
     data: [],
-    labels1: [],
     data1: [],
+    labels: [],
+    labels1: [],
   });
 
   useEffect(async () => {
@@ -16,13 +16,9 @@ function ElectionResults() {
 
       const ctx = document.getElementById('myChart').getContext('2d');
       const myChart = new Chart(ctx, {
-        type: 'bar',
         data: {
-          labels: result.labels,
           datasets: [
             {
-              label: 'No of Votes',
-              data: result.data,
               backgroundColor: [
                 'rgba(85,107,47,0.2)',
                 'rgba(124,252,0, 0.2)',
@@ -40,8 +36,11 @@ function ElectionResults() {
                 'rgba(255, 255, 255, 1)',
               ],
               borderWidth: 2,
+              data: result.data,
+              label: 'No of Votes',
             },
           ],
+          labels: result.labels,
         },
         options: {
           scales: {
@@ -50,17 +49,14 @@ function ElectionResults() {
             },
           },
         },
+        type: 'bar',
       });
 
       const ctx1 = document.getElementById('myChart1').getContext('2d');
       const myChart1 = new Chart(ctx1, {
-        type: 'bar',
         data: {
-          labels: result.labels1,
           datasets: [
             {
-              label: 'No of Votes',
-              data: result.data1,
               backgroundColor: [
                 'rgba(85,107,47,0.2)',
                 'rgba(124,252,0, 0.2)',
@@ -78,8 +74,11 @@ function ElectionResults() {
                 'rgba(255, 255, 255, 1)',
               ],
               borderWidth: 2,
+              data: result.data1,
+              label: 'No of Votes',
             },
           ],
+          labels: result.labels1,
         },
         options: {
           scales: {
@@ -88,6 +87,7 @@ function ElectionResults() {
             },
           },
         },
+        type: 'bar',
       });
 
       myChart.update('none');
@@ -101,20 +101,20 @@ function ElectionResults() {
     <div>
       <h1 className="display-4 text-success">Presidential Election Results</h1>
       <canvas
-        id="myChart"
         className="mx-auto"
-        style={{ maxWidth: '100px', maxHeight: '100px' }}
-      ></canvas>
+        id="myChart"
+        style={{ maxHeight: '100px', maxWidth: '100px' }}
+      />
       <br />
       <br />
       <h1 className="display-4 text-success">
         Vice-Presidential Election Results
       </h1>
       <canvas
-        id="myChart1"
         className="mx-auto"
-        style={{ maxWidth: '80px', maxHeight: '80px' }}
-      ></canvas>
+        id="myChart1"
+        style={{ maxHeight: '80px', maxWidth: '80px' }}
+      />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import NavBar from './NavBar'; // Import your NavBar component
 
 function AppLayout({ children }) {

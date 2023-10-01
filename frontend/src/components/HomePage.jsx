@@ -26,10 +26,10 @@ function HomePage() {
           </div>
           <div className="col-md-8">
             <img
-              src="images/vote1.jpg"
               alt="Vote App"
               className="img-fluid "
-              style={{ maxHeight: '400px', width: '100%', objectFit: 'cover' }}
+              src="images/vote1.jpg"
+              style={{ maxHeight: '400px', objectFit: 'cover', width: '100%' }}
             />
           </div>
         </div>

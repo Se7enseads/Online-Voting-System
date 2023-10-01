@@ -2,7 +2,7 @@ import React from 'react';
 
 function Login() {
   // Assuming you have an array of error messages
-  const errorMessages = ["Invalid email", "Incorrect password"];
+  const errorMessages = ['Invalid email', 'Incorrect password'];
 
   return (
     <div className="container">
@@ -20,19 +20,36 @@ function Login() {
                   </ul>
                 </div>
               )}
-              <form method="POST" action="/auth/login">
+              <form action="/auth/login" method="POST">
                 <div className="form-group">
                   <label htmlFor="email">Your Email</label>
-                  <input className="form-control" type="email" id="email" name="email" autoFocus />
+                  <input
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    type="email"
+                  />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Your Password</label>
-                  <input className="form-control" type="password" id="password" name="password" />
+                  <input
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    type="password"
+                  />
                 </div>
                 <div className="form-group">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="remember" name="remember" />
-                    <label className="form-check-label" htmlFor="remember">Remember me</label>
+                    <input
+                      className="form-check-input"
+                      id="remember"
+                      name="remember"
+                      type="checkbox"
+                    />
+                    <label className="form-check-label" htmlFor="remember">
+                      Remember me
+                    </label>
                   </div>
                 </div>
                 <button className="btn btn-info btn-block">Login</button>

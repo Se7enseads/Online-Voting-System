@@ -9,46 +9,45 @@ function SignUp() {
           <div className="card">
             <div className="card-body">
               {/* Render error messages here */}
-              <form method="POST" action="/auth/register">
+              <form action="/auth/register" method="POST">
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="integer"
                     name="rollno"
                     placeholder="Roll Number"
-                    autoFocus
+                    type="integer"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="email"
                     name="email"
                     placeholder="Email"
+                    type="email"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
                     name="name"
                     placeholder="Name"
+                    type="text"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="password"
                     name="password1"
                     placeholder="Password"
+                    type="password"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="password"
                     name="password2"
                     placeholder="Confirm Password"
+                    type="password"
                   />
                 </div>
                 <button className="btn btn-info btn-block">Sign Up</button>

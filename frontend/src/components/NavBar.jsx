@@ -9,56 +9,56 @@ function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <Link to="/" className="navbar-brand">
+        <Link className="navbar-brand" to="/">
           &lt; Vote App &gt;
         </Link>
         <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          className="navbar-toggler"
+          data-bs-target="#navbarNav"
+          data-bs-toggle="collapse"
+          type="button"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
         <div className="navbar-collapse collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link to="/" className="nav-link">
+              <Link className="nav-link" to="/">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/candidate" className="nav-link">
+              <Link className="nav-link" to="/candidate">
                 Candidate Info
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/live_result" className="nav-link">
+              <Link className="nav-link" to="/live_result">
                 Live Result
               </Link>
             </li>
             {/* Check if the user is not authenticated */}
             {!isAuthenticated && (
-              <React.Fragment>
+              <>
                 <li className="nav-item">
-                  <Link to="/auth/login" className="nav-link">
+                  <Link className="nav-link" to="/auth/login">
                     Login
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/auth/register" className="nav-link">
+                  <Link className="nav-link" to="/auth/register">
                     Sign Up
                   </Link>
                 </li>
-              </React.Fragment>
+              </>
             )}
             {/* Check if the user is an admin */}
             {isAdmin && (
               <li className="nav-item">
-                <Link to="/candidate_register" className="nav-link">
+                <Link className="nav-link" to="/candidate_register">
                   Register Candidate
                 </Link>
               </li>
@@ -66,7 +66,7 @@ function NavBar() {
             {/* Check if the user is authenticated */}
             {isAuthenticated && (
               <li className="nav-item">
-                <Link to="/auth/logout" className="nav-link">
+                <Link className="nav-link" to="/auth/logout">
                   Logout
                 </Link>
               </li>
@@ -74,7 +74,7 @@ function NavBar() {
             {/* Check if the user is authenticated and not an admin */}
             {isAuthenticated && !isAdmin && (
               <li className="nav-item">
-                <Link to="/profile" className="nav-link">
+                <Link className="nav-link" to="/profile">
                   Vote
                 </Link>
               </li>

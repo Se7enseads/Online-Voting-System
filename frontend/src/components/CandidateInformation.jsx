@@ -16,9 +16,9 @@ function CandidateInformation({ prez, vice }) {
               <div className="col-md-4" key={index}>
                 <div className="card mb-4">
                   <img
-                    src={prezCandidate.pic_path}
-                    className="card-img-top"
                     alt={prezCandidate.first_name}
+                    className="card-img-top"
+                    src={prezCandidate.pic_path}
                   />
                   <div className="card-body">
                     <h5 className="card-title">
@@ -26,7 +26,7 @@ function CandidateInformation({ prez, vice }) {
                     </h5>
                     <p className="card-text">{prezCandidate.roll_num}</p>
                     <p className="card-text text-dark font-italic">
-                      "{prezCandidate.agenda}"
+                      &quot{prezCandidate.agenda}&quot
                     </p>
                     <p className="card-text font-weight-semibold">
                       {prezCandidate.batch}
@@ -45,9 +45,9 @@ function CandidateInformation({ prez, vice }) {
               <div className="col-md-4" key={index}>
                 <div className="card mb-4">
                   <img
-                    src={viceCandidate.pic_path}
-                    className="card-img-top"
                     alt={viceCandidate.first_name}
+                    className="card-img-top"
+                    src={viceCandidate.pic_path}
                   />
                   <div className="card-body">
                     <h5 className="card-title">
@@ -55,7 +55,7 @@ function CandidateInformation({ prez, vice }) {
                     </h5>
                     <p className="card-text">{viceCandidate.roll_num}</p>
                     <p className="card-text text-dark font-italic">
-                      "{viceCandidate.agenda}"
+                      &quot{viceCandidate.agenda}&quot
                     </p>
                     <p className="card-text font-weight-semibold">
                       {viceCandidate.batch}

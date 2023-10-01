@@ -34,32 +34,29 @@ function RegisterCandidate() {
                 </div>
               )}
 
-              <form method="POST" action="/candidate_register">
+              <form action="/candidate_register" method="POST">
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="integer"
                     name="roll_num"
                     placeholder="Roll Number"
-                    autoFocus
+                    type="integer"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
                     name="first_name"
                     placeholder="First Name"
-                    autoFocus
+                    type="text"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
                     name="last_name"
                     placeholder="Last Name"
-                    autoFocus
+                    type="text"
                   />
                 </div>
                 <div className="form-group">
@@ -67,34 +64,30 @@ function RegisterCandidate() {
                     className="form-control"
                     name="agenda"
                     placeholder="Candidate Agenda"
-                    autoFocus
-                  ></textarea>
+                  />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
                     name="batch"
                     placeholder="Batch"
-                    autoFocus
+                    type="text"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
                     name="course"
                     placeholder="Course"
-                    autoFocus
+                    type="text"
                   />
                 </div>
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
                     name="department"
                     placeholder="Department"
-                    autoFocus
+                    type="text"
                   />
                 </div>
                 <div className="form-group">
@@ -106,10 +99,9 @@ function RegisterCandidate() {
                 <div className="form-group">
                   <input
                     className="form-control"
-                    type="text"
                     name="pic_path"
                     placeholder="Add path to candidate's picture eg. /static/images/img.jpg"
-                    autoFocus
+                    type="text"
                   />
                 </div>
 

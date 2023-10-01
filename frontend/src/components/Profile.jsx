@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Profile({ name, voter, prez, vice }) {
+function Profile({ name, prez, vice, voter }) {
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -19,9 +19,9 @@ function Profile({ name, voter, prez, vice }) {
               <div className="row">
                 <div className="col-md-4">
                   <img
-                    src="static/images/3.jpg"
                     alt="President Candidates"
                     className="img-fluid"
+                    src="static/images/3.jpg"
                   />
                 </div>
                 <div className="col-md-4">
@@ -35,9 +35,9 @@ function Profile({ name, voter, prez, vice }) {
                       standing in the election before casting your vote.
                       <br />
                       <br />
-                      <form method="POST" action="/profile">
+                      <form action="/profile" method="POST">
                         <div className="form-group">
-                          <label htmlFor="president" className="label">
+                          <label className="label" htmlFor="president">
                             President
                           </label>
                           <select className="form-control" name="president">
@@ -54,7 +54,7 @@ function Profile({ name, voter, prez, vice }) {
                           </select>
                         </div>
                         <div className="form-group">
-                          <label htmlFor="vice-president" className="label">
+                          <label className="label" htmlFor="vice-president">
                             Vice-President
                           </label>
                           <select
@@ -82,9 +82,9 @@ function Profile({ name, voter, prez, vice }) {
                 </div>
                 <div className="col-md-4">
                   <img
-                    src="static/images/4.jpg"
                     alt="Vice-President Candidates"
                     className="img-fluid"
+                    src="static/images/4.jpg"
                   />
                 </div>
               </div>
