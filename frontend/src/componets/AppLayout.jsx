@@ -1,21 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavBar from './NavBar'; // Import your NavBar component
+
 
 function AppLayout({ children }) {
   return (
-   
-        
-        <section className="hero is-dark is-fullheight">
-          <div className="hero-head">
-          
+    <div>
+      <NavBar /> {/* Render the NavBar component */}
+      <section className="hero is-dark is-fullheight">
+        <div className="hero-head">
+          {/* Navbar */}
+        </div>
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            {children}
           </div>
-          <div className="hero-body">
-            <div className="container has-text-centered">
-              {children}
-            </div>
-          </div>
-        </section>
-    
+        </div>
+      </section>
+    </div>
   );
 }
 

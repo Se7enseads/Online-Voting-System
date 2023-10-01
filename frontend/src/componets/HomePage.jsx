@@ -2,11 +2,11 @@ import React from 'react';
 
 function HomePage() {
   return (
-    <section className="hero is-white is-fullheight-with-navbar">
+    <section className="hero is-white is-fullheight">
       <div className="hero-body">
         <div className="container">
-          <div className="columns">
-            <div className="column is-4 ">
+          <div className="row">
+            <div className="col-md-4">
               <h1 className="title is-italic has-text-success is-1">
                 Vote App
               </h1>
@@ -25,8 +25,8 @@ function HomePage() {
                 A new candidate can be registered only by the Admin. Admin can log in and fill a form to register a new candidate for the election.
               </p>
             </div>
-            <div className="column is-8 ">
-              <img src="static/images/1.jpeg" alt="Vote App" />
+            <div className="col-md-8">
+              <img src="static/images/1.jpeg" alt="Vote App" className="img-fluid" />
             </div>
           </div>
         </div>
