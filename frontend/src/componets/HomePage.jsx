@@ -2,9 +2,9 @@ import React from 'react';
 
 function HomePage() {
   return (
-    <section className="hero is-white is-fullheight">
-      <div className="hero-body">
-        <div className="container">
+    <section className= "container-fluid">
+     
+        <div className="container card-body">
           <div className="row">
             <div className="col-md-4">
               <h1 className="title is-italic text-success display-1">
@@ -30,14 +30,14 @@ function HomePage() {
             </div>
             <div className="col-md-8">
               <img
-                src="static/images/1.jpeg"
+                src="frontend/vote2.jpg"
                 alt="Vote App"
                 className="img-fluid"
               />
             </div>
           </div>
         </div>
-      </div>
+    
     </section>
   );
 }
