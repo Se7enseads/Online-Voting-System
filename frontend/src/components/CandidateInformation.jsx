@@ -1,6 +1,24 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
-function CandidateInformation({ prez, vice }) {
+function CandidateInformation() {
+  const [prez, setPrez] = useState([]);
+  const [vice, setVice] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/candidate')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data && data.prez && data.vice) {
+          setPrez(data.prez);
+          setVice(data.vice);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <section className="container mt-5">
       <h1 className="display-4 text-success">Candidate Information</h1>
@@ -12,8 +30,8 @@ function CandidateInformation({ prez, vice }) {
         <div className="col-md-12">
           <h2 className="text-success">Presidential Candidates</h2>
           <div className="row">
-            {prez.map((prezCandidate, index) => (
-              <div className="col-md-4" key={index}>
+            {prez.map((prezCandidate) => (
+              <div className="col-md-4" key={prezCandidate.id}>
                 <div className="card mb-4">
                   <img
                     alt={prezCandidate.first_name}
@@ -26,7 +44,7 @@ function CandidateInformation({ prez, vice }) {
                     </h5>
                     <p className="card-text">{prezCandidate.roll_num}</p>
                     <p className="card-text text-dark font-italic">
-                      &quot{prezCandidate.agenda}&quot
+                      &quot;{prezCandidate.agenda}&quot;
                     </p>
                     <p className="card-text font-weight-semibold">
                       {prezCandidate.batch}
@@ -41,8 +59,8 @@ function CandidateInformation({ prez, vice }) {
           </div>
           <h2 className="text-success">Vice-Presidential Candidates</h2>
           <div className="row">
-            {vice.map((viceCandidate, index) => (
-              <div className="col-md-4" key={index}>
+            {vice.map((viceCandidate) => (
+              <div className="col-md-4" key={viceCandidate.id}>
                 <div className="card mb-4">
                   <img
                     alt={viceCandidate.first_name}
@@ -55,7 +73,7 @@ function CandidateInformation({ prez, vice }) {
                     </h5>
                     <p className="card-text">{viceCandidate.roll_num}</p>
                     <p className="card-text text-dark font-italic">
-                      &quot{viceCandidate.agenda}&quot
+                      &quot;{viceCandidate.agenda}&quot;
                     </p>
                     <p className="card-text font-weight-semibold">
                       {viceCandidate.batch}
