@@ -8,7 +8,7 @@ class UserModel(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True,)
-    roll_num = db.Column(db.Integer, nullable=False, unique=True)
+    national_id = db.Column(db.Integer, nullable=False, unique=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
     password = db.Column(db.String(), nullable=False)
@@ -24,8 +24,8 @@ class VotesModel(db.Model):
     __tablename__ = 'votes'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    roll_num = db.Column(db.Integer, nullable=False, unique=True)
-    voter_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    voter_id = db.Column(db.Integer, db.ForeignKey('users.national_id'), nullable=False, unique=True)
+    # voter_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     president = db.Column(db.Integer, nullable=False)
     vice_pres = db.Column(db.Integer, nullable=False)
 

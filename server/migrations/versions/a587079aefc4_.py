@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 164b580119fa
+Revision ID: a587079aefc4
 Revises: 
-Create Date: 2023-10-01 23:15:54.807463
+Create Date: 2023-10-02 03:17:44.388407
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '164b580119fa'
+revision = 'a587079aefc4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,24 +32,23 @@ def upgrade():
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('roll_num', sa.Integer(), nullable=False),
+    sa.Column('national_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('password', sa.String(), nullable=False),
     sa.Column('admin', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('roll_num')
+    sa.UniqueConstraint('national_id')
     )
     op.create_table('votes',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('roll_num', sa.Integer(), nullable=False),
-    sa.Column('voter_id', sa.Integer(), nullable=True),
+    sa.Column('voter_id', sa.Integer(), nullable=False),
     sa.Column('president', sa.Integer(), nullable=False),
     sa.Column('vice_pres', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['voter_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['voter_id'], ['users.national_id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('roll_num')
+    sa.UniqueConstraint('voter_id')
     )
     # ### end Alembic commands ###
 
