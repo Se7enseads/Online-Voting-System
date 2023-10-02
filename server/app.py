@@ -1,4 +1,4 @@
-from models import VotesModel, CandidateModel, UserModel,db
+from models import VotesModel, CandidateModel, UserModel, db
 from flask import Flask, Blueprint, request, render_template, jsonify
 from flask_login import login_required, current_user, logout_user
 from flask_restful import Api, Resource
@@ -14,7 +14,8 @@ app = Flask(
     template_folder='../frontend/dist'
 )
 
-app.config['SQLALCHEMY_DATABASE_URI'] =  "sqlite:///instance/app.db" # os.getenv('DATABASE_URI')
+# os.getenv('DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///instance/app.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 migrate = Migrate(app, db)
@@ -29,6 +30,7 @@ api = Api(api_bp)
 # login_manager.init_app(app)
 # login_manager.login_view = "login"
 
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template("index.html")
@@ -37,10 +39,12 @@ def not_found(e):
 class Profile(Resource):
     @login_required
     def get(self):
-        prez = CandidateModel.query.filter_by(post="President").all()
-        vice = CandidateModel.query.filter_by(post="Vice-President").all()
-        voter = VotesModel.query.filter_by(
-            roll_num=current_user.roll_num).first()
+        prez = CandidateModel.query.filter_by(
+            CandidateModel.position == "President").all()
+        vice = CandidateModel.query.filter_by(
+            CandidateModel.position == "Vice-President").all()
+        voter = VotesModel.query.filter(
+            VotesModel.voter_id == current_user.national_id).first()
 
         response_body = {
             "name": current_user.name,
@@ -57,16 +61,16 @@ class Profile(Resource):
         vice_prez = request.form.get('vice-president')
 
         voted = VotesModel.query.filter(
-            VotesModel.roll_num == current_user.roll_num).first()
+            VotesModel.voter_id == current_user.national_id).first()
 
         if not voted:
-            voter = VotesModel(
-                roll_num=current_user.roll_num, voter_id=current_user.id,
+            vote = VotesModel(
+                voter=current_user.national_id,
                 president=int(president),
                 vice_pres=int(vice_prez)
             )
 
-            db.session.add(voter)
+            db.session.add(vote)
             db.session.commit()
 
             return jsonify(
@@ -86,13 +90,35 @@ api.add_resource(Profile, '/profile')
 class Candidate(Resource):
     def get(self):
         prez = CandidateModel.query.filter(
-            CandidateModel.post == "President").all()
+            CandidateModel.position == "President").all()
         vice = CandidateModel.query.filter(
-            CandidateModel.post == "Vice-President").all()
+            CandidateModel.position == "Vice-President").all()
 
         response_body = {
-            "prez": prez,
-            "vice": vice
+            "prez": [
+                {
+                    "id": prez_can.id,
+                    "candidate_num": prez_can.candidate_num,
+                    "first_name": prez_can.first_name,
+                    "last_name": prez_can.last_name,
+                    "certificate": prez_can.certificate,
+                    "position": prez_can.position,
+                    "pic_path": prez_can.pic_path,
+                    "agenda": prez_can.agenda
+                } for prez_can in prez
+            ],
+            "vice": [
+                {
+                    "id": vice_can.id,
+                    "candidate_num": vice_can.candidate_num,
+                    "first_name": vice_can.first_name,
+                    "last_name": vice_can.last_name,
+                    "certificate": vice_can.certificate,
+                    "position": vice_can.position,
+                    "pic_path": vice_can.pic_path,
+                    "agenda": vice_can.agenda
+                } for vice_can in vice
+            ]
         }
 
         return response_body, 200
@@ -109,11 +135,11 @@ class CandidateRegister(Resource):
             return jsonify(
                 success=False,
                 message='You do not have required authorization',
-                admin=1
             )
         return jsonify(
             success=True,
-            message='Login Successful'
+            message='Login Successful',
+            admin=True
         )
 
 
