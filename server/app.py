@@ -1,34 +1,39 @@
+import logging
 from models import VotesModel, CandidateModel, UserModel, db
 from flask import Flask, Blueprint, request, render_template, jsonify
-from flask_login import login_required, current_user, logout_user
+from flask_login import login_required, current_user, logout_user, LoginManager
 from flask_restful import Api, Resource
-
 from flask_migrate import Migrate
+from flask_cors import CORS  # Import CORS from flask_cors
 
-# load_dotenv()
+def create_app():
+    app = Flask(
+        __name__,
+        static_url_path='',
+        static_folder='../frontend/dist',
+        template_folder='../frontend/dist'
+    )
 
-app = Flask(
-    __name__,
-    static_url_path='',
-    static_folder='../frontend/dist',
-    template_folder='../frontend/dist'
-)
-
-# os.getenv('DATABASE_URI')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///instance/app.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', "sqlite:///instance/app.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_secret_key_here')
+
+app.logger.setLevel(logging.DEBUG)
 
 migrate = Migrate(app, db)
 
 db.init_app(app)
 
-api_bp = Blueprint('api', __name__, url_prefix='/api')
 
+CORS(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+api_bp = Blueprint('api', __name__, url_prefix='/api')
 api = Api(api_bp)
 
-# login_manager = LoginManager()
-# login_manager.init_app(app)
-# login_manager.login_view = "login"
 
 
 @app.errorhandler(404)
@@ -55,6 +60,7 @@ class Profile(Resource):
 
         return response_body, 200
 
+    
     @login_required
     def post(self):
         president = request.form.get('president')
@@ -82,7 +88,6 @@ class Profile(Resource):
             success=False,
             message='You have already voted'
         )
-
 
 api.add_resource(Profile, '/profile')
 
@@ -123,7 +128,6 @@ class Candidate(Resource):
 
         return response_body, 200
 
-
 api.add_resource(Candidate, '/candidate')
 
 
@@ -142,11 +146,12 @@ class CandidateRegister(Resource):
             admin=True
         )
 
-
 api.add_resource(CandidateRegister, '/candidate_register')
 
 app.register_blueprint(api_bp)
 
+return app
 
 if __name__ == "__main__":
+    app = create_app()
     app.run(port=5555, debug=True)

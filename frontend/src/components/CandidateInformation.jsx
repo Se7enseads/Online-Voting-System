@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function CandidateInformation() {
   const [prez, setPrez] = useState([]);
@@ -8,17 +8,13 @@ function CandidateInformation() {
     fetch('/api/candidate')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        if (data && data.prez && data.vice) {
-          setPrez(data.prez);
-          setVice(data.vice);
-        }
+        setPrez(data.prez);
+        setVice(data.vice);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
   }, []);
-
   return (
     <section className="container mt-5">
       <h1 className="display-4 text-success">Candidate Information</h1>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Chart from 'chart.js/auto';
 
 function ElectionResults() {
   const [chartData, setChartData] = useState({
@@ -8,113 +9,70 @@ function ElectionResults() {
     labels1: [],
   });
 
-  useEffect(async () => {
-    try {
-      const response = await fetch('http://localhost:5000/vote/count');
-      const result = await response.json();
-      setChartData(result);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('/api/vote/count');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        setChartData(result);
 
-      const ctx = document.getElementById('myChart').getContext('2d');
-      const myChart = new Chart(ctx, {
-        data: {
-          datasets: [
-            {
-              backgroundColor: [
-                'rgba(85,107,47,0.2)',
-                'rgba(124,252,0, 0.2)',
-                'rgba(0,128,0, 0.2)',
-                'rgba(144,238,144, 0.2)',
-                'rgba(0,255,127, 0.2)',
-                'rgba(240,230,140, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-              ],
-              borderWidth: 2,
-              data: result.data,
-              label: 'No of Votes',
-            },
-          ],
-          labels: result.labels,
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-        type: 'bar',
-      });
-
-      const ctx1 = document.getElementById('myChart1').getContext('2d');
-      const myChart1 = new Chart(ctx1, {
-        data: {
-          datasets: [
-            {
-              backgroundColor: [
-                'rgba(85,107,47,0.2)',
-                'rgba(124,252,0, 0.2)',
-                'rgba(0,128,0, 0.2)',
-                'rgba(144,238,144, 0.2)',
-                'rgba(0,255,127, 0.2)',
-                'rgba(240,230,140, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-                'rgba(255, 255, 255, 1)',
-              ],
-              borderWidth: 2,
-              data: result.data1,
-              label: 'No of Votes',
-            },
-          ],
-          labels: result.labels1,
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-        type: 'bar',
-      });
-
-      myChart.update('none');
-      myChart1.update('none');
-    } catch (error) {
-      console.error(error);
+        // After fetching data, you can render your chart here
+        renderChart(result);
+      } catch (error) {
+        console.error(error);
+      }
     }
+
+    fetchData();
   }, []);
+
+  // Function to render the chart
+  const renderChart = (chartData) => {
+    // Extract data and labels from chartData
+    const { data, labels, data1, labels1 } = chartData;
+
+    // Create a chart using Chart.js
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar', // You can use different chart types as needed
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Data Set 1',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Customize the colors
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+          {
+            label: 'Data Set 2',
+            data: data1,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  };
 
   return (
     <div>
-      <h1 className="display-4 text-success">Presidential Election Results</h1>
-      <canvas
-        className="mx-auto"
-        id="myChart"
-        style={{ maxHeight: '100px', maxWidth: '100px' }}
-      />
-      <br />
-      <br />
-      <h1 className="display-4 text-success">
-        Vice-Presidential Election Results
-      </h1>
-      <canvas
-        className="mx-auto"
-        id="myChart1"
-        style={{ maxHeight: '80px', maxWidth: '80px' }}
-      />
+      <h2>Election Results</h2>
+      <div className="chart-container">
+        <canvas id="myChart" width="400" height="200"></canvas>
+      </div>
     </div>
   );
 }
