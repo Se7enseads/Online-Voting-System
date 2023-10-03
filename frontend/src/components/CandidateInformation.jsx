@@ -5,14 +5,18 @@ function CandidateInformation() {
   const [vice, setVice] = useState([]);
 
   useEffect(() => {
-    fetch('/api/candidate')
-      .then((response) => response.json())
+    fetch('http://localhost:5555/api/candidate', {
+      'Content-Type': 'application/json',
+    })
+      .then((response) => {
+        // response.json()
+        console.log(response);
+        console.log(response.json());
+      })
       .then((data) => {
+        setPrez(data.prez);
+        setVice(data.vice);
         console.log(data);
-        if (data && data.prez && data.vice) {
-          setPrez(data.prez);
-          setVice(data.vice);
-        }
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -42,15 +46,12 @@ function CandidateInformation() {
                     <h5 className="card-title">
                       {prezCandidate.first_name} {prezCandidate.last_name}
                     </h5>
-                    <p className="card-text">{prezCandidate.roll_num}</p>
+                    <p className="card-text">{prezCandidate.candidate_num}</p>
                     <p className="card-text text-dark font-italic">
                       &quot;{prezCandidate.agenda}&quot;
                     </p>
                     <p className="card-text font-weight-semibold">
-                      {prezCandidate.batch}
-                    </p>
-                    <p className="card-text font-weight-semibold">
-                      {prezCandidate.course}, {prezCandidate.department}
+                      {prezCandidate.certificate}
                     </p>
                   </div>
                 </div>
@@ -71,15 +72,12 @@ function CandidateInformation() {
                     <h5 className="card-title">
                       {viceCandidate.first_name} {viceCandidate.last_name}
                     </h5>
-                    <p className="card-text">{viceCandidate.roll_num}</p>
+                    <p className="card-text">{viceCandidate.candidate_num}</p>
                     <p className="card-text text-dark font-italic">
                       &quot;{viceCandidate.agenda}&quot;
                     </p>
                     <p className="card-text font-weight-semibold">
-                      {viceCandidate.batch}
-                    </p>
-                    <p className="card-text font-weight-semibold">
-                      {viceCandidate.course}, {viceCandidate.department}
+                      {viceCandidate.certificate}
                     </p>
                   </div>
                 </div>

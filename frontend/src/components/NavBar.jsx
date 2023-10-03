@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
-  // Assuming you have a user state that tracks authentication
-  const isAuthenticated = true; // Replace with your actual authentication state
-  const isAdmin = true; // Replace with your actual admin state
+  const isAuthenticated = false; // Replace with your actual authentication state
+  const isAdmin = false; // Replace with your actual admin state
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -36,7 +35,7 @@ function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/live_result">
+              <Link className="nav-link" to="/results">
                 Live Result
               </Link>
             </li>
