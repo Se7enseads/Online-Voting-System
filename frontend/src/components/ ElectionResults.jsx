@@ -12,7 +12,7 @@ function ElectionResults() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/vote/count');
+        const response = await fetch('http://localhost:5000/vote/count');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
