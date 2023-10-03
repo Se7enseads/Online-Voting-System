@@ -1,13 +1,14 @@
-# from sqlalchemy.orm import validates
+from sqlalchemy.orm import validates
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class UserModel(UserMixin, db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True,)
+    id = db.Column(db.Integer, primary_key=True)
     national_id = db.Column(db.Integer, nullable=False, unique=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
@@ -16,23 +17,35 @@ class UserModel(UserMixin, db.Model):
 
     votes = db.relationship('VotesModel', back_populates='user')
 
-    def __repr__(self):
-        return f"User('{self.name}', '{self.roll_num}')"
+    @validates('email')
+    def validate_email(self, key, email):
+        if not email:
+            raise ValueError('Enter a valid email.')
+        return email
+
+    @validates('password')
+    def validate_password(self, key, password):
+        if len(password) < 8:
+            raise ValueError('Password should be at least 8 characters.')
+        return password
 
 
 class VotesModel(db.Model):
     __tablename__ = 'votes'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    voter_id = db.Column(db.Integer, db.ForeignKey('users.national_id'), nullable=False, unique=True)
-    # voter_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    voter_id = db.Column(db.Integer, db.ForeignKey(
+        'users.national_id'), nullable=False, unique=True)
     president = db.Column(db.Integer, nullable=False)
     vice_pres = db.Column(db.Integer, nullable=False)
 
     user = db.relationship('UserModel', back_populates='votes')
 
-    def __repr__(self):
-        return f"Voter('{self.roll_num}')"
+    @validates('president', 'vice_pres')
+    def validate_candidates(self, key, value):
+        if not 1 <= value <= 5:  # Example validation for candidate numbers 1 to 5
+            raise ValueError('Invalid candidate number.')
+        return value
 
 
 class CandidateModel(db.Model):
@@ -46,6 +59,3 @@ class CandidateModel(db.Model):
     position = db.Column(db.String(80), nullable=False)
     pic_path = db.Column(db.String(120), default='images/default.png')
     agenda = db.Column(db.String(300), default="No agenda")
-
-    def __repr__(self):
-        return f"Candidate('{self.first_name}','{self.batch}','{self.course}','{self.department}')"

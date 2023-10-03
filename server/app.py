@@ -1,15 +1,13 @@
-import logging
-import os  # Import the os module for environment variables
+import os
 
 from flask import Blueprint, Flask, jsonify, render_template, request
 from flask_cors import CORS
 from flask_login import LoginManager, current_user, login_required, logout_user
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
-from models import CandidateModel, UserModel, VotesModel, db
-
-
-from flask_migrate import Migrate
+from models import CandidateModel, VotesModel, db
+from dotenv import load_dotenv
+from auth import auth
 
 load_dotenv()
 
@@ -20,7 +18,7 @@ app = Flask(
     template_folder='../frontend/dist'
 )
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', "sqlite:///instance/app.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///instance/app.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
@@ -40,7 +38,7 @@ api = Api(api_bp)
 
 
 @app.errorhandler(404)
-def not_found(e):
+def not_found(error):
     return render_template("index.html")
 
 
@@ -154,6 +152,7 @@ class CandidateRegister(Resource):
 api.add_resource(CandidateRegister, '/candidate_register')
 
 app.register_blueprint(api_bp)
+app.register_blueprint(auth)
 
 
 if __name__ == "__main__":
