@@ -1,11 +1,13 @@
-import os  # Import the os module for environment variables
 import logging
-from models import VotesModel, CandidateModel, UserModel, db
-from flask import Flask, Blueprint, request, render_template, jsonify
-from flask_login import login_required, current_user, logout_user, LoginManager
-from flask_restful import Api, Resource
-from flask_migrate import Migrate
+import os  # Import the os module for environment variables
+
+from flask import Blueprint, Flask, jsonify, render_template, request
 from flask_cors import CORS
+from flask_login import LoginManager, current_user, login_required, logout_user
+from flask_migrate import Migrate
+from flask_restful import Api, Resource
+from models import CandidateModel, UserModel, VotesModel, db
+
 
 def create_app():
     app = Flask(

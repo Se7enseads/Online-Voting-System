@@ -1,5 +1,5 @@
-from models import db, UserModel, VotesModel, CandidateModel
 from app import app
+from models import CandidateModel, UserModel, VotesModel, db
 
 # Delete all existing records from the tables
 with app.app_context():
