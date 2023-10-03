@@ -15,6 +15,7 @@ function CandidateInformation() {
         console.error('Error fetching data:', error);
       });
   }, []);
+
   return (
     <section className="container mt-5">
       <h1 className="display-4 text-success">Candidate Information</h1>
