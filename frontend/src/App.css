@@ -1,0 +1,43 @@
+
+body {
+    background-image: url(https://cdn.wallpapersafari.com/3/42/oP7tO6.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.home-page {
+    padding: 50px 0;
+    display: flex;
+    /* Use flexbox for layout */
+    justify-content: center;
+    /* Center content horizontally */
+    align-items: center;
+    /* Center content vertically */
+    flex-direction: column;
+    /* Stack content vertically */
+}
+
+.title {
+    color: #28a745;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.text-dark {
+    color: #333;
+}
+
+
+.img-fluid.enlarged-image {
+    max-height: 80vh;
+    object-fit: cover;
+    width: 100%;
+    margin-top: 20px;
+}

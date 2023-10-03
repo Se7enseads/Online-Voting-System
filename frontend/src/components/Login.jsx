@@ -6,11 +6,11 @@ function Login() {
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
+      <div className="row justify-content-center mt-5">
         <div className="col-md-4">
-          <h3 className="title">Login</h3>
           <div className="card">
-            <div className="card-body">
+            <div className="card-body login-card">
+              <h3 className="card-title text-center">Login</h3>
               {errorMessages.length > 0 && (
                 <div className="alert alert-danger">
                   <ul>
@@ -39,20 +39,18 @@ function Login() {
                     type="password"
                   />
                 </div>
-                <div className="form-group">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      id="remember"
-                      name="remember"
-                      type="checkbox"
-                    />
-                    <label className="form-check-label" htmlFor="remember">
-                      Remember me
-                    </label>
-                  </div>
+                <div className="form-group form-check">
+                  <input
+                    className="form-check-input"
+                    id="remember"
+                    name="remember"
+                    type="checkbox"
+                  />
+                  <label className="form-check-label" htmlFor="remember">
+                    Remember me
+                  </label>
                 </div>
-                <button className="btn btn-info btn-block">Login</button>
+                <button className="btn btn-primary btn-block">Login</button>
               </form>
             </div>
           </div>

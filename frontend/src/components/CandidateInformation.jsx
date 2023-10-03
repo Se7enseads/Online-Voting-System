@@ -5,7 +5,7 @@ function CandidateInformation() {
   const [vice, setVice] = useState([]);
 
   useEffect(() => {
-    fetch('/api/candidate', {
+    fetch('http://localhost:5555/api/candidate', {
       'Content-Type': 'application/json',
     })
       .then((response) => response.json())
@@ -32,16 +32,18 @@ function CandidateInformation() {
             {prez.map((prezCandidate) => (
               <div className="col-md-4" key={prezCandidate.id}>
                 <div className="card mb-4">
-                  <img
-                    alt={prezCandidate.first_name}
-                    className="card-img-top"
-                    src={prezCandidate.pic_path}
-                  />
+                  <div className="circular-image">
+                    <img
+                      alt={prezCandidate.first_name}
+                      className="card-img-top rounded-circle bg-black"
+                      src="images/OTIS.jpeg"
+                    />
+                  </div>
                   <div className="card-body">
                     <h5 className="card-title">
                       {prezCandidate.first_name} {prezCandidate.last_name}
                     </h5>
-                    <p className="card-text">{prezCandidate.candidate_num}</p>
+                    <p className="card-text">{prezCandidate.candidate}</p>
                     <p className="card-text text-dark font-italic">
                       &quot;{prezCandidate.agenda}&quot;
                     </p>
@@ -58,11 +60,13 @@ function CandidateInformation() {
             {vice.map((viceCandidate) => (
               <div className="col-md-4" key={viceCandidate.id}>
                 <div className="card mb-4">
-                  <img
-                    alt={viceCandidate.first_name}
-                    className="card-img-top"
-                    src={viceCandidate.pic_path}
-                  />
+                  <div className="circular-image">
+                    <img
+                      alt={viceCandidate.first_name}
+                      className="card-img-top rounded-circle bg-black"
+                      src={viceCandidate.pic_path}
+                    />
+                  </div>
                   <div className="card-body">
                     <h5 className="card-title">
                       {viceCandidate.first_name} {viceCandidate.last_name}

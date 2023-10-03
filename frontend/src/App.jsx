@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'; // Updated import
 
 import ElectionResults from './components/ ElectionResults';
 import CandidateInformation from './components/CandidateInformation';
-import HomePage from './components/HomePage';
+import HomePage from "./components/HomePage"
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Profile from './components/Profile';

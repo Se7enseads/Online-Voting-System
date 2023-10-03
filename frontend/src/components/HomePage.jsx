@@ -2,37 +2,41 @@ import React from 'react';
 
 function HomePage() {
   return (
-    <section className="container-fluid bg-light">
-      <div className="card-body container mt-5">
+    <section className="home-page">
+      <div className="container mt-5">
         <div className="row">
-          <div className="col-md-4">
-            <h1 className="title is-italic text-success display-1">Vote App</h1>
+          <div className="col-md-6">
+            <h1 className="title text-success">Vote App</h1>
             <h2 className="subtitle text-dark h4">Login and start voting</h2>
-            <p className="font-weight-bold text-dark text-left">
-              Created a simple college election voting app using Flask and
-              Bulma, where students can register themselves. Once registered,
-              students can log in and cast their votes.
-            </p>
-            <br />
-            <p className="font-weight-bold text-dark text-left">
-              Candidate info tab gives you information about the candidates
-              standing for the elections.
-            </p>
-            <br />
-            <p className="font-weight-bold text-dark text-left">
-              A new candidate can be registered only by the Admin. Admin can log
-              in and fill a form to register a new candidate for the election.
-            </p>
-          </div>
-          <div className="col-md-8">
-            <img
-              alt="Vote App"
-              className="img-fluid "
-              src="images/vote1.jpg"
-              style={{ maxHeight: '400px', objectFit: 'cover', width: '100%' }}
-            />
+            <div className="card text-dark shadow">
+              <div className="card-body unique-background-color text-center">
+                {' '}
+                {/* Center text within card-body */}
+                <p className="font-weight-bold">
+                  Created a simple college election voting app using Flask and
+                  Bulma, where students can register themselves. Once
+                  registered, students can log in and cast their votes.
+                </p>
+                <p className="font-weight-bold">
+                  Candidate info tab gives you information about the candidates
+                  standing for the elections.
+                </p>
+                <p className="font-weight-bold">
+                  A new candidate can be registered only by the Admin. Admin can
+                  log in and fill a form to register a new candidate for the
+                  election.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="col-md-6">
+        <img
+          alt="Vote App"
+          className="img-fluid enlarged-image"
+          src="images/vote1.jpg"
+        />
       </div>
     </section>
   );

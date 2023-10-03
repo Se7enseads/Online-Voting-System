@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import CandidateModel, VotesModel, db
 from dotenv import load_dotenv
-from auth import auth
+# from auth import auth
 
 load_dotenv()
 
@@ -152,7 +152,7 @@ class CandidateRegister(Resource):
 api.add_resource(CandidateRegister, '/candidate_register')
 
 app.register_blueprint(api_bp)
-app.register_blueprint(auth)
+# app.register_blueprint(auth)
 
 
 if __name__ == "__main__":
