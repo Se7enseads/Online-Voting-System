@@ -2,6 +2,7 @@ from models import VotesModel, CandidateModel, UserModel, db
 from flask import Flask, Blueprint, request, render_template, jsonify
 from flask_login import login_required, current_user, logout_user
 from flask_restful import Api, Resource
+from flask_cors import CORS
 
 from flask_migrate import Migrate
 
@@ -21,6 +22,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 migrate = Migrate(app, db)
 
 db.init_app(app)
+CORS(app)
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
