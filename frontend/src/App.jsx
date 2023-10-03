@@ -1,8 +1,7 @@
 import React from 'react';
-import { Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router-dom'; // Updated import
 
 import ElectionResults from './components/ ElectionResults';
-// import AppLayout from "./componets/AppLayout";
 import CandidateInformation from './components/CandidateInformation';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
@@ -22,8 +21,7 @@ function App() {
           <Route element={<Login />} path="/login" />
           <Route element={<RegisterCandidate />} path="/register" />
           <Route element={<SignUp />} path="/sign-up" />
-          <Route element={<ElectionResults />} path="/results" />
-          {/* <Route path="/AppLayout" element={AppLayout} /> */}
+          <Route element={<ElectionResults />} path="/election" />
           <Route element={<Profile />} path="/profile" />
         </Routes>
       </main>

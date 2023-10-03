@@ -1,12 +1,13 @@
+import os
 from models import VotesModel, CandidateModel, UserModel, db
 from flask import Flask, Blueprint, request, render_template, jsonify
-from flask_login import login_required, current_user, logout_user
+from flask_login import login_required, current_user, logout_user, LoginManager
 from flask_restful import Api, Resource
 from flask_cors import CORS
 
 from flask_migrate import Migrate
 
-# load_dotenv()
+load_dotenv()
 
 app = Flask(
     __name__,
@@ -15,9 +16,10 @@ app = Flask(
     template_folder='../frontend/dist'
 )
 
-# os.getenv('DATABASE_URI')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///instance/app.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', "sqlite:///instance/app.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
 
 migrate = Migrate(app, db)
 

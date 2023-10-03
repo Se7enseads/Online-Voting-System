@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function CandidateInformation() {
   const [prez, setPrez] = useState([]);
@@ -16,7 +16,6 @@ function CandidateInformation() {
       .then((data) => {
         setPrez(data.prez);
         setVice(data.vice);
-        console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
