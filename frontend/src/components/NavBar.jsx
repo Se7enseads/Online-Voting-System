@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
-  const isAuthenticated = false; // Replace with your actual authentication state
-  const isAdmin = false; // Replace with your actual admin state
+  const isAuthenticated = false;
+  const isAdmin = false;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,7 +30,7 @@ function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/candidate">
+              <Link className="nav-link" to="/candidates">
                 Candidate Info
               </Link>
             </li>
@@ -43,12 +43,12 @@ function NavBar() {
             {!isAuthenticated && (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/auth/login">
+                  <Link className="nav-link" to="/login">
                     Login
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/auth/register">
+                  <Link className="nav-link" to="/sign-up">
                     Sign Up
                   </Link>
                 </li>
@@ -65,7 +65,7 @@ function NavBar() {
             {/* Check if the user is authenticated */}
             {isAuthenticated && (
               <li className="nav-item">
-                <Link className="nav-link" to="/auth/logout">
+                <Link className="nav-link" to="/logout">
                   Logout
                 </Link>
               </li>

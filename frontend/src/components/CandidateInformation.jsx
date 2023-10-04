@@ -5,7 +5,7 @@ function CandidateInformation() {
   const [vice, setVice] = useState([]);
 
   useEffect(() => {
-    fetch('/api/candidate', {
+    fetch('http://localhost:5555/api/candidate', {
       'Content-Type': 'application/json',
     })
       .then((response) => response.json())

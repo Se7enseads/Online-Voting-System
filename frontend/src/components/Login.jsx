@@ -1,8 +1,39 @@
-import React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 function Login() {
   // Assuming you have an array of error messages
   const errorMessages = ['Invalid email', 'Incorrect password'];
+
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Perform login logic here
+    // Send a POST request to /auth/login with email and password
+    fetch('http://localhost:5555/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        remember: false,
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        navigate('/profile');
+      } else {
+        navigate('/login');
+        return 'failed to login';
+      }
+    });
+  };
 
   return (
     <div className="container">
@@ -20,7 +51,8 @@ function Login() {
                   </ul>
                 </div>
               )}
-              <form action="/auth/login" method="POST">
+              <form onSubmit={handleLogin}>
+                {/* Use onSubmit to trigger handleLogin */}
                 <div className="form-group">
                   <label htmlFor="email">Your Email</label>
                   <input
@@ -28,6 +60,8 @@ function Login() {
                     id="email"
                     name="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -37,6 +71,8 @@ function Login() {
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -52,7 +88,9 @@ function Login() {
                     </label>
                   </div>
                 </div>
-                <button className="btn btn-info btn-block">Login</button>
+                <button className="btn btn-info btn-block" type="submit">
+                  Login
+                </button>
               </form>
             </div>
           </div>

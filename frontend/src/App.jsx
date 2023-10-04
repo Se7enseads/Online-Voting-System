@@ -17,11 +17,11 @@ function App() {
       <main>
         <Routes>
           <Route element={<HomePage />} exact path="/" />
-          <Route element={<CandidateInformation />} path="/candidate" />
+          <Route element={<CandidateInformation />} path="/candidates" />
           <Route element={<Login />} path="/login" />
           <Route element={<RegisterCandidate />} path="/register" />
           <Route element={<SignUp />} path="/sign-up" />
-          <Route element={<ElectionResults />} path="/election" />
+          <Route element={<ElectionResults />} path="/results" />
           <Route element={<Profile />} path="/profile" />
         </Routes>
       </main>
