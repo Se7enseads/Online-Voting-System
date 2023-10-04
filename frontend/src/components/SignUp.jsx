@@ -1,47 +1,61 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 function SignUp() {
-  const [formData, setFormData] = useState({
-    nat_id: '',
-    email: '',
-    name: '',
-    password1: '',
-    password2: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const [message, setMessage] = useState('');
+  const [style, setStyle] = useState('');
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Send a POST request to the server with the form data
+  const handleSubmit = (values, { setSubmitting }) => {
     fetch('http://localhost:5555/api/sign-up', {
-      method: 'POST',
+      body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      method: 'POST',
     })
       .then((response) => {
+        setSubmitting(false);
+
         if (response.ok) {
-          // Redirect to a success page or perform other actions
-          // You can use `useNavigate` from React Router for navigation
-          navigate('/login');
-        } else {
-          // Handle error, display error messages, etc.
-          alert('error');
+          setStyle('success');
+          setTimeout(() => navigate('/login'), 3000);
+
+          return response.json();
         }
+        setStyle('danger');
+
+        return response.json();
       })
-      .catch((error) => {
-        // Handle network errors or other exceptions
+      .then((data) => {
+        setMessage(data.message);
+      })
+      .catch(() => {
+        setMessage('An error occurred while logging in.');
       });
   };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    name: Yup.string().required('Name is required'),
+    nat_id: Yup.string()
+      .matches(
+        /^\d{8}$/,
+        'National ID must be 8 digits long and contain only integers',
+      )
+      .required('National ID is required'),
+    password1: Yup.string()
+      .min(8, 'Password must be at least 8 characters long')
+      .required('Password is required'),
+    password2: Yup.string()
+      .oneOf([Yup.ref('password1'), null], 'Passwords must match')
+      .required('Confirm Password is required'),
+  });
 
   return (
     <div className="container">
@@ -50,62 +64,99 @@ function SignUp() {
           <h3 className="title">Sign Up</h3>
           <div className="card">
             <div className="card-body">
-              {/* Render error messages here */}
-              <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    name="nat_id"
-                    placeholder="National ID"
-                    type="integer"
-                    value={formData.nat_id}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    name="email"
-                    placeholder="Email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    name="name"
-                    placeholder="Name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    name="password1"
-                    placeholder="Password"
-                    type="password"
-                    value={formData.password1}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    name="password2"
-                    placeholder="Confirm Password"
-                    type="password"
-                    value={formData.password2}
-                    onChange={handleChange}
-                  />
-                </div>
-                <button className="btn btn-info btn-block" type="submit">
-                  Sign Up
-                </button>
-              </form>
+              {message.length > 0 && (
+                <div className={`alert alert-${style}`}>{message}</div>
+              )}
+              <Formik
+                initialValues={{
+                  email: '',
+                  name: '',
+                  nat_id: '',
+                  password1: '',
+                  password2: '',
+                }}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <div className="form-group mb-3">
+                      <Field
+                        className="form-control"
+                        type="text"
+                        name="nat_id"
+                        placeholder="National ID"
+                      />
+                      <ErrorMessage
+                        name="nat_id"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group mb-3">
+                      <Field
+                        className="form-control"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group mb-3">
+                      <Field
+                        className="form-control"
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                      />
+                      <ErrorMessage
+                        name="name"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group mb-3">
+                      <Field
+                        className="form-control"
+                        type="password"
+                        name="password1"
+                        placeholder="Password"
+                      />
+                      <ErrorMessage
+                        name="password1"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group mb-3">
+                      <Field
+                        className="form-control"
+                        type="password"
+                        name="password2"
+                        placeholder="Confirm Password"
+                      />
+                      <ErrorMessage
+                        name="password2"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <button
+                      className={`btn btn-info btn-block ${
+                        isSubmitting ? 'disabled' : ''
+                      }`}
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Submitting...' : 'Sign Up'}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
             </div>
           </div>
         </div>

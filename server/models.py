@@ -1,6 +1,5 @@
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import validates
 
 db = SQLAlchemy()
 
@@ -19,31 +18,6 @@ class UserModel(UserMixin, db.Model):
 
     votes = db.relationship('VotesModel', back_populates='user')
 
-    @validates('national_id')
-    def validate_national_id(self, key, national_id):  # pylint: disable=unused-argument
-        if not national_id:
-            raise ValueError('Enter a valid national ID.')
-        existing_user = UserModel.query.filter_by(
-            national_id=national_id).first()
-        if existing_user and existing_user.id != self.id:
-            raise ValueError('National ID must be unique.')
-        return national_id
-
-    @validates('email')
-    def validate_email(self, key, email):  # pylint: disable=unused-argument
-        if not email:
-            raise ValueError('Enter a valid email.')
-        existing_user = UserModel.query.filter_by(email=email).first()
-        if existing_user and existing_user.id != self.id:
-            raise ValueError('Email must be unique.')
-        return email
-
-    @validates('password')
-    def validate_password(self, key, password):  # pylint: disable=unused-argument
-        if len(password) < 8:
-            raise ValueError('Password should be at least 8 characters.')
-        return password
-
 
 class VotesModel(db.Model):
     __tablename__ = 'votes'
@@ -55,13 +29,6 @@ class VotesModel(db.Model):
     vice_pres = db.Column(db.Integer, nullable=False)
 
     user = db.relationship('UserModel', back_populates='votes')
-
-    @validates('president', 'vice_pres')
-    def validate_candidates(self, key, value):  # pylint: disable=unused-argument
-        if not 1 <= value <= 5:
-            raise ValueError('Invalid candidate number.')
-        return value
-
 
 class CandidateModel(db.Model):
     __tablename__ = 'candidates'

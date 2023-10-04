@@ -166,12 +166,15 @@ class LoginResource(Resource):
 
         email = data['email']
         password = data['password']
-        remember = data['remember', False]
+        remember = data['remember']
 
         user = UserModel.query.filter(UserModel.email == email).first()
 
-        if not user or not bcrypt.check_password_hash(user.password, password):
-            return {'message': 'Invalid credentials'}, 401
+        if not user:
+            return{"message": "User doesn't exist"}, 400
+
+        if not bcrypt.check_password_hash(user.password, password):
+            return {'message': 'Invalid password.'}, 400
 
         login_user(user, remember=remember)
         return {'message': 'Login successful'}, 200
@@ -198,13 +201,22 @@ class RegisterResource(Resource):
         email = data['email']
         name = data['name']
         password1 = data['password1']
-        password2 = data['password2']
 
-        if password1 != password2:
+        existing_user_nat_id = UserModel.query.filter_by(national_id=nat_id).first()
+        existing_user_email = UserModel.query.filter_by(email=email).first()
+
+        if existing_user_nat_id and existing_user_email:
             return {
-                "message": 'Passwords do not match. Please try again.',
-                "success": False
-            }, 401
+                "message": 'National ID and email already registered.',
+            }, 400
+        if existing_user_nat_id:
+            return {
+                "message": 'National ID already registered.',
+            }, 400
+        if existing_user_email:
+            return {
+                "message": 'Email already registered.',
+            }, 400
 
         hashed_password = bcrypt.generate_password_hash(password1, rounds=12)
 

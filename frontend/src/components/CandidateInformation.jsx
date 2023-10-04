@@ -10,8 +10,8 @@ function CandidateInformation() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setPrez(data['prez']);
-        setVice(data['vice']);
+        setPrez(data.prez);
+        setVice(data.vice);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);

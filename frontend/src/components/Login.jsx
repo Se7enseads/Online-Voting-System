@@ -1,38 +1,53 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 function Login() {
-  // Assuming you have an array of error messages
-  const errorMessages = ['Invalid email', 'Incorrect password'];
-
   const navigate = useNavigate();
+  const [message, setMessage] = useState('');
+  const [style, setStyle] = useState('');
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    password: Yup.string()
+      .min(8, 'Password must be at least 8 characters long')
+      .required('Password is required'),
+  });
 
-  const handleLogin = (e) => {
-    e.preventDefault(); // Prevent the default form submission
-
-    // Perform login logic here
-    // Send a POST request to /auth/login with email and password
+  const handleLogin = (values, { setSubmitting, resetForm }) => {
     fetch('http://localhost:5555/api/login', {
-      method: 'POST',
+      body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        remember: false,
-      }),
-    }).then((response) => {
-      if (response.ok) {
-        navigate('/profile');
-      } else {
-        navigate('/login');
-        return 'failed to login';
-      }
-    });
+      method: 'POST',
+    })
+      .then((response) => {
+        setSubmitting(false);
+
+        if (response.ok) {
+          setStyle('success');
+
+          setTimeout(() => {
+            resetForm();
+            navigate('/profile');
+          }, 3000);
+
+          return response.json();
+        }
+        setStyle('danger');
+        return response.json();
+      })
+      .then((data) => {
+        setMessage(data.message);
+      })
+      .catch(() => {
+        setMessage('An error occurred while logging in.');
+      });
   };
 
   return (
@@ -42,56 +57,77 @@ function Login() {
           <h3 className="title">Login</h3>
           <div className="card">
             <div className="card-body">
-              {errorMessages.length > 0 && (
-                <div className="alert alert-danger">
-                  <ul>
-                    {errorMessages.map((message, index) => (
-                      <li key={index}>{message}</li>
-                    ))}
-                  </ul>
-                </div>
+              {message.length > 0 && (
+                <div className={`alert alert-${style}`}>{message}</div>
               )}
-              <form onSubmit={handleLogin}>
-                {/* Use onSubmit to trigger handleLogin */}
-                <div className="form-group">
-                  <label htmlFor="email">Your Email</label>
-                  <input
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Your Password</label>
-                  <input
-                    className="form-control"
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      id="remember"
-                      name="remember"
-                      type="checkbox"
-                    />
-                    <label className="form-check-label" htmlFor="remember">
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <button className="btn btn-info btn-block" type="submit">
-                  Login
-                </button>
-              </form>
+              <Formik
+                initialValues={{
+                  email: '',
+                  password: '',
+                  remember: false,
+                }}
+                validationSchema={validationSchema}
+                onSubmit={handleLogin}
+              >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <div className="form-group">
+                      <label htmlFor="email">Your Email</label>
+                      <Field
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group mb-2">
+                      <label htmlFor="password">Your Password</label>
+                      <Field
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-check">
+                      <Field
+                        className="form-check-input"
+                        type="checkbox"
+                        id="remember"
+                        name="remember"
+                      />
+                      <label htmlFor="remember" className="form-check-label">
+                        Remember me
+                      </label>
+                    </div>
+                    <button
+                      className="btn btn-info btn-block mb-3"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Logging In...' : 'Login'}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+              <div>
+                <p>
+                  Don't have an account?
+                  <Link to="/sign-up">Create an account</Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
