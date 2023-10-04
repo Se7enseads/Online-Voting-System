@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-function Profile({ name, prez, vice, voter }) {
+function Profile() {
+  const [prez, setPrez] = useState([]);
+  const [vice, setVice] = useState([]);
+  const [voter, setVoter] = useState(false);
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    fetch(`http://localhost:5555/api/user/1`, {
+      'Content-Type': 'application/json',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setName(data.name);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:5555/api/candidate', {
+      'Content-Type': 'application/json',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPrez(data.prez);
+        setVice(data.vice);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -43,12 +72,12 @@ function Profile({ name, prez, vice, voter }) {
                           <select className="form-control" name="president">
                             {prez.map((prezCandidate) => (
                               <option
-                                key={prezCandidate.roll_num}
-                                value={prezCandidate.roll_num}
+                                key={prezCandidate.candidate_num}
+                                value={prezCandidate.candidate_num}
                               >
                                 {prezCandidate.first_name}{' '}
                                 {prezCandidate.last_name} (
-                                {prezCandidate.roll_num})
+                                {prezCandidate.candidate_num})
                               </option>
                             ))}
                           </select>
@@ -63,12 +92,12 @@ function Profile({ name, prez, vice, voter }) {
                           >
                             {vice.map((viceCandidate) => (
                               <option
-                                key={viceCandidate.roll_num}
-                                value={viceCandidate.roll_num}
+                                key={viceCandidate.candidate_num}
+                                value={viceCandidate.candidate_num}
                               >
                                 {viceCandidate.first_name}{' '}
                                 {viceCandidate.last_name} (
-                                {viceCandidate.roll_num})
+                                {viceCandidate.candidate_num})
                               </option>
                             ))}
                           </select>

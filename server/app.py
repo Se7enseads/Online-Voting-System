@@ -1,13 +1,16 @@
 import os
 
+from dotenv import load_dotenv
 from flask import Blueprint, Flask, jsonify, render_template, request
+from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from flask_login import LoginManager, current_user, login_required, logout_user
+from flask_login import (LoginManager, current_user, login_required,
+                         login_user, logout_user)
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
-from models import CandidateModel, VotesModel, db
-from dotenv import load_dotenv
-# from auth import auth
+from models import CandidateModel, UserModel, VotesModel, db
+
+# from auth import auth_bp
 
 load_dotenv()
 
@@ -27,19 +30,42 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 CORS(app)
+bcrypt = Bcrypt(app)
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 api = Api(api_bp)
 
-# login_manager = LoginManager()
-# login_manager.init_app(app)
-# login_manager.login_view = "login"
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return UserModel.query.get(int(user_id))
 
 
 @app.errorhandler(404)
-def not_found(error):
+def not_found(self):  # pylint: disable=unused-argument
     return render_template("index.html")
+
+class UserResource(Resource):
+    def get(self, num):
+        user = UserModel.query.filter(UserModel.id == num).first()
+
+        if user:
+            return {
+                "national_id": user.national_id,
+                "name": user.name,
+                "email": user.email,
+            }, 200
+        
+        return {
+            "message":"User doesn't exist"
+        }, 404
+
+
+api.add_resource(UserResource, '/user/<int:num>')
 
 
 class Profile(Resource):
@@ -151,8 +177,83 @@ class CandidateRegister(Resource):
 
 api.add_resource(CandidateRegister, '/candidate_register')
 
+
+class LoginResource(Resource):
+    def post(self):
+        data = request.get_json()
+
+        email = data['email']
+        password = data['password']
+        remember = data['remember']
+
+        user = UserModel.query.filter(UserModel.email == email).first()
+
+        if not user:
+            return{"message": "User doesn't exist"}, 400
+
+        if not bcrypt.check_password_hash(user.password, password):
+            return {'message': 'Invalid password.'}, 400
+
+        login_user(user, remember=remember)
+        return {'message': 'Login successful'}, 200
+
+
+api.add_resource(LoginResource, '/login')
+
+
+class LogoutResource(Resource):
+    @login_required
+    def get(self):
+        logout_user()
+        return {'message': 'Logged out successfully'}, 200
+
+
+api.add_resource(LogoutResource, '/logout')
+
+
+class RegisterResource(Resource):
+    def post(self):
+        data = request.get_json()
+
+        nat_id = data['nat_id']
+        email = data['email']
+        name = data['name']
+        password1 = data['password1']
+
+        existing_user_nat_id = UserModel.query.filter_by(national_id=nat_id).first()
+        existing_user_email = UserModel.query.filter_by(email=email).first()
+
+        if existing_user_nat_id and existing_user_email:
+            return {
+                "message": 'National ID and email already registered.',
+            }, 400
+        if existing_user_nat_id:
+            return {
+                "message": 'National ID already registered.',
+            }, 400
+        if existing_user_email:
+            return {
+                "message": 'Email already registered.',
+            }, 400
+
+        hashed_password = bcrypt.generate_password_hash(password1, rounds=12)
+
+        new_user = UserModel(
+            national_id=nat_id,
+            email=email,
+            name=name,
+            password=hashed_password,
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return {'message': 'User successfully registered'}, 201
+
+
+api.add_resource(RegisterResource, '/sign-up')
+
 app.register_blueprint(api_bp)
-# app.register_blueprint(auth)
 
 
 if __name__ == "__main__":

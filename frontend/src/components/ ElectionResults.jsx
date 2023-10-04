@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
+import React, { useEffect, useState } from 'react';
 
 function ElectionResults() {
   const [chartData, setChartData] = useState({
@@ -32,30 +32,29 @@ function ElectionResults() {
   // Function to render the chart
   const renderChart = (chartData) => {
     // Extract data and labels from chartData
-    const { data, labels, data1, labels1 } = chartData;
+    const { data, data1, labels, labels1 } = chartData;
 
     // Create a chart using Chart.js
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
-      type: 'bar', // You can use different chart types as needed
       data: {
-        labels: labels,
         datasets: [
           {
-            label: 'Data Set 1',
-            data: data,
             backgroundColor: 'rgba(75, 192, 192, 0.2)', // Customize the colors
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
+            data,
+            label: 'Data Set 1',
           },
           {
-            label: 'Data Set 2',
-            data: data1,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
+            data: data1,
+            label: 'Data Set 2',
           },
         ],
+        labels,
       },
       options: {
         scales: {
@@ -64,6 +63,7 @@ function ElectionResults() {
           },
         },
       },
+      type: 'bar', // You can use different chart types as needed
     });
   };
 
@@ -71,7 +71,7 @@ function ElectionResults() {
     <div>
       <h2>Election Results</h2>
       <div className="chart-container">
-        <canvas id="myChart" width="400" height="200"></canvas>
+        <canvas height="200" id="myChart" width="400" />
         <div className="chart-container">
           <canvas id="myChart" width="400" height="200"></canvas>
         </div>

@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
-  const isAuthenticated = false; // Replace with your actual authentication state
-  const isAdmin = false; // Replace with your actual admin state
+  const isAuthenticated = false;
+  const isAdmin = false;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,7 +30,7 @@ function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link btn btn-warning" to="/candidate">
+              <Link className="nav-link btn btn-warning" to="/candidates">
                 Candidate Info
               </Link>
             </li>
@@ -48,7 +48,7 @@ function NavBar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link btn btn-secondary" to="/auth/register">
+                  <Link className="nav-link btn btn-secondary" to="/sign-up">
                     Sign Up
                   </Link>
                 </li>
@@ -57,7 +57,10 @@ function NavBar() {
             {/* Check if the user is an admin */}
             {isAdmin && (
               <li className="nav-item">
-                <Link className="nav-link btn btn-primary" to="/candidate_register">
+                <Link
+                  className="nav-link btn btn-primary"
+                  to="/candidate_register"
+                >
                   Register Candidate
                 </Link>
               </li>

@@ -1,22 +1,32 @@
-from flask import Blueprint, request
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import request
+# from werkzeug.security import check_password_hash, generate_password_hash
+from flask_bcrypt import Bcrypt
 from flask_login import login_user, login_required, logout_user
 from models import UserModel, db
 from flask_restful import Api, Resource
+from app import bcrypt, login_manager, app, auth_bp
 
-auth = Blueprint('auth', __name__, url_prefix='/auth')
-api = Api(auth)
+# auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+api = Api(auth_bp)
+bcrypt = Bcrypt(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return UserModel.query.get(int(user_id))
+    
 class LoginResource(Resource):
     def post(self):
         data = request.get_json()
-        email = data.get('email')
-        password = data.get('password')
-        remember = data.get('remember', False)
 
-        user = UserModel.query.filter_by(email=email).first()
+        email = data['email']
+        password = data['password']
+        remember = data['remember', False]
 
-        if not user or not check_password_hash(user.password, password):
+        user = UserModel.query.filter(UserModel.email == email).first()
+
+        if not user or password != user.password:
             return {'message': 'Invalid credentials'}, 401
 
         login_user(user, remember=remember)
@@ -37,18 +47,20 @@ api.add_resource(LogoutResource, '/logout')
 
 
 class RegisterResource(Resource):
+    def get(self):
+        return 'hello', 200
     def post(self):
         data = request.get_json()
 
-        nat_id = data['national_id']
+        nat_id = data['nat_id']
         email = data['email']
         name = data['name']
         password1 = data['password1']
         password2 = data['password2']
 
-        if password1 != password2:  # if passwords do not match, redirect
+        if password1 != password2:
             return {
-                "message": 'Passwords do not match. Please try again.',
+                "message": 'Passwords does not match. Please try again.',
                 "success": False
             }, 401
 
@@ -56,7 +68,7 @@ class RegisterResource(Resource):
             national_id=nat_id,
             email=email,
             name=name,
-            password=generate_password_hash(password1, method='sha256'),
+            password=bcrypt.generate_password_hash(password1),
             admin=1
         )
 
@@ -66,4 +78,7 @@ class RegisterResource(Resource):
         return {'message': 'User successfully registered'}, 201
 
 
-api.add_resource(RegisterResource, '/register')
+api.add_resource(RegisterResource, '/sign-up')
+
+app.register_blueprint(auth_bp)
+
