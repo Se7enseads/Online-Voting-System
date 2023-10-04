@@ -49,8 +49,9 @@ function Profile() {
                 <div className="col-md-4">
                   <img
                     alt="President Candidates"
-                    className="img-fluid"
-                    src="static/images/3.jpg"
+                    className="img-fluid rounded"
+                    src="public/images/profile1.jpeg"
+                    style={{ maxWidth: '400px', maxHeight: '400px' }}
                   />
                 </div>
                 <div className="col-md-4">
@@ -112,8 +113,9 @@ function Profile() {
                 <div className="col-md-4">
                   <img
                     alt="Vice-President Candidates"
-                    className="img-fluid"
-                    src="static/images/4.jpg"
+                    className="img-fluid rounded"
+                    src="public/images/profile2.jpeg"
+                    style={{ maxWidth: '400px', maxHeight: '400px' }}
                   />
                 </div>
               </div>
