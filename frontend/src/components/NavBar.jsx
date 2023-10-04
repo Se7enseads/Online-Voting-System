@@ -25,17 +25,17 @@ function NavBar() {
         <div className="navbar-collapse collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/">
+              <Link className="nav-link btn btn-success" to="/">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/candidates">
+              <Link className="nav-link btn btn-warning" to="/candidates">
                 Candidate Info
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/results">
+              <Link className="nav-link btn btn-primary" to="/results">
                 Live Result
               </Link>
             </li>
@@ -43,12 +43,12 @@ function NavBar() {
             {!isAuthenticated && (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">
+                  <Link className="nav-link btn btn-info" to="/login">
                     Login
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/sign-up">
+                  <Link className="nav-link btn btn-secondary" to="/sign-up">
                     Sign Up
                   </Link>
                 </li>
@@ -57,7 +57,10 @@ function NavBar() {
             {/* Check if the user is an admin */}
             {isAdmin && (
               <li className="nav-item">
-                <Link className="nav-link" to="/candidate_register">
+                <Link
+                  className="nav-link btn btn-primary"
+                  to="/candidate_register"
+                >
                   Register Candidate
                 </Link>
               </li>
@@ -65,7 +68,7 @@ function NavBar() {
             {/* Check if the user is authenticated */}
             {isAuthenticated && (
               <li className="nav-item">
-                <Link className="nav-link" to="/logout">
+                <Link className="nav-link btn btn-danger" to="/auth/logout">
                   Logout
                 </Link>
               </li>
@@ -73,7 +76,7 @@ function NavBar() {
             {/* Check if the user is authenticated and not an admin */}
             {isAuthenticated && !isAdmin && (
               <li className="nav-item">
-                <Link className="nav-link" to="/profile">
+                <Link className="nav-link btn btn-success" to="/profile">
                   Vote
                 </Link>
               </li>

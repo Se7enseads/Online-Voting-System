@@ -72,6 +72,9 @@ function ElectionResults() {
       <h2>Election Results</h2>
       <div className="chart-container">
         <canvas height="200" id="myChart" width="400" />
+        <div className="chart-container">
+          <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
       </div>
     </div>
   );

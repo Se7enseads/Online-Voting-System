@@ -52,9 +52,9 @@ function Login() {
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
+      <div className="row justify-content-center mt-5">
         <div className="col-md-4">
-          <h3 className="title">Login</h3>
+          <h3 className="card-title text-center">Login</h3>
           <div className="card">
             <div className="card-body">
               {message.length > 0 && (
@@ -113,7 +113,7 @@ function Login() {
                       </label>
                     </div>
                     <button
-                      className="btn btn-info btn-block mb-3"
+                      className="btn btn-info btn-block btn-primary mb-3"
                       type="submit"
                       disabled={isSubmitting}
                     >
