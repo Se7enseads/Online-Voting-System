@@ -25,11 +25,6 @@ function NavBar() {
         <div className="navbar-collapse collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className="nav-link btn btn-success" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link btn btn-warning" to="/candidates">
                 Candidate Info
               </Link>
