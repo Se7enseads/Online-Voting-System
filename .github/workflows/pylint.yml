@@ -22,4 +22,4 @@ jobs:
           pip install -r requirements.txt
       - name: Analysing the code with pylint
         run: |
-          pylint server/app.py server/seed.py sever/models.py
+          pylint server/app.py server/seed.py server/models.py
