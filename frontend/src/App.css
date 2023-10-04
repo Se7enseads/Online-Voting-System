@@ -1,7 +1,12 @@
 body {
-    background-image: url(https://images.axios.com/SvJ8sTOo3UbNGhL--82gm1X1ZpY=/0x0:1280x720/1920x1080/2022/09/12/1663014618700.gif);
+    background-image: url("public/images/backgrd.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.text-with-shadow {
+    font-size: 20px;
+    text-shadow: 2px 2px 4px rgba(35, 1, 27, 0.4);
 }
 
 .home-page {
@@ -10,7 +15,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
 
 .title {
@@ -71,24 +75,19 @@ body {
     flex: 0 0 calc(50% - 20px);
     margin: 10px;
     text-align: left;
-    
 }
 
 .tile.is-child {
     background-color: #0c2423;
 }
 
-
 img.is-rounded {
     max-width: 250px;
-    
     max-height: 250px;
-    
 }
 
 .is-rounded {
     max-width: 60%;
-
     height: auto;
 }
 
@@ -117,7 +116,6 @@ img.is-rounded {
     transition: background-color 0.3s ease;
 }
 
-
 .navbar-brand {
     color: #d4f809;
     font-size: 24px;
@@ -125,4 +123,74 @@ img.is-rounded {
     font-weight: bold;
 }
 
+.custom-paragraph {
+    font-size: 8px;
+    font-style: italic;
+}
 
+/* New styles for navbar links */
+.nav-link-home {
+    background-color: #2892a7;
+    color: #04565a;
+}
+
+.nav-link-candidate {
+    background-color: #6b8b28;
+    color: #45690b;
+}
+
+.nav-link-result {
+    background-color: #bd6228;
+    color: #81450b;
+}
+/* Add these CSS classes to your CSS file */
+.title {
+    font-size: 24px;
+    /* Increase font size */
+    margin-bottom: 20px;
+    /* Add margin */
+}
+
+.subtitle {
+    font-size: 18px;
+    /* Increase font size */
+    margin-bottom: 20px;
+    /* Add margin */
+}
+
+.text-with-shadow {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    /* Add text shadow */
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* Add card shadow */
+    padding: 20px;
+    margin-bottom: 20px;
+    /* Add margin */
+}
+
+.form-group {
+    margin-bottom: 20px;
+    /* Add margin to form groups */
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    /* Responsive images */
+}
+
+.btn {
+    padding: 10px 20px;
+    /* Button padding */
+    border-radius: 5px;
+    /* Button border radius */
+}
+
+/* Add this class to round images */
+.rounded {
+    border-radius: 10px;
+    /* Rounded image */
+}

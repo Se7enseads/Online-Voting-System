@@ -49,6 +49,24 @@ def load_user(user_id):
 def not_found(self):  # pylint: disable=unused-argument
     return render_template("index.html")
 
+class UserResource(Resource):
+    def get(self, num):
+        user = UserModel.query.filter(UserModel.id == num).first()
+
+        if user:
+            return {
+                "national_id": user.national_id,
+                "name": user.name,
+                "email": user.email,
+            }, 200
+        
+        return {
+            "message":"User doesn't exist"
+        }, 404
+
+
+api.add_resource(UserResource, '/user/<int:num>')
+
 
 class Profile(Resource):
     @login_required
