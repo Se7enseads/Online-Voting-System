@@ -19,7 +19,7 @@ function CandidateInformation() {
   }, []);
 
   return (
-    <div className="hero has-background-white-ter is-fullheight-with-navbar">
+    <div className="card-body hero has-background-white-ter is-fullheight-with-navbar">
       <div className="hero-body">
         <div className="container">
           <div className="columns">

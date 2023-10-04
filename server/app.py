@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from flask import Blueprint, Flask, jsonify, render_template, request
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from flask_login import (LoginManager, current_user, login_required,
+from flask_login import(LoginManager, current_user, login_required,
                          login_user, logout_user)
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
