@@ -191,8 +191,14 @@ img.is-rounded {
     /* Button border radius */
 }
 
-/* Add this class to round images */
 .rounded {
     border-radius: 10px;
-    /* Rounded image */
+    
+}
+
+.circle-image img {
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    
 }
