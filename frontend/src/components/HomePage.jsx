@@ -16,19 +16,19 @@ function HomePage() {
                 </h2>
               </div>
             </div>
-            <div className="column is-8">
-              <div className="centered-container">
+            <div className="card align-items-center column is-8">
+              <div className=" card-bodycentered-container">
                 <div className="image-container has-text-centered">
                   <img
                     src="public/images/vote2.jpg"
                     alt="Vote App"
-                    className="img-fluid centered-image" // Add a custom class
+                    className="img-fluid centered-image"
                     style={{ maxWidth: '30%', height: 'auto' }}
                   />
                 </div>
               </div>
-              <div className="image-text centered-text">
-                <p className="has-text-weight-semibold has-text-dark">
+              <div className="card-body image-text centered-text">
+                <p className="has-text-weight-semibold has-text-dark text-with-shadow">
                   Created a simple college election voting app using Flask and
                   Bulma, where students can register themselves. Once
                   registered, students can log in and cast their votes.

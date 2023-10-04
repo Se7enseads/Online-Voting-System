@@ -1,9 +1,13 @@
 body {
-    background-image: url(https://images.axios.com/SvJ8sTOo3UbNGhL--82gm1X1ZpY=/0x0:1280x720/1920x1080/2022/09/12/1663014618700.gif);
+    background-image: url("public/images/backgrd.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
-}
 
+}
+.text-with-shadow {
+    font-size: 20px;
+    text-shadow: 2px 2px 4px rgba(35, 1, 27, 0.4);   
+}
 .home-page {
     padding: 50px 0;
     display: flex;
@@ -125,4 +129,10 @@ img.is-rounded {
     font-weight: bold;
 }
 
+.custom-paragraph {
+    font-size: 8px;
+    
+    font-style: italic;
+    
+}
 
