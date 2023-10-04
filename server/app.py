@@ -58,8 +58,9 @@ class UserResource(Resource):
                 "national_id": user.national_id,
                 "name": user.name,
                 "email": user.email,
+                "admin": user.admin
             }, 200
-        
+
         return {
             "message":"User doesn't exist"
         }, 404
