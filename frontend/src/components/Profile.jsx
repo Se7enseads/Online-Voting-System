@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-function Profile() {
-  const [prez, setPrez] = useState([]);
-  const [vice, setVice] = useState([]);
+function Profile({ vice, prez, name }) {
   const [voter, setVoter] = useState(false);
-  const [name, setName] = useState('');
 
-  useEffect(() => {
-    fetch(`http://localhost:5555/api/user/1`, {
-      'Content-Type': 'application/json',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setName(data.name);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch('http://localhost:5555/api/candidate', {
-      'Content-Type': 'application/json',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPrez(data.prez);
-        setVice(data.vice);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
 
   return (
     <div className="container">

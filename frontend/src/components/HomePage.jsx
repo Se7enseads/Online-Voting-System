@@ -6,8 +6,8 @@ function HomePage() {
       <div className="hero-body">
         <div className="container">
           <div className="columns">
-            <div className="column is-4">
-              <div className="centered-container">
+            <div className="col-4">
+              <div className="container">
                 <h1 className="title is-italic has-text-success is-1">
                   Vote App
                 </h1>
@@ -16,8 +16,8 @@ function HomePage() {
                 </h2>
               </div>
             </div>
-            <div className="card align-items-center column is-8">
-              <div className=" card-bodycentered-container">
+            <div className="card align-items-center col-8 shadow">
+              <div className=" card-body">
                 <div className="image-container has-text-centered">
                   <img
                     src="public/images/vote2.jpg"

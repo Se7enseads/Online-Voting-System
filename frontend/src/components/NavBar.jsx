@@ -1,9 +1,9 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function NavBar() {
+function NavBar({ admin }) {
   const isAuthenticated = false;
-  const isAdmin = false;
+  const isAdmin = admin;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

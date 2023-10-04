@@ -1,196 +1,197 @@
 body {
-    background-image: url("public/images/backgrd.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url('public/images/backgrd.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 90vh;
 }
 
 .text-with-shadow {
-    font-size: 20px;
-    text-shadow: 2px 2px 4px rgba(35, 1, 27, 0.4);
+  font-size: 20px;
+  text-shadow: 2px 2px 4px rgba(35, 1, 27, 0.4);
 }
 
 .home-page {
-    padding: 50px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  padding: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .title {
-    color: #28a745;
+  color: #28a745;
 }
 
 .subtitle {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .font-weight-bold {
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .text-dark {
-    color: #333;
+  color: #333;
 }
 
 .centered-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .centered-text {
-    text-align: center;
+  text-align: center;
 }
 
 .centered-image {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .candidate-information {
-    background-image: url(https://images.axios.com/SvJ8sTOo3UbNGhL--82gm1X1ZpY=/0x0:1280x720/1920x1080/2022/09/12/1663014618700.gif);
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 50px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #ddc5c5;
+  background-image: url(https://images.axios.com/SvJ8sTOo3UbNGhL--82gm1X1ZpY=/0x0:1280x720/1920x1080/2022/09/12/1663014618700.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ddc5c5;
 }
 
 /* Updated styles for .tile.is-ancestor and .tile.is-parent */
 .tile.is-ancestor {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .tile.is-parent {
-    flex: 0 0 calc(50% - 20px);
-    margin: 10px;
-    text-align: left;
+  flex: 0 0 calc(50% - 20px);
+  margin: 10px;
+  text-align: left;
 }
 
 .tile.is-child {
-    background-color: #0c2423;
+  background-color: #0c2423;
 }
 
 img.is-rounded {
-    max-width: 250px;
-    max-height: 250px;
+  max-width: 250px;
+  max-height: 250px;
 }
 
 .is-rounded {
-    max-width: 60%;
-    height: auto;
+  max-width: 60%;
+  height: auto;
 }
 
 .navbar {
-    background-color: #a99898;
-    padding: 15px 0;
+  background-color: #a99898;
+  padding: 15px 0;
 }
 
 .navbar-nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-left: auto;
 }
 
 .nav-item {
-    list-style: none;
-    display: inline-block;
+  list-style: none;
+  display: inline-block;
 }
 
 .nav-link {
-    text-decoration: none;
-    padding: 10px 20px;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .navbar-brand {
-    color: #d4f809;
-    font-size: 24px;
-    text-decoration: none;
-    font-weight: bold;
+  color: #d4f809;
+  font-size: 24px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .custom-paragraph {
-    font-size: 8px;
-    font-style: italic;
+  font-size: 8px;
+  font-style: italic;
 }
 
 /* New styles for navbar links */
 .nav-link-home {
-    background-color: #2892a7;
-    color: #04565a;
+  background-color: #2892a7;
+  color: #04565a;
 }
 
 .nav-link-candidate {
-    background-color: #6b8b28;
-    color: #45690b;
+  background-color: #6b8b28;
+  color: #45690b;
 }
 
 .nav-link-result {
-    background-color: #bd6228;
-    color: #81450b;
+  background-color: #bd6228;
+  color: #81450b;
 }
 /* Add these CSS classes to your CSS file */
 .title {
-    font-size: 24px;
-    /* Increase font size */
-    margin-bottom: 20px;
-    /* Add margin */
+  font-size: 24px;
+  /* Increase font size */
+  margin-bottom: 20px;
+  /* Add margin */
 }
 
 .subtitle {
-    font-size: 18px;
-    /* Increase font size */
-    margin-bottom: 20px;
-    /* Add margin */
+  font-size: 18px;
+  /* Increase font size */
+  margin-bottom: 20px;
+  /* Add margin */
 }
 
 .text-with-shadow {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    /* Add text shadow */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Add text shadow */
 }
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    /* Add card shadow */
-    padding: 20px;
-    margin-bottom: 20px;
-    /* Add margin */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* Add card shadow */
+  padding: 20px;
+  margin-bottom: 20px;
+  /* Add margin */
 }
 
 .form-group {
-    margin-bottom: 20px;
-    /* Add margin to form groups */
+  margin-bottom: 20px;
+  /* Add margin to form groups */
 }
 
 .img-fluid {
-    max-width: 100%;
-    height: auto;
-    /* Responsive images */
+  max-width: 100%;
+  height: auto;
+  /* Responsive images */
 }
 
 .btn {
-    padding: 10px 20px;
-    /* Button padding */
-    border-radius: 5px;
-    /* Button border radius */
+  padding: 10px 20px;
+  /* Button padding */
+  border-radius: 5px;
+  /* Button border radius */
 }
 
 /* Add this class to round images */
 .rounded {
-    border-radius: 10px;
-    /* Rounded image */
+  border-radius: 10px;
+  /* Rounded image */
 }
