@@ -36,6 +36,7 @@ function RegisterCandidate() {
     fetch('http://localhost:5555/api/candidate_register', {
       body: JSON.stringify(values),
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
         "Authorization":`Bearer ${token}`
       },
