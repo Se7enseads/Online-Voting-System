@@ -3,39 +3,37 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 
-function SignUp() {
+const SignUp = () => {
   const [message, setMessage] = useState('');
   const [style, setStyle] = useState('');
-
   const navigate = useNavigate();
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    fetch('http://localhost:5555/api/sign-up', {
-      body: JSON.stringify(values),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-      .then((response) => {
-        setSubmitting(false);
-
-        if (response.ok) {
-          setStyle('success');
-          setTimeout(() => navigate('/login'), 3000);
-
-          return response.json();
-        }
-        setStyle('danger');
-
-        return response.json();
-      })
-      .then((data) => {
-        setMessage(data.message);
-      })
-      .catch(() => {
-        setMessage('An error occurred while logging in.');
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      const response = await fetch('http://localhost:5555/api/sign-up', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
       });
+
+      setSubmitting(false);
+
+      if (response.ok) {
+        setStyle('success');
+        setTimeout(() => navigate('/login'), 3000);
+        setMessage('Sign up successful.');
+      } else {
+        setStyle('danger');
+        const data = await response.json();
+        setMessage(data.message || 'An error occurred while signing up.');
+      }
+    } catch (error) {
+      setSubmitting(false);
+      setStyle('danger');
+      setMessage('An error occurred while signing up.');
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -58,14 +56,14 @@ function SignUp() {
   });
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="row justify-content-center">
-        <div className="col-md-4">
-          <h3 className="title">Sign Up</h3>
+        <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              {message.length > 0 && (
-                <div className={`alert alert-${style}`}>{message}</div>
+              <h3 className="card-title mb-4 text-center">Sign Up</h3>
+              {message && (
+                <div className={`alert alert-${style} mb-4`}>{message}</div>
               )}
               <Formik
                 initialValues={{
@@ -132,7 +130,7 @@ function SignUp() {
                         name="password1"
                       />
                     </div>
-                    <div className="form-group mb-3">
+                    <div className="form-group mb-4">
                       <Field
                         className="form-control"
                         name="password2"
@@ -163,6 +161,6 @@ function SignUp() {
       </div>
     </div>
   );
-}
+};
 
 export default SignUp;

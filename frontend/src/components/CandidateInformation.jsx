@@ -1,9 +1,9 @@
 function CandidateInformation({ prez, vice }) {
   return (
-    <div className="hero has-background-white-ter is-fullheight-with-navbar">
+    <div className="hero is-fullheight-with-navbar">
       <div className="hero-body">
         <div className="container">
-          <div className="columns">
+          <div className="columns is-centered">
             <div className="column is-12">
               <h1 className="title has-text-success">Candidate Information</h1>
               <h2 className="subtitle is-5 has-text-dark has-text-centered has-text-weight-bold">

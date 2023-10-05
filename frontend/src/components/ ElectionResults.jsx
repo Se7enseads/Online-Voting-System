@@ -34,22 +34,27 @@ function ElectionResults() {
     // Extract data and labels from chartData
     const { data, data1, labels, labels1 } = chartData;
 
+    const backgroundColor1 = 'rgba(54, 162, 235, 0.6)';
+    const borderColor1 = 'rgba(54, 162, 235, 1)';
+    const backgroundColor2 = 'rgba(255, 99, 132, 0.6)';
+    const borderColor2 = 'rgba(255, 99, 132, 1)';
+
     // Create a chart using Chart.js
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
       data: {
         datasets: [
           {
-            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Customize the colors
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
+            backgroundColor: backgroundColor1,
+            borderColor: borderColor1,
+            borderWidth: 2,
             data,
             label: 'Data Set 1',
           },
           {
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1,
+            backgroundColor: backgroundColor2,
+            borderColor: borderColor2,
+            borderWidth: 2,
             data: data1,
             label: 'Data Set 2',
           },
@@ -63,17 +68,17 @@ function ElectionResults() {
           },
         },
       },
-      type: 'bar', // You can use different chart types as needed
+      type: 'bar',
     });
   };
 
   return (
     <div>
-      <h2>Election Results</h2>
+      <h2 style={{ fontSize: '1.2rem' }}>Election Results</h2>
       <div className="chart-container">
-        <canvas height="200" id="myChart" width="400" />
+        <canvas height="150" width="300" id="myChart" />
         <div className="chart-container">
-          <canvas height="200" id="myChart" width="400" />
+          <canvas height="150" width="300" id="myChart" />
         </div>
       </div>
     </div>
