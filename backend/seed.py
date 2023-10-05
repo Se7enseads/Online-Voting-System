@@ -3,9 +3,9 @@ from models import CandidateModel, UserModel, VotesModel, db
 
 # Delete all existing records from the tables
 with app.app_context():
+    VotesModel.query.delete()
     UserModel.query.delete()
     CandidateModel.query.delete()
-    VotesModel.query.delete()
     db.session.commit()
 
 # Create sample user data
@@ -22,16 +22,16 @@ candidates = [
                    last_name='Last1', certificate='Cert1', position='President'),
     CandidateModel(candidate_num=2, first_name='Candidate2',
                    last_name='Last2', certificate='Cert2', position='President'),
-    CandidateModel(candidate_num=3, first_name='Candidate2',
-                   last_name='Last2', certificate='Cert2', position='Vice-President'),
+    CandidateModel(candidate_num=3, first_name='Candidate3',
+                   last_name='Last3', certificate='Cert3', position='Vice-President'),
     CandidateModel(candidate_num=4, first_name='Candidate4',
                    last_name='Last4', certificate='Cert4', position='Vice-President')
 ]
 
 # Create sample vote data
 votes = [
-    VotesModel(voter_id=123456789, president=1, vice_pres=2),
-    VotesModel(voter_id=987654321, president=2, vice_pres=1),
+    VotesModel(voter_id=123456789, president=1, vice_pres=3),
+    VotesModel(voter_id=987654321, president=2, vice_pres=4),
 ]
 
 # Add data to the database

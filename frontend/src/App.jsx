@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import ElectionResults from './components/ ElectionResults';
 import CandidateInformation from './components/CandidateInformation';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
@@ -10,6 +9,7 @@ import Profile from './components/Profile';
 import RegisterCandidate from './components/RegisterCandidate';
 import SignUp from './components/SignUp';
 import { useAuth } from './utils/AuthContext';
+import VoteChart from './components/VoteChart';
 
 function App() {
   const [prez, setPrez] = useState([]);
@@ -55,7 +55,7 @@ function App() {
           <Route element={<Login />} path="/login" />
           <Route element={<RegisterCandidate />} path="/register" />
           <Route element={<SignUp />} path="/sign-up" />
-          <Route element={<ElectionResults />} path="/results" />
+          <Route element={<VoteChart />} path="/results" />
           <Route element={<Profile />} path="/profile" />
         </Routes>
       </main>
