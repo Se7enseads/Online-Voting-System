@@ -5,6 +5,3 @@
 
 email: test@example.com
 password: 12131415
-
-DATABASE_URI=postgresql://ovs_db_user:qOVYLEqrAUjObKCyzN0EI5rejVz2ilwM@dpg-ckf9gc8l3its73b8c7n0-a.frankfurt-postgres.render.com/ovs_db
-SECRET_KEY=52ad3a7ceecadd1a4a8a5540f7cb91b5fc3a9b5150963c37
