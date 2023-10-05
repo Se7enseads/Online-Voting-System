@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import ElectionResults from './components/ ElectionResults';
 import CandidateInformation from './components/CandidateInformation';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
