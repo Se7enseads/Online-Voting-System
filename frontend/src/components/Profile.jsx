@@ -1,27 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-
 import { useAuth } from '../utils/AuthContext';
+import AccessDenied from './AccessDenied';
 
 function Profile() {
   const [prez, setPrez] = useState([]);
   const [vice, setVice] = useState([]);
   const [name, setName] = useState('');
-
   const [voter, setVoter] = useState(false);
-
   const [selectedChoices, setSelectedChoices] = useState({
     president: '',
     vicePresident: '',
   });
-
   const { token, updateToken } = useAuth();
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const navigate = useNavigate();
-
   const [alertVisible, setAlertVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
@@ -41,8 +35,7 @@ function Profile() {
         setPrez(data.prez);
         setVice(data.vice);
         setVoter(data.voter);
-        setAdmin(data.admin);
-        data.admin ? setIsAuthenticated(false) : setIsAuthenticated(true);
+        setIsAuthenticated(true);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -52,7 +45,7 @@ function Profile() {
       });
   }, [token, navigate, updateToken]);
 
-  const handelSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const body = {
@@ -124,7 +117,7 @@ function Profile() {
                           </a>{' '}
                           standing in the election before casting your vote.
                           <br />
-                          <form onSubmit={handelSubmit}>
+                          <form onSubmit={handleSubmit}>
                             <div className="form-group">
                               <label className="label" htmlFor="president">
                                 President
@@ -201,17 +194,7 @@ function Profile() {
               )}
             </>
           ) : (
-            <div className="mt-5 text-center">
-              <img alt="Padlock" src="/images/401_permissions.svg" />
-              <h2>Access Denied</h2>
-              <h6>You do not have access to view this resource.</h6>
-              <button
-                className="btn btn-primary mt-2"
-                onClick={() => navigate('/login')}
-              >
-                Login
-              </button>
-            </div>
+            <AccessDenied />
           )}
         </div>
       </div>
