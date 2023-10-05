@@ -66,7 +66,6 @@ body {
   color: #ddc5c5;
 }
 
-/* Updated styles for .tile.is-ancestor and .tile.is-parent */
 .tile.is-ancestor {
   display: flex;
   flex-wrap: wrap;
@@ -74,9 +73,9 @@ body {
 }
 
 .tile.is-parent {
-  flex: 0 0 calc(50% - 20px);
+  flex: 0 0 calc(30% - 10px);
   margin: 10px;
-  text-align: left;
+  
 }
 
 .tile.is-child {
@@ -89,8 +88,8 @@ img.is-rounded {
 }
 
 .is-rounded {
-  max-width: 60%;
-  height: auto;
+  max-width: 250px;
+  max-height: 250px;
 }
 
 .navbar {
@@ -130,7 +129,6 @@ img.is-rounded {
   font-style: italic;
 }
 
-/* New styles for navbar links */
 .nav-link-home {
   background-color: #2892a7;
   color: #04565a;
@@ -145,50 +143,39 @@ img.is-rounded {
   background-color: #bd6228;
   color: #81450b;
 }
-/* Add these CSS classes to your CSS file */
 .title {
   font-size: 24px;
-  /* Increase font size */
   margin-bottom: 20px;
-  /* Add margin */
 }
 
 .subtitle {
   font-size: 18px;
-  /* Increase font size */
   margin-bottom: 20px;
-  /* Add margin */
+  
 }
 
 .text-with-shadow {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  /* Add text shadow */
 }
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  /* Add card shadow */
-  padding: 20px;
-  margin-bottom: 20px;
-  /* Add margin */
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .form-group {
   margin-bottom: 20px;
-  /* Add margin to form groups */
 }
 
 .img-fluid {
   max-width: 100%;
   height: auto;
-  /* Responsive images */
 }
 
 .btn {
   padding: 10px 20px;
-  /* Button padding */
   border-radius: 5px;
-  /* Button border radius */
 }
 
 .rounded {

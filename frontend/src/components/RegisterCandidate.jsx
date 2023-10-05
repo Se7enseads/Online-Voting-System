@@ -36,6 +36,7 @@ function RegisterCandidate() {
       body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json',
+        "Authorization":`Bearer ${token}`
       },
       method: 'POST',
     })

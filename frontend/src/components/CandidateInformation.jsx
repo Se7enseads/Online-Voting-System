@@ -1,3 +1,5 @@
+import React from 'react';
+
 function CandidateInformation({ prez, vice }) {
   return (
     <div className="hero is-fullheight-with-navbar">
@@ -7,7 +9,9 @@ function CandidateInformation({ prez, vice }) {
             <div className="column is-12">
               <div className="card">
                 <div className="card-content">
-                  <h1 className="title has-text-success">Candidate Information</h1>
+                  <h1 className="title has-text-success">
+                    Candidate Information
+                  </h1>
                   <h2 className="subtitle is-5 has-text-dark has-text-centered has-text-weight-bold">
                     Information on which candidates are standing for election
                     <br />
@@ -26,7 +30,7 @@ function CandidateInformation({ prez, vice }) {
                                 <div className="circle-image">
                                   <img
                                     className="is-rounded"
-                                    src="public/images/OTIS.jpeg"
+                                    src={prezCandidate.pic_path}
                                     alt="Candidate Image"
                                   />
                                 </div>
@@ -67,7 +71,7 @@ function CandidateInformation({ prez, vice }) {
                                 <div className="circle-image">
                                   <img
                                     className="is-rounded"
-                                    src="public/images/O.jpeg"
+                                    src={viceCandidate.pic_path}
                                     alt="Candidate Image"
                                   />
                                 </div>

@@ -173,7 +173,7 @@ class CandidateRegister(Resource):
     @jwt_required()
     def post(self):
         data = request.get_json()
-
+        candidate_num=data["candidate_num"]
         new_candidate = CandidateModel(
             candidate_num=data["candidate_num"],
             first_name=data["first_name"],
@@ -185,7 +185,7 @@ class CandidateRegister(Resource):
         )
 
         candidate = CandidateModel.query.filter(
-            CandidateModel.candidate_num == new_candidate.candidate_num)
+            CandidateModel.candidate_num == candidate_num).first()
 
         if candidate:
             return {"message": "Candidate Number exists"}, 400
@@ -198,7 +198,7 @@ class CandidateRegister(Resource):
         }, 201
 
 
-api.add_resource(CandidateRegister, '/api/candidate_register')
+api.add_resource(CandidateRegister, '/candidate_register')
 
 
 class LoginResource(Resource):
