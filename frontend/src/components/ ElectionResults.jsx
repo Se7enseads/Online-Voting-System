@@ -34,12 +34,10 @@ function ElectionResults() {
     // Extract data and labels from chartData
     const { data, data1, labels, labels1 } = chartData;
 
-
-     const backgroundColor1 = 'rgba(54, 162, 235, 0.6)';
-     const borderColor1 = 'rgba(54, 162, 235, 1)';
-     const backgroundColor2 = 'rgba(255, 99, 132, 0.6)';
-     const borderColor2 = 'rgba(255, 99, 132, 1)';
-
+    const backgroundColor1 = 'rgba(54, 162, 235, 0.6)';
+    const borderColor1 = 'rgba(54, 162, 235, 1)';
+    const backgroundColor2 = 'rgba(255, 99, 132, 0.6)';
+    const borderColor2 = 'rgba(255, 99, 132, 1)';
 
     // Create a chart using Chart.js
     const ctx = document.getElementById('myChart').getContext('2d');

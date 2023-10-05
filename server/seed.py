@@ -11,9 +11,9 @@ with app.app_context():
 # Create sample user data
 users = [
     UserModel(national_id=123456789, name='John Doe',
-              email='john@example.com', password='12345678', admin=1),
+              email='john@example.com', password='12345678'),
     UserModel(national_id=987654321, name='Jane Smith',
-              email='jane@example.com', password='12345678', admin=0),
+              email='jane@example.com', password='12345678'),
 ]
 
 # Create sample candidate data

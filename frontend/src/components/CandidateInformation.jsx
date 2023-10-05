@@ -1,23 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
-function CandidateInformation() {
-  const [prez, setPrez] = useState([]);
-  const [vice, setVice] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:5555/api/candidate', {
-      'Content-Type': 'application/json',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPrez(data.prez);
-        setVice(data.vice);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-
+function CandidateInformation({ prez, vice }) {
   return (
     <div className="hero is-fullheight-with-navbar">
       <div className="hero-body">
