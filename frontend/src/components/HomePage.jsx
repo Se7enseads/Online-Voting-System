@@ -29,8 +29,8 @@ function HomePage() {
               </div>
               <div className="card-body image-text centered-text">
                 <p className="has-text-weight-semibold has-text-dark text-with-shadow">
-                  Created a simple college election voting app using Flask and
-                  Bulma, where students can register themselves. Once
+                  Created a simple University election voting app using Flask and
+                  React, where students can register themselves. Once
                   registered, students can log in and cast their votes.
                 </p>
                 <br />
