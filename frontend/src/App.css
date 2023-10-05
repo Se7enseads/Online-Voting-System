@@ -210,3 +210,23 @@ img.is-rounded {
 .card-text {
   text-align: center;
 }
+
+.vote-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 85vh; /* Adjust the height as needed */
+}
+
+.vote-chart-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.vote-chart-plot {
+  width: 80%; /* Adjust the width as needed */
+  max-width: 800px; /* Set a maximum width for the chart */
+  height: 400px; /* Adjust the height as needed */
+  margin: 0 auto;
+}
