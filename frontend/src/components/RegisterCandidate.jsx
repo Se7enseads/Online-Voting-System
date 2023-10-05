@@ -5,10 +5,10 @@ function RegisterCandidate() {
   const success = ['Success message 1', 'Success message 2']; // Replace with actual success messages
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <h3 className="title">Register a new candidate</h3>
+          <h3 className="display-4 text-center mb-4">Register a New Candidate</h3>
           <div className="card">
             <div className="card-body">
               {errors.length > 0 && (
@@ -26,8 +26,7 @@ function RegisterCandidate() {
                   <ul>
                     {success.map((msg, index) => (
                       <li key={index}>
-                        {msg}. Go to <a href="/candidate">Candidate Info</a> to
-                        view details.
+                        {msg}. Go to <a href="/candidate">Candidate Info</a> to view details.
                       </li>
                     ))}
                   </ul>
@@ -40,7 +39,7 @@ function RegisterCandidate() {
                     className="form-control"
                     name="roll_num"
                     placeholder="Roll Number"
-                    type="integer"
+                    type="number" // Use type="number" for integer input
                   />
                 </div>
                 <div className="form-group">
@@ -100,12 +99,12 @@ function RegisterCandidate() {
                   <input
                     className="form-control"
                     name="pic_path"
-                    placeholder="Add path to candidate's picture eg. /static/images/img.jpg"
+                    placeholder="Add path to candidate's picture e.g., /static/images/img.jpg"
                     type="text"
                   />
                 </div>
 
-                <button className="btn btn-info btn-block">
+                <button className="btn btn-info btn-block" type="submit">
                   Register Candidate
                 </button>
               </form>

@@ -202,3 +202,15 @@ img.is-rounded {
     margin: 0 auto;
     
 }
+
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    padding: 1rem;
+}
+
+.card-text {
+    text-align: center;
+    
+}
+

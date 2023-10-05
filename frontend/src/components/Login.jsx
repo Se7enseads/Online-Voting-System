@@ -58,7 +58,9 @@ function Login() {
           <div className="card">
             <div className="card-body">
               {message.length > 0 && (
-                <div className={`alert alert-${style}`}>{message}</div>
+                <div className={`alert alert-${style}`} role="alert">
+                  {message}
+                </div>
               )}
               <Formik
                 initialValues={{
@@ -113,7 +115,7 @@ function Login() {
                       </label>
                     </div>
                     <button
-                      className="btn btn-info btn-block btn-primary mb-3"
+                      className="btn btn-primary btn-block mb-3"
                       type="submit"
                       disabled={isSubmitting}
                     >
@@ -124,7 +126,7 @@ function Login() {
               </Formik>
               <div>
                 <p>
-                  Don't have an account?
+                  Don't have an account?{' '}
                   <Link to="/sign-up">Create an account</Link>
                 </p>
               </div>
