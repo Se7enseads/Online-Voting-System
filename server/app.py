@@ -1,16 +1,15 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Blueprint, Flask, jsonify, render_template, request
-from flask_bcrypt import Bcrypt
+from flask import Blueprint, Flask, render_template, request
 from flask_cors import CORS
-from flask_login import (LoginManager, current_user, login_required,
-                         login_user, logout_user)
+from flask_jwt_extended import (JWTManager, create_access_token,
+                                get_jwt_identity, jwt_required)
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
-from models import CandidateModel, UserModel, VotesModel, db
+from passlib.context import CryptContext
 
-# from auth import auth_bp
+from models import CandidateModel, UserModel, VotesModel, db
 
 load_dotenv()
 
@@ -21,100 +20,110 @@ app = Flask(
     template_folder='../frontend/dist'
 )
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///instance/app.db"
+if os.getenv('DATABASE_URI') is not None:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///instance/app.db"
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['JWT_SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 
 migrate = Migrate(app, db)
 
 db.init_app(app)
 CORS(app)
-bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
+pwd_context = CryptContext(schemes=["sha256_crypt"])
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 api = Api(api_bp)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return UserModel.query.get(int(user_id))
 
 
 @app.errorhandler(404)
 def not_found(self):  # pylint: disable=unused-argument
     return render_template("index.html")
 
-class UserResource(Resource):
-    def get(self, num):
-        user = UserModel.query.filter(UserModel.id == num).first()
-
-        if user:
-            return {
-                "national_id": user.national_id,
-                "name": user.name,
-                "email": user.email,
-                "admin": user.admin
-            }, 200
-
-        return {
-            "message":"User doesn't exist"
-        }, 404
-
-
-api.add_resource(UserResource, '/user/<int:num>')
-
 
 class Profile(Resource):
-    @login_required
+    @jwt_required()
     def get(self):
-        prez = CandidateModel.query.filter_by(
+        prez = CandidateModel.query.filter(
             CandidateModel.position == "President").all()
-        vice = CandidateModel.query.filter_by(
+        vice = CandidateModel.query.filter(
             CandidateModel.position == "Vice-President").all()
+
+        user = UserModel.query.filter(
+            UserModel.email == get_jwt_identity()).first()
+
         voter = VotesModel.query.filter(
-            VotesModel.voter_id == current_user.national_id).first()
+            VotesModel.voter_id == user.national_id).first()
+
+        voter_exists = voter is not None
 
         response_body = {
-            "name": current_user.name,
-            "prez": prez,
-            'vice': vice,
-            'voter': voter
+            "prez": [
+                {
+                    "id": prez_can.id,
+                    "candidate_num": prez_can.candidate_num,
+                    "first_name": prez_can.first_name,
+                    "last_name": prez_can.last_name,
+                    "certificate": prez_can.certificate,
+                    "position": prez_can.position,
+                    "pic_path": prez_can.pic_path,
+                    "agenda": prez_can.agenda
+                } for prez_can in prez
+            ],
+            "vice": [
+                {
+                    "id": vice_can.id,
+                    "candidate_num": vice_can.candidate_num,
+                    "first_name": vice_can.first_name,
+                    "last_name": vice_can.last_name,
+                    "certificate": vice_can.certificate,
+                    "position": vice_can.position,
+                    "pic_path": vice_can.pic_path,
+                    "agenda": vice_can.agenda
+                } for vice_can in vice
+            ],
+            "name": user.name,
+            "voter": voter_exists,
+            "admin": user.admin
         }
 
         return response_body, 200
 
-    @login_required
+    @jwt_required()
     def post(self):
-        president = request.form.get('president')
-        vice_prez = request.form.get('vice-president')
+        data = request.get_json()
+
+        president = data['president']
+        vice_prez = data['vicePresident']
+
+        user = UserModel.query.filter(
+            UserModel.email == get_jwt_identity()).first()
 
         voted = VotesModel.query.filter(
-            VotesModel.voter_id == current_user.national_id).first()
+            VotesModel.voter_id == user.national_id).first()
 
         if not voted:
             vote = VotesModel(
-                voter=current_user.national_id,
-                president=int(president),
-                vice_pres=int(vice_prez)
+                voter_id=user.national_id,
+                president=president,
+                vice_pres=vice_prez
             )
 
             db.session.add(vote)
             db.session.commit()
 
-            return jsonify(
-                success=True,
-                message="Vote submitted successfully"
-            )
+            return {
+                "message": "Vote submitted successfully"
+            }, 200
 
-        return jsonify(
-            success=False,
-            message='You have already voted'
-        )
+        return {
+            "message": 'You have already voted'
+        }, 404
 
 
 api.add_resource(Profile, '/profile')
@@ -161,22 +170,35 @@ api.add_resource(Candidate, '/candidate')
 
 
 class CandidateRegister(Resource):
-    @login_required
-    def get(self):
-        if current_user.admin != 1:
-            logout_user()
-            return jsonify(
-                success=False,
-                message='You do not have required authorization',
-            )
-        return jsonify(
-            success=True,
-            message='Login Successful',
-            admin=True
+    @jwt_required()
+    def post(self):
+        data = request.get_json()
+
+        new_candidate = CandidateModel(
+            candidate_num=data["candidate_num"],
+            first_name=data["first_name"],
+            last_name=data["last_name"],
+            certificate=data["certificate"],
+            position=data["position"],
+            pic_path=data["pic_path"],
+            agenda=data["agenda"]
         )
 
+        candidate = CandidateModel.query.filter(
+            CandidateModel.candidate_num == new_candidate.candidate_num)
 
-api.add_resource(CandidateRegister, '/candidate_register')
+        if candidate:
+            return {"message": "Candidate Number exists"}, 400
+
+        db.session.add(new_candidate)
+        db.session.commit()
+
+        return {
+            "message": "Candidate registered successfully"
+        }, 201
+
+
+api.add_resource(CandidateRegister, '/api/candidate_register')
 
 
 class LoginResource(Resource):
@@ -185,31 +207,20 @@ class LoginResource(Resource):
 
         email = data['email']
         password = data['password']
-        remember = data['remember']
 
         user = UserModel.query.filter(UserModel.email == email).first()
 
         if not user:
-            return{"message": "User doesn't exist"}, 400
+            return {"message": "User doesn't exist"}, 400
 
-        if not bcrypt.check_password_hash(user.password, password):
+        if not pwd_context.verify(password, user.password):
             return {'message': 'Invalid password.'}, 400
 
-        login_user(user, remember=remember)
-        return {'message': 'Login successful'}, 200
+        access_token = create_access_token(identity=email)
+        return {'access_token': access_token, 'message': 'User Successfully logged in.'}, 200
 
 
 api.add_resource(LoginResource, '/login')
-
-
-class LogoutResource(Resource):
-    @login_required
-    def get(self):
-        logout_user()
-        return {'message': 'Logged out successfully'}, 200
-
-
-api.add_resource(LogoutResource, '/logout')
 
 
 class RegisterResource(Resource):
@@ -221,7 +232,8 @@ class RegisterResource(Resource):
         name = data['name']
         password1 = data['password1']
 
-        existing_user_nat_id = UserModel.query.filter_by(national_id=nat_id).first()
+        existing_user_nat_id = UserModel.query.filter_by(
+            national_id=nat_id).first()
         existing_user_email = UserModel.query.filter_by(email=email).first()
 
         if existing_user_nat_id and existing_user_email:
@@ -237,13 +249,19 @@ class RegisterResource(Resource):
                 "message": 'Email already registered.',
             }, 400
 
-        hashed_password = bcrypt.generate_password_hash(password1, rounds=12)
+        hashed_password = pwd_context.hash(password1)
+
+        if 'admin' in name.lower():
+            admin_flag = True
+        else:
+            admin_flag = False
 
         new_user = UserModel(
             national_id=nat_id,
             email=email,
             name=name,
             password=hashed_password,
+            admin=admin_flag
         )
 
         db.session.add(new_user)

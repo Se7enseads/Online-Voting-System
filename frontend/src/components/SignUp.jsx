@@ -1,6 +1,6 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 function SignUp() {
@@ -75,82 +75,82 @@ function SignUp() {
                   password1: '',
                   password2: '',
                 }}
-                validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                validationSchema={validationSchema}
               >
                 {({ isSubmitting }) => (
                   <Form>
                     <div className="form-group mb-3">
                       <Field
                         className="form-control"
-                        type="text"
                         name="nat_id"
                         placeholder="National ID"
+                        type="text"
                       />
                       <ErrorMessage
-                        name="nat_id"
-                        component="div"
                         className="text-danger"
+                        component="div"
+                        name="nat_id"
                       />
                     </div>
                     <div className="form-group mb-3">
                       <Field
                         className="form-control"
-                        type="email"
                         name="email"
                         placeholder="Email"
+                        type="email"
                       />
                       <ErrorMessage
-                        name="email"
-                        component="div"
                         className="text-danger"
+                        component="div"
+                        name="email"
                       />
                     </div>
                     <div className="form-group mb-3">
                       <Field
                         className="form-control"
-                        type="text"
                         name="name"
                         placeholder="Name"
+                        type="text"
                       />
                       <ErrorMessage
-                        name="name"
-                        component="div"
                         className="text-danger"
+                        component="div"
+                        name="name"
                       />
                     </div>
                     <div className="form-group mb-3">
                       <Field
                         className="form-control"
-                        type="password"
                         name="password1"
                         placeholder="Password"
+                        type="password"
                       />
                       <ErrorMessage
-                        name="password1"
-                        component="div"
                         className="text-danger"
+                        component="div"
+                        name="password1"
                       />
                     </div>
                     <div className="form-group mb-3">
                       <Field
                         className="form-control"
-                        type="password"
                         name="password2"
                         placeholder="Confirm Password"
+                        type="password"
                       />
                       <ErrorMessage
-                        name="password2"
-                        component="div"
                         className="text-danger"
+                        component="div"
+                        name="password2"
                       />
                     </div>
                     <button
                       className={`btn btn-info btn-block ${
                         isSubmitting ? 'disabled' : ''
                       }`}
-                      type="submit"
                       disabled={isSubmitting}
+                      type="submit"
                     >
                       {isSubmitting ? 'Submitting...' : 'Sign Up'}
                     </button>

@@ -1,4 +1,4 @@
-function CandidateInformation({ vice, prez }) {
+function CandidateInformation({ prez, vice }) {
   return (
     <div className="hero has-background-white-ter is-fullheight-with-navbar">
       <div className="hero-body">
@@ -31,7 +31,7 @@ function CandidateInformation({ vice, prez }) {
                               {prezCandidate.roll_num}
                             </p>
                             <p className="title is-5 has-text-dark is-italic">
-                              "{prezCandidate.agenda}"
+                              &rdquo;{prezCandidate.agenda}&ldquo;
                             </p>
                             <p className="subtitle has-text-dark has-text-weight-semibold">
                               {prezCandidate.batch}
@@ -42,9 +42,9 @@ function CandidateInformation({ vice, prez }) {
                           </div>
                           <figure className="image">
                             <img
+                              alt="Candidate"
                               className="is-rounded"
-                              src="public/images/OTIS.jpeg"
-                              alt="Candidate Image"
+                              src={prezCandidate.pic_path}
                             />
                           </figure>
                         </article>
@@ -69,7 +69,7 @@ function CandidateInformation({ vice, prez }) {
                               {viceCandidate.roll_num}
                             </p>
                             <p className="title is-5 has-text-dark is-italic">
-                              "{viceCandidate.agenda}"
+                              &rdquo;{viceCandidate.agenda}&ldquo;
                             </p>
                             <p className="subtitle has-text-dark has-text-weight-semibold">
                               {viceCandidate.batch}
@@ -80,9 +80,9 @@ function CandidateInformation({ vice, prez }) {
                           </div>
                           <figure className="image">
                             <img
+                              alt="Candidate"
                               className="is-rounded"
-                              src="public/images/OTIS.jpeg"
-                              alt="Candidate Image"
+                              src={viceCandidate.pic_path}
                             />
                           </figure>
                         </article>

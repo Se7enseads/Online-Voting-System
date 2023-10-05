@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-DEFAULT_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAADrCAMAAACCeRgcAAAAElBMVEXU7vonqeGz4fUzruRNuOd9zO5GHk8FAAAEjklEQVR42u3dUXLbOgxAURMg9r/l13l1yjqJE1EiZzL1Of/5uwMqsiTcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+E1F3ETdYIaq3B9lLXVxTle2DbC21xXmV7bleNzidlbTYldVz3YHIlOjtmH6Dw6odlWlosbCrIV1pcUy2OcriiN6astg7r1zCs3JemVmsn1fK4ofMK2WxeF4N7mdxYF65gOdHzCuHId/MK4chP2peGVmcmVe9KiKqevuCkcV7efixq0oji6P691kNlUYWh+TklVM3srg2rzJmntjKG/yRh7saylnIwnk1lLOQhfNq6M5C1s2rIdpnbnBqXg3lIot182oIF1ksnFdD9/AM6+bVUMJi4bwaXL0zPa+ExY55dUgXFnPzSljsmFfCYse8EhY75tVhKSwm55X/CpmWi7oKN0g5Ma/8pMO6eTUj/QjNsnk1lKcbWNfVkJ7H4k2t66o8msybWNdVeJmCd6dX9t/ySlcpLN707BVxGyKq58muvEvBm3i26XK+K6/Ys16kj4LwTkRV/+3shudInyHl/aH3IYaK6a58H4u/VG/ZPpMVU135bjJ/RC1alRrpS5E8ZrUirUgfemdusWUd7cpH13gSw9mzLNInk7mrdWtLIm084dS+iR66Yl1XQ4aumOjqelmR1uhwl21ehq7Ysc8rQ1fs2OeVumLL/sGuK7bsHyxdsWVfauiKHftSu65YOK+G0hU79junrpicV70i7q9+tedKV8zMq4rbEJXtidQV8/udh3qaja6Y3O8cUePVr0hdseA7RWMJfda9LF1x+Xt9lW2Ie1m64uK86p/dB43UFZfmVX5+0VWPufl/kHPzaqgPf5mlK87Oq6EebmhlL/evuDCvhn67i4i3ZKrpiruc7mqcfY+i64qJ+1ftmV6PWemKiX0T0b7Qq+KX6tl0xdxegGoH6Irp/Ti6Yssek9IVW/Z5dV2xY+9SpK7YsX8wdMWWPXGlK7bsSy1dsWWvZemKLfudu664OK9mZpbvQHKuq6F0xZb9zpHtA5uXWLDfudox3eXVq8kzXQ3R2/fSuHo5dbKrodIpyHtxvquhumnFo7rS1RCVrq0YYqKr6X2+vVT1qmpJV0NE3YWoXtmirlTEg1rUVT459sJh+Jr6oq7Gq19/H4o9/YzzmqJ9arorjzNw4CSs2a7cwuLASdhnu3LHnXfyyEFobzgrLrFqWVd54zXF8YFlvzPXrt27rtgRVumKHf8Uhq7YEpau2BGWrtgSlq7YEpau2BKWrtgSVuiKLfexdMWOsLqu2BFW0xV7nm7QFVe1T6Su2PIEaemKLc+8h664Jp4Uoit2fBur64pNb0LriiviyAuB9jszrR/9Zmikrjgu2pEFz1FpLwDLvvHeeq9ferZmXjEn7Hdmi64rdojUFTuUrvhph6Gu+ELXFT/pMktXfC1SV/yUsnTF9yJ1xQ6R9juzRW/NHl723Sm1MJXFIu13ZovKA1kZV8yrdAqyRaVpxRbx1pZNvCwWVf0xKlWxTPzPXl4AAAAAAAAAAAAAAAAAAAAAAAAAAACAf9t/nvItVRtKC0AAAAAASUVORK5CYII="
+DEFAULT_IMAGE = "/images/OTIS.jpeg"
 
 
 class UserModel(UserMixin, db.Model):
@@ -14,7 +14,7 @@ class UserModel(UserMixin, db.Model):
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
     password = db.Column(db.String(), nullable=False)
-    admin = db.Column(db.Integer, default=0)
+    admin = db.Column(db.String(), default=0)
 
     votes = db.relationship('VotesModel', back_populates='user')
 

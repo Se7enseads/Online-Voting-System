@@ -1,8 +1,38 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function HomePage() {
+function HomePage({ alert }) {
+  const [showLogoutAlert, setShowLogoutAlert] = useState(alert);
+
+  useEffect(() => {
+    if (showLogoutAlert) {
+      const alertTimeout = setTimeout(() => {
+        setShowLogoutAlert(false);
+      }, 5000);
+
+      return () => clearTimeout(alertTimeout);
+    }
+  }, [showLogoutAlert]);
+
   return (
-    <section className="hero is-white is-fullheight-with-navbar home-page">
+    <section className="hero home-page">
+      {showLogoutAlert && (
+        <div className="container mt-3">
+          <div
+            className="alert alert-success alert-dismissible fade show"
+            role="alert"
+          >
+            Logout successful. <Link to="/login">Login</Link>
+            <button
+              aria-label="Close"
+              className="btn-close"
+              data-dismiss="alert"
+              onClick={() => setShowLogoutAlert(false)}
+              type="button"
+            />
+          </div>
+        </div>
+      )}
       <div className="hero-body">
         <div className="container">
           <div className="columns">
@@ -20,17 +50,17 @@ function HomePage() {
               <div className=" card-body">
                 <div className="image-container has-text-centered">
                   <img
-                    src="public/images/vote2.jpg"
                     alt="Vote App"
                     className="img-fluid centered-image"
-                    style={{ maxWidth: '30%', height: 'auto' }}
+                    src="public/images/vote2.jpg"
+                    style={{ height: 'auto', maxWidth: '30%' }}
                   />
                 </div>
               </div>
               <div className="card-body image-text centered-text">
                 <p className="has-text-weight-semibold has-text-dark text-with-shadow">
                   Created a simple college election voting app using Flask and
-                  Bulma, where students can register themselves. Once
+                  React, where students can register themselves. Once
                   registered, students can log in and cast their votes.
                 </p>
                 <br />
