@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+
 import { useAuth } from '../utils/AuthContext';
 import AccessDenied from './AccessDenied';
 
@@ -38,10 +39,10 @@ function Profile() {
         setIsAuthenticated(true);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
         navigate('/login');
         updateToken('');
         setIsAuthenticated(false);
+        return `Error fetching data: ${error}`;
       });
   }, [token, navigate, updateToken]);
 
@@ -70,7 +71,7 @@ function Profile() {
         }, 5000);
       })
       .catch((error) => {
-        console.error('Error casting vote:', error);
+        return `Error casting vote: ${error}`;
       });
   };
 
@@ -119,11 +120,10 @@ function Profile() {
                           <br />
                           <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                              <label className="label" htmlFor="president">
-                                President
-                              </label>
+                              <label htmlFor="president">President</label>
                               <select
                                 className="form-control"
+                                id="president"
                                 name="president"
                                 onChange={(e) =>
                                   setSelectedChoices({
@@ -146,11 +146,12 @@ function Profile() {
                               </select>
                             </div>
                             <div className="form-group">
-                              <label className="label" htmlFor="vice-president">
+                              <label htmlFor="vice-president">
                                 Vice-President
                               </label>
                               <select
                                 className="form-control"
+                                id="vice-president"
                                 name="vice-president"
                                 onChange={(e) =>
                                   setSelectedChoices({

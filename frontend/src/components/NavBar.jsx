@@ -20,8 +20,8 @@ function NavBar({ onLogout }) {
           setIsAdmin(data.admin);
         })
         .catch((error) => {
-          console.error('Error fetching data:', error);
           updateToken('');
+          return `Error fetching data: ${error}`;
         });
     }
   }, [token, updateToken]);

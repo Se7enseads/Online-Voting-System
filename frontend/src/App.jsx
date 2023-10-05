@@ -8,8 +8,8 @@ import NavBar from './components/NavBar';
 import Profile from './components/Profile';
 import RegisterCandidate from './components/RegisterCandidate';
 import SignUp from './components/SignUp';
-import { useAuth } from './utils/AuthContext';
 import VoteChart from './components/VoteChart';
+import { useAuth } from './utils/AuthContext';
 
 function App() {
   const [prez, setPrez] = useState([]);
@@ -29,7 +29,7 @@ function App() {
         setVice(data.vice);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        return `Error fetching data: ${error}`;
       });
   }, []);
 

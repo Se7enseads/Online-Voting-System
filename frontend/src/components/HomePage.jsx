@@ -1,6 +1,21 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function HomePage() {
+function HomePage({ alert }) {
+  const [showLogoutAlert, setShowLogoutAlert] = useState(alert);
+
+  useEffect(() => {
+    if (showLogoutAlert) {
+      const alertTimeout = setTimeout(() => {
+        setShowLogoutAlert(false);
+      }, 5000);
+
+      return () => {
+        clearTimeout(alertTimeout);
+      };
+    }
+  }, [showLogoutAlert]);
+
   return (
     <section className="hero is-white is-fullheight-with-navbar home-page">
       <div className="hero-body">
@@ -29,8 +44,8 @@ function HomePage() {
               </div>
               <div className="card-body image-text centered-text">
                 <p className="has-text-weight-semibold has-text-dark text-with-shadow">
-                  Created a simple University election voting app using Flask and
-                  React, where students can register themselves. Once
+                  Created a simple University election voting app using Flask
+                  and React, where students can register themselves. Once
                   registered, students can log in and cast their votes.
                 </p>
                 <br />
