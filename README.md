@@ -3,7 +3,6 @@
 
 # Online-Voting-System
 
-
 ## Overview
 
 This is a web-based election voting system built with Flask for the backend and React for the frontend. It allows registered university log in, and vote for their preferred candidates in both presidential and vice-presidential positions.
