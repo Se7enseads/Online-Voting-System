@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router';
+
 function AccessDenied() {
+  const navigate = useNavigate();
+
   return (
     <div className="mt-5 text-center">
       <img alt="Padlock" src="/images/401_permissions.svg" />

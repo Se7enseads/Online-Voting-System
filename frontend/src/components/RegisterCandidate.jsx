@@ -49,7 +49,7 @@ function RegisterCandidate() {
           setStyle('danger');
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setMessage('An error occurred while registering the candidate.');
         setStyle('danger');
       })
@@ -172,7 +172,7 @@ function RegisterCandidate() {
 
                         <div className="form-group">
                           <label htmlFor="pic_path">
-                            Add path to candidate's picture
+                            Add path to candidate&apos;s picture
                           </label>
                           <Field
                             className="form-control"

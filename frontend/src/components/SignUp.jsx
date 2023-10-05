@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 
-const SignUp = () => {
+function SignUp() {
   const [message, setMessage] = useState('');
   const [style, setStyle] = useState('');
   const navigate = useNavigate();
@@ -11,11 +11,11 @@ const SignUp = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await fetch('http://localhost:5555/api/sign-up', {
-        method: 'POST',
+        body: JSON.stringify(values),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        method: 'POST',
       });
 
       setSubmitting(false);
@@ -161,6 +161,6 @@ const SignUp = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SignUp;

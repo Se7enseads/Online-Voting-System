@@ -1,33 +1,29 @@
 import { useEffect, useState } from 'react';
 import Plotly from 'react-plotly.js';
 
-const VoteChart = () => {
+function VoteChart() {
   const [chartData, setChartData] = useState({});
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const fetchData = () => {
     fetch('http://localhost:5555/api/votes')
       .then((response) => response.json())
       .then((responseData) => {
-        const { labels, data, labels1, data1 } = responseData;
+        const { data, data1, labels, labels1 } = responseData;
 
         const presidentVotes = {
+          marker: { color: 'rgba(75, 192, 192, 0.6)' },
+          name: 'President Votes',
+          type: 'bar',
           x: labels,
           y: data,
-          type: 'bar',
-          name: 'President Votes',
-          marker: { color: 'rgba(75, 192, 192, 0.6)' },
         };
 
         const vicePresidentVotes = {
+          marker: { color: 'rgba(255, 99, 132, 0.6)' },
+          name: 'Vice-President Votes',
+          type: 'bar',
           x: labels1,
           y: data1,
-          type: 'bar',
-          name: 'Vice-President Votes',
-          marker: { color: 'rgba(255, 99, 132, 0.6)' },
         };
 
         const layout = {
@@ -43,17 +39,21 @@ const VoteChart = () => {
       });
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="vote-chart-container">
       <div className="vote-chart-plot">
         <Plotly
+          config={{ responsive: true }}
           data={chartData.data}
           layout={chartData.layout}
-          config={{ responsive: true }}
         />
       </div>
     </div>
   );
-};
+}
 
 export default VoteChart;
