@@ -1,3 +1,15 @@
+"""
+Voting App Server
+
+This script creates the Flask application for the Voting App, 
+configures it, and defines various routes and resources.
+
+The server interacts with a PostgreSQL database to 
+manage user accounts, candidate registration, and voting.
+
+Usage: Run this script to start the Voting App server.
+"""
+
 import os
 
 from dotenv import load_dotenv
@@ -43,12 +55,28 @@ api = Api(api_bp)
 
 @app.errorhandler(404)
 def not_found(self):  # pylint: disable=unused-argument
+    """
+    Handle 404 Not Found errors by rendering the index.html template.
+
+    :param self: Flask app instance
+    :return: Rendered HTML template
+    """
     return render_template("index.html")
 
 
 class Profile(Resource):
+    """
+    Resource class for handling user profiles and votes.
+    """
+
     @jwt_required()
     def get(self):
+        """
+        Get user profile information and vote status.
+
+        :return: JSON response with user profile data
+        """
+
         prez = CandidateModel.query.filter(
             CandidateModel.position == "President").all()
         vice = CandidateModel.query.filter(
@@ -98,6 +126,11 @@ class Profile(Resource):
 
     @jwt_required()
     def post(self):
+        """
+        Handle user vote submission.
+
+        :return: JSON response indicating the vote submission status
+        """
         data = request.get_json()
 
         president = data['president']
@@ -132,7 +165,16 @@ api.add_resource(Profile, '/profile')
 
 
 class Candidate(Resource):
+    """
+    Resource class for handling candidate information.
+    """
+
     def get(self):
+        """
+        Get candidate information.
+
+        :return: JSON response with candidate data
+        """
         prez = CandidateModel.query.filter(
             CandidateModel.position == "President").all()
         vice = CandidateModel.query.filter(
@@ -172,8 +214,17 @@ api.add_resource(Candidate, '/candidate')
 
 
 class CandidateRegister(Resource):
+    """
+    Resource class for handling candidate registration.
+    """
+
     @jwt_required()
     def post(self):
+        """
+        Handle candidate registration.
+
+        :return: JSON response indicating the registration status
+        """
         data = request.get_json()
 
         candidate_num = data["candidate_num"]
@@ -206,7 +257,16 @@ api.add_resource(CandidateRegister, '/candidate_register')
 
 
 class LoginResource(Resource):
+    """
+    Resource class for handling user login.
+    """
+
     def post(self):
+        """
+        Handle user login.
+
+        :return: JSON response with an access token and login status
+        """
         data = request.get_json()
 
         email = data['email']
@@ -228,7 +288,16 @@ api.add_resource(LoginResource, '/login')
 
 
 class RegisterResource(Resource):
+    """
+    Resource class for handling user registration.
+    """
+
     def post(self):
+        """
+        Handle user registration.
+
+        :return: JSON response indicating the registration status
+        """
         data = request.get_json()
 
         nat_id = data['nat_id']
@@ -255,10 +324,7 @@ class RegisterResource(Resource):
 
         hashed_password = pwd_context.hash(password1)
 
-        if 'admin' in name.lower():
-            admin_flag = True
-        else:
-            admin_flag = False
+        admin_flag = bool('admin' in name.lower())
 
         new_user = UserModel(
             national_id=nat_id,
@@ -278,7 +344,16 @@ api.add_resource(RegisterResource, '/sign-up')
 
 
 class Votes(Resource):
+    """
+    Resource class for handling vote information.
+    """
+
     def get(self):
+        """
+        Get vote information.
+
+        :return: JSON response with vote data
+        """
         prez = CandidateModel.query.filter(
             CandidateModel.position == "President").all()
         vice = CandidateModel.query.filter(
