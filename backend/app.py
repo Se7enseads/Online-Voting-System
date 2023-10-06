@@ -91,7 +91,7 @@ class Profile(Resource):
             ],
             "name": user.name,
             "voter": voter_exists,
-            "admin": admin 
+            "admin": admin
         }
 
         return response_body, 200
@@ -176,7 +176,7 @@ class CandidateRegister(Resource):
     def post(self):
         data = request.get_json()
 
-        candidate_num=data["candidate_num"]
+        candidate_num = data["candidate_num"]
 
         candidate = CandidateModel.query.filter(
             CandidateModel.candidate_num == candidate_num).first()
@@ -193,7 +193,6 @@ class CandidateRegister(Resource):
             pic_path=data["pic_path"],
             agenda=data["agenda"]
         )
-
 
         db.session.add(new_candidate)
         db.session.commit()
@@ -280,24 +279,28 @@ api.add_resource(RegisterResource, '/sign-up')
 
 class Votes(Resource):
     def get(self):
-        prez = CandidateModel.query.filter(CandidateModel.position == "President").all()
-        vice = CandidateModel.query.filter(CandidateModel.position == "Vice-President").all()
-        labels=[]
-        data=[]
-        labels1=[]
-        data1=[]
+        prez = CandidateModel.query.filter(
+            CandidateModel.position == "President").all()
+        vice = CandidateModel.query.filter(
+            CandidateModel.position == "Vice-President").all()
+        labels = []
+        data = []
+        labels1 = []
+        data1 = []
         for candidate in prez:
             name = candidate.first_name+" "+candidate.last_name
             labels.append(name)
 
-            vote=VotesModel.query.filter(VotesModel.president == candidate.candidate_num).count()
+            vote = VotesModel.query.filter(
+                VotesModel.president == candidate.candidate_num).count()
             data.append(vote)
 
         for candidate in vice:
             name = candidate.first_name+" "+candidate.last_name
             labels1.append(name)
 
-            vote=VotesModel.query.filter(VotesModel.vice_pres == candidate.candidate_num).count()
+            vote = VotesModel.query.filter(
+                VotesModel.vice_pres == candidate.candidate_num).count()
             data1.append(vote)
 
         response = {

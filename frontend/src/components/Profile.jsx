@@ -9,6 +9,7 @@ function Profile() {
   const [vice, setVice] = useState([]);
   const [name, setName] = useState('');
   const [voter, setVoter] = useState(false);
+
   const [selectedChoices, setSelectedChoices] = useState({
     president: '',
     vicePresident: '',
@@ -39,10 +40,10 @@ function Profile() {
         setIsAuthenticated(true);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
         navigate('/login');
         updateToken('');
         setIsAuthenticated(false);
+        return `Error fetching data: ${error}`;
       });
   }, [token, navigate, updateToken]);
 
@@ -71,7 +72,7 @@ function Profile() {
         }, 5000);
       })
       .catch((error) => {
-        console.error('Error casting vote:', error);
+        return `Error casting vote: ${error}`;
       });
   };
 
@@ -81,7 +82,6 @@ function Profile() {
         <div className="col-md-8">
           {isAuthenticated ? (
             <>
-              <h1 className="title">Welcome, {name}!</h1>
               {voter ? (
                 <>
                   {alertVisible && (
@@ -89,12 +89,21 @@ function Profile() {
                       Your vote has been cast successfully.
                     </div>
                   )}
-                  <h1 className="subtitle has-text-success">
-                    Your vote has been cast.
-                  </h1>
+                  <div
+                    className="card mx-auto my-auto text-center"
+                    style={{ width: '50%', padding: '20px' }}
+                  >
+                    <div>
+                      <h1 className="title">Welcome, {name}!</h1>
+                      <h1 className="subtitle">
+                        Your vote has already been cast!
+                      </h1>
+                    </div>
+                  </div>
                 </>
               ) : (
                 <div>
+                  <h1 className="title">Welcome, {name}!</h1>
                   <h2 className="subtitle">
                     You can cast your vote here.
                     <br />
@@ -120,11 +129,10 @@ function Profile() {
                           <br />
                           <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                              <label className="label" htmlFor="president">
-                                President
-                              </label>
+                              <label htmlFor="president">President</label>
                               <select
                                 className="form-control"
+                                id="president"
                                 name="president"
                                 onChange={(e) =>
                                   setSelectedChoices({
@@ -147,11 +155,12 @@ function Profile() {
                               </select>
                             </div>
                             <div className="form-group">
-                              <label className="label" htmlFor="vice-president">
+                              <label htmlFor="vice-president">
                                 Vice-President
                               </label>
                               <select
                                 className="form-control"
+                                id="vice-president"
                                 name="vice-president"
                                 onChange={(e) =>
                                   setSelectedChoices({

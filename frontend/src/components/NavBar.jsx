@@ -20,8 +20,8 @@ function NavBar({ onLogout }) {
           setIsAdmin(data.admin);
         })
         .catch((error) => {
-          console.error('Error fetching data:', error);
           updateToken('');
+          return `Error fetching data: ${error}`;
         });
     }
   }, [token, updateToken]);
@@ -49,25 +49,30 @@ function NavBar({ onLogout }) {
         </button>
         <div className="navbar-collapse collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
+            {/* <li className="nav-item">
+              <Link className="nav-link btn btn-success" to="/">
+                Home
+              </Link>
+            </li> */}
             <li className="nav-item">
-              <Link className="nav-link btn btn-warning" to="/candidates">
+              <Link className="nav-link btn btn-primary" to="/candidates">
                 Candidate Info
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link btn btn-primary" to="/results">
+              <Link className="nav-link btn btn-warning" to="/results">
                 Live Result
               </Link>
             </li>
             {!token && (
               <>
                 <li className="nav-item">
-                  <Link className="btn btn-info" to="/login">
+                  <Link className="nav-link btn btn-secondary" to="/login">
                     Login
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="btn btn-secondary" to="/sign-up">
+                  <Link className="nav-link btn btn-info" to="/sign-up">
                     Sign Up
                   </Link>
                 </li>
@@ -75,7 +80,7 @@ function NavBar({ onLogout }) {
             )}
             {token && isAdmin && (
               <li className="nav-item">
-                <Link className="nav-link btn btn-success" to="/register">
+                <Link className="nav-link btn btn-light" to="/register">
                   Register Candidate
                 </Link>
               </li>
@@ -89,7 +94,10 @@ function NavBar({ onLogout }) {
             )}
             {token && (
               <li className="nav-item">
-                <button className="btn btn-danger" onClick={handleLogout}>
+                <button
+                  className="nav-link btn btn-danger"
+                  onClick={handleLogout}
+                >
                   Logout
                 </button>
               </li>

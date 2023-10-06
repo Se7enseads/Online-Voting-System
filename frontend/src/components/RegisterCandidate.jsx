@@ -1,5 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 
 import { useAuth } from '../utils/AuthContext';
@@ -10,6 +11,8 @@ function RegisterCandidate() {
   const [style, setStyle] = useState('');
   const { token } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
@@ -36,6 +39,7 @@ function RegisterCandidate() {
     fetch('http://localhost:5555/api/candidate_register', {
       body: JSON.stringify(values),
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       method: 'POST',
@@ -44,6 +48,7 @@ function RegisterCandidate() {
         if (response.ok) {
           setMessage('Candidate registered successfully.');
           setStyle('success');
+          setTimeout(() => navigate('/'), 2000);
         } else {
           setMessage('Failed to register candidate.');
           setStyle('danger');
@@ -60,13 +65,13 @@ function RegisterCandidate() {
 
   const validationSchema = Yup.object().shape({
     agenda: Yup.string().required('Candidate Agenda is required'),
-    candidate_num: Yup.number()
-      .required('Candidate Number is required')
-      .integer('Candidate Number must be an integer'),
+    candidate_num: Yup.string()
+      .matches(/^\d{5}$/, 'Candidate Number must be exactly 5 digits')
+      .required('Candidate Number is required'),
     certificate: Yup.string().required('Certificate is required'),
     first_name: Yup.string().required('First Name is required'),
     last_name: Yup.string().required('Last Name is required'),
-    pic_path: Yup.string().required('Picture path is required'),
+    pic_path: Yup.string(),
     position: Yup.string().required('Position is required'),
   });
 
@@ -103,6 +108,7 @@ function RegisterCandidate() {
                           </label>
                           <Field
                             className="form-control"
+                            id="candidate_num"
                             name="candidate_num"
                             type="text"
                           />
@@ -116,6 +122,7 @@ function RegisterCandidate() {
                           <label htmlFor="first_name">First Name</label>
                           <Field
                             className="form-control"
+                            id="first_name"
                             name="first_name"
                             type="text"
                           />
@@ -129,6 +136,7 @@ function RegisterCandidate() {
                           <label htmlFor="last_name">Last Name</label>
                           <Field
                             className="form-control"
+                            id="last_name"
                             name="last_name"
                             type="text"
                           />
@@ -139,9 +147,10 @@ function RegisterCandidate() {
                           />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="cert">Certificate</label>
+                          <label htmlFor="certificate">Certificate</label>
                           <Field
                             className="form-control"
+                            id="certificate"
                             name="certificate"
                             type="text"
                           />
@@ -156,6 +165,7 @@ function RegisterCandidate() {
                           <Field
                             as="select"
                             className="form-control"
+                            id="position"
                             name="position"
                           >
                             <option value="President">President</option>
@@ -176,6 +186,7 @@ function RegisterCandidate() {
                           </label>
                           <Field
                             className="form-control"
+                            id="pic_path"
                             name="pic_path"
                             type="text"
                           />
@@ -186,10 +197,11 @@ function RegisterCandidate() {
                           />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="description">Agenda</label>
+                          <label htmlFor="agenda">Agenda</label>
                           <Field
                             as="textarea"
                             className="form-control"
+                            id="agenda"
                             name="agenda"
                             rows="4"
                           />

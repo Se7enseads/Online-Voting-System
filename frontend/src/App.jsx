@@ -29,7 +29,7 @@ function App() {
         setVice(data.vice);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        return `Error fetching data: ${error}`;
       });
   }, []);
 

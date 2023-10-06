@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-DEFAULT_IMAGE = "/images/OTIS.jpeg"
+DEFAULT_IMAGE = "/images/default.jpg"
 
 
 class UserModel(UserMixin, db.Model):
@@ -29,6 +29,7 @@ class VotesModel(db.Model):
     vice_pres = db.Column(db.Integer, nullable=False)
 
     user = db.relationship('UserModel', back_populates='votes')
+
 
 class CandidateModel(db.Model):
     __tablename__ = 'candidates'
