@@ -1,4 +1,5 @@
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+[![license](https://img.shields.io/badge/license-%20MIT%20-green.svg)](./LICENSE)
 
 # Online-Voting-System
 
@@ -12,7 +13,7 @@ This is a web-based election voting system built with Flask for the backend and 
 - User login with email and password.
 - User authentication and authorization using JWT tokens.
 - Voting for presidential and vice-presidential candidates.
-- Displaying candidate information including their images, names, roll numbers and  agendas
+- Displaying candidate information including their images, names, roll numbers and agendas
 - Admin privileges for registering candidates.
 - Protection against double voting.
 - Responsive web design for various screen sizes.
@@ -26,7 +27,6 @@ The project is divided into two main parts: the frontend and the backend.
 The frontend of the application is built with React and organized as follows:
 
 - `src/components`: Contains React components, including the CandidateInformation component for displaying candidate information.
-- `src/assets`: Stores static assets like images and styles.
 - `src/App.js`: Main application component that handles routing.
 - `src/index.js`: Entry point of the React application.
 
@@ -36,9 +36,7 @@ The backend of the application is built with Flask and follows the MVC (Model-Vi
 
 - `app.py`: Main Flask application file, including routes and configuration.
 - `models.py`: Defines the database models for users, votes, and candidates.
-- `auth_bp.py`: Blueprint for handling user authentication (login, logout, registration).
 - `api_bp.py`: Blueprint for handling API routes related to candidates and user profiles.
-- `config.py`: Configuration settings for the Flask application.
 - `instance/app.db`: SQLite database file for storing user and vote data.
 
 ## Getting Started
@@ -47,10 +45,10 @@ To run the application locally, follow these steps:
 
 ### Run both frameworks
 
-- install Honcho
+- install Honcho and run on root
 
- ```bash
-  $ honcho start
+```bash
+ $ honcho start
 ```
 
 ### Backend Setup
@@ -86,7 +84,7 @@ To run the application locally, follow these steps:
 5. Start the Flask backend server:
 
    ```
-   flask run
+   python3 app.py
    ```
 
 ### Frontend Setup
@@ -106,7 +104,7 @@ To run the application locally, follow these steps:
 3. Start the React development server:
 
    ```
-   npm start
+   npm run dev
    ```
 
 ## Usage

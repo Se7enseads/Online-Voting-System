@@ -27,9 +27,9 @@ function CandidateInformation({ prez, vice }) {
                               <div className="card-content has-text-centered">
                                 <div className="circle-image">
                                   <img
+                                    alt="Candidate"
                                     className="is-rounded"
                                     src={prezCandidate.pic_path}
-                                    alt="Candidate Image"
                                   />
                                 </div>
                                 <div className="card-text">
@@ -41,7 +41,7 @@ function CandidateInformation({ prez, vice }) {
                                     {prezCandidate.candidate_num}
                                   </p>
                                   <p className="title is-5 has-text-dark is-italic">
-                                    "{prezCandidate.agenda}"
+                                    &ldquo;{prezCandidate.agenda}&rdquo;
                                   </p>
                                   <p className="subtitle has-text-dark has-text-weight-semibold">
                                     {prezCandidate.certificate}
@@ -64,9 +64,9 @@ function CandidateInformation({ prez, vice }) {
                               <div className="card-content has-text-centered">
                                 <div className="circle-image">
                                   <img
+                                    alt="Candidate"
                                     className="is-rounded"
                                     src={viceCandidate.pic_path}
-                                    alt="Candidate Image"
                                   />
                                 </div>
                                 <div className="card-text">

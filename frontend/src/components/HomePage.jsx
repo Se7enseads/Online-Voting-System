@@ -34,10 +34,10 @@ function HomePage({ alert }) {
               <div className=" card-body centered-container">
                 <div className="image-container has-text-centered">
                   <img
-                    src="public/images/vote2.jpg"
                     alt="Vote App"
                     className="img-fluid centered-image"
-                    style={{ maxWidth: '30%', height: 'auto' }}
+                    src="public/images/vote2.jpg"
+                    style={{ height: 'auto', maxWidth: '30%' }}
                   />
                 </div>
               </div>

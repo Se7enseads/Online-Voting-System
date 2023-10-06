@@ -1,9 +1,9 @@
 body {
-    background-image: url("public/images/backgrd.jpeg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
-    background-attachment: fixed;
+  background-image: url('/images/backgrd.jpeg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .text-with-shadow {
@@ -75,7 +75,6 @@ body {
 .tile.is-parent {
   flex: 0 0 calc(30% - 10px);
   margin: 10px;
-  
 }
 
 .tile.is-child {
@@ -151,7 +150,6 @@ img.is-rounded {
 .subtitle {
   font-size: 18px;
   margin-bottom: 20px;
-  
 }
 
 .text-with-shadow {
@@ -179,26 +177,23 @@ img.is-rounded {
 }
 
 .rounded {
-    border-radius: 10px;
-    
+  border-radius: 10px;
 }
 
 .circle-image img {
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto;
-    
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
 }
 
 .card {
-    background-color: #ffffff;
-    border: 1px solid #e5e5e5;
-    padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  padding: 1rem;
 }
 
 .card-text {
-    text-align: center;
-    
+  text-align: center;
 }
 
 .vote-chart-container {

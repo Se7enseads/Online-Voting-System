@@ -91,7 +91,7 @@ function Profile() {
                   )}
                   <div
                     className="card mx-auto my-auto text-center"
-                    style={{ width: '50%', padding: '20px' }}
+                    style={{ padding: '20px', width: '50%' }}
                   >
                     <div>
                       <h1 className="title">Welcome, {name}!</h1>
@@ -113,7 +113,7 @@ function Profile() {
                       <img
                         alt="President Candidates"
                         className="img-fluid rounded"
-                        src="public/images/profile1.jpeg"
+                        src="/images/profile1.jpeg"
                         style={{ maxHeight: '400px', maxWidth: '400px' }}
                       />
                     </div>
@@ -195,7 +195,7 @@ function Profile() {
                       <img
                         alt="Vice-President Candidates"
                         className="img-fluid rounded"
-                        src="public/images/profile2.jpeg"
+                        src="/images/profile2.jpeg"
                         style={{ maxHeight: '400px', maxWidth: '400px' }}
                       />
                     </div>
