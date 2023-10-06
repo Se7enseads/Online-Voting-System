@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import Plotly from 'react-plotly.js';
+// import Plotly from 'react-plotly.js';
+import * as Plotly from './plotly.js/dist/plotly.js';
 
 function VoteChart() {
   const [chartData, setChartData] = useState({});
