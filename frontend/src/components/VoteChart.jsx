@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
-// import * as Plotly from './plotly.js/dist/plotly.js';
 
 function VoteChart() {
   const [chartData, setChartData] = useState({});
@@ -45,8 +44,8 @@ function VoteChart() {
   }, []);
 
   return (
-    <div className="vote-chart-container">
-      <div className="vote-chart-plot">
+    <div>
+      <div>
         <Plot
           config={{ responsive: true }}
           data={chartData.data}

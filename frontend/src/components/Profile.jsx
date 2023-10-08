@@ -77,50 +77,42 @@ function Profile() {
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
+    <div>
+      <div>
+        <div>
           {isAuthenticated ? (
             <>
               {voter ? (
                 <>
                   {alertVisible && (
-                    <div className="alert alert-success mt-3">
-                      Your vote has been cast successfully.
-                    </div>
+                    <div>Your vote has been cast successfully.</div>
                   )}
-                  <div
-                    className="card mx-auto my-auto text-center"
-                    style={{ width: '50%', padding: '20px' }}
-                  >
+                  <div style={{ padding: '20px', width: '50%' }}>
                     <div>
-                      <h1 className="title">Welcome, {name}!</h1>
-                      <h1 className="subtitle">
-                        Your vote has already been cast!
-                      </h1>
+                      <h1>Welcome, {name}!</h1>
+                      <h1>Your vote has already been cast!</h1>
                     </div>
                   </div>
                 </>
               ) : (
                 <div>
-                  <h1 className="title">Welcome, {name}!</h1>
-                  <h2 className="subtitle">
+                  <h1>Welcome, {name}!</h1>
+                  <h2>
                     You can cast your vote here.
                     <br />
                   </h2>
-                  <div className="row">
-                    <div className="col-md-4">
+                  <div>
+                    <div>
                       <img
                         alt="President Candidates"
-                        className="img-fluid rounded"
-                        src="public/images/profile1.jpeg"
+                        src="/images/profile1.jpeg"
                         style={{ maxHeight: '400px', maxWidth: '400px' }}
                       />
                     </div>
-                    <div className="col-md-4">
-                      <div className="card">
-                        <div className="card-body">
-                          <h3 className="title has-text-dark">Voting Form</h3>
+                    <div>
+                      <div>
+                        <div>
+                          <h3>Voting Form</h3>
                           Do take a look at the{' '}
                           <a href="/candidates">
                             <u>candidates</u>
@@ -128,10 +120,9 @@ function Profile() {
                           standing in the election before casting your vote.
                           <br />
                           <form onSubmit={handleSubmit}>
-                            <div className="form-group">
+                            <div>
                               <label htmlFor="president">President</label>
                               <select
-                                className="form-control"
                                 id="president"
                                 name="president"
                                 onChange={(e) =>
@@ -142,6 +133,7 @@ function Profile() {
                                 }
                                 value={selectedChoices.president}
                               >
+                                <option value="">Select a President</option>
                                 {prez.map((prezCandidate) => (
                                   <option
                                     key={prezCandidate.candidate_num}
@@ -154,12 +146,11 @@ function Profile() {
                                 ))}
                               </select>
                             </div>
-                            <div className="form-group">
+                            <div>
                               <label htmlFor="vice-president">
                                 Vice-President
                               </label>
                               <select
-                                className="form-control"
                                 id="vice-president"
                                 name="vice-president"
                                 onChange={(e) =>
@@ -170,6 +161,9 @@ function Profile() {
                                 }
                                 value={selectedChoices.vicePresident}
                               >
+                                <option value="">
+                                  Select a Vice President
+                                </option>
                                 {vice.map((viceCandidate) => (
                                   <option
                                     key={viceCandidate.candidate_num}
@@ -182,20 +176,17 @@ function Profile() {
                                 ))}
                               </select>
                             </div>
-                            <div className="form-group">
-                              <button className="btn btn-success" type="submit">
-                                Cast Vote
-                              </button>
+                            <div>
+                              <button type="submit">Cast Vote</button>
                             </div>
                           </form>
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-4">
+                    <div>
                       <img
                         alt="Vice-President Candidates"
-                        className="img-fluid rounded"
-                        src="public/images/profile2.jpeg"
+                        src="/images/profile2.jpeg"
                         style={{ maxHeight: '400px', maxWidth: '400px' }}
                       />
                     </div>

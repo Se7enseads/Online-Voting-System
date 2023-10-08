@@ -3,11 +3,11 @@ import { createContext, useContext, useMemo, useState } from 'react';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [token, setToken] = useState(sessionStorage.getItem('token') || '');
 
   const updateToken = (newToken) => {
     setToken(newToken);
-    localStorage.setItem('token', newToken);
+    sessionStorage.setItem('token', newToken);
   };
 
   const authContextValue = useMemo(() => {

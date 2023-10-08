@@ -2,15 +2,14 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 
-import { useAuth } from '../utils/AuthContext';
-
-function Login() {
+function Login({ token, updateToken }) {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [style, setStyle] = useState('');
-  const { token, updateToken } = useAuth();
 
   useEffect(() => {
     if (token && token !== 'undefined' && token !== '') {
@@ -42,101 +41,123 @@ function Login() {
 
         if (response.ok) {
           setStyle('success');
-
-          setTimeout(() => {
-            resetForm();
-            navigate('/');
-          }, 3000);
-
           return response.json();
         }
+
         setStyle('danger');
         return response.json();
       })
       .then((data) => {
+        if (style === 'success') {
+          toast.success(data.message, {
+            autoClose: 3000, // Auto close the toast after 3 seconds
+            position: toast.POSITION.TOP_CENTER,
+          });
+          resetForm();
+          navigate('/');
+        } else {
+          toast.error(data.message, {
+            autoClose: false, // Don't auto close error toasts
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
         updateToken(data.access_token);
-        setMessage(data.message);
       })
       .catch(() => {
-        setMessage('An error occurred while logging in.');
+        toast.error('An error occurred while logging in.', {
+          autoClose: false,
+          position: toast.POSITION.TOP_CENTER,
+        });
         setStyle('danger');
       });
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center mt-5">
-        <div className="col-md-4">
-          <h3 className="card-title text-center">Login</h3>
-          {token && token !== 'undefined' && token !== '' ? (
-            'you are already logged in'
-          ) : (
-            <div className="card">
-              <div className="card-body">
-                {message.length > 0 && (
-                  <div className={`alert alert-${style}`}>{message}</div>
-                )}
-                <Formik
-                  initialValues={{
-                    email: '',
-                    password: '',
-                  }}
-                  onSubmit={handleLogin}
-                  validationSchema={validationSchema}
+    <div className="h-screen bg-gray-100 p-4 dark:bg-slate-900">
+      <div className="mx-auto mt-10 max-w-md rounded-md bg-white p-3 shadow-md dark:bg-slate-900 dark:shadow-2xl">
+        <h3 className="mb-4 text-2xl font-semibold dark:text-white">Login</h3>
+        {token && token !== 'undefined' && token !== '' ? (
+          <p className="text-green-600">You are already logged in</p>
+        ) : (
+          <div>
+            {message.length > 0 && (
+              <div className="mb-4 bg-red-100 p-2 text-red-600">{message}</div>
+            )}
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              onSubmit={handleLogin}
+              validationSchema={validationSchema}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <div className="mb-4">
+                    <label
+                      className=" block text-gray-700 dark:text-slate-50"
+                      htmlFor="email"
+                    >
+                      Your Email
+                    </label>
+                    <Field
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white"
+                      id="email"
+                      name="email"
+                      placeholder="Email"
+                      type="email"
+                    />
+                    <ErrorMessage
+                      className="text-red-600"
+                      component="div"
+                      name="email"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 dark:text-gray-100"
+                      htmlFor="password"
+                    >
+                      Your Password
+                    </label>
+                    <Field
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white"
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      type="password"
+                    />
+                    <ErrorMessage
+                      className="text-red-600"
+                      component="div"
+                      name="password"
+                    />
+                  </div>
+                  <button
+                    className="w-full rounded-md bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none"
+                    disabled={isSubmitting}
+                    type="submit"
+                  >
+                    {isSubmitting ? 'Logging In...' : 'Login'}
+                  </button>
+                </Form>
+              )}
+            </Formik>
+            <div className="mt-4">
+              <p className="text-gray-600 dark:text-slate-900">
+                Don't have an account?
+                <Link
+                  className="ml-2 text-blue-500 hover:underline dark:text-white"
+                  to="/sign-up"
                 >
-                  {({ isSubmitting }) => (
-                    <Form>
-                      <div className="form-group">
-                        <label htmlFor="email">Your Email</label>
-                        <Field
-                          className="form-control"
-                          id="email"
-                          name="email"
-                          placeholder="Email"
-                          type="email"
-                        />
-                        <ErrorMessage
-                          className="text-danger"
-                          component="div"
-                          name="email"
-                        />
-                      </div>
-                      <div className="form-group mb-2">
-                        <label htmlFor="password">Your Password</label>
-                        <Field
-                          className="form-control"
-                          id="password"
-                          name="password"
-                          placeholder="Password"
-                          type="password"
-                        />
-                        <ErrorMessage
-                          className="text-danger"
-                          component="div"
-                          name="password"
-                        />
-                      </div>
-                      <button
-                        className="btn btn-info btn-block btn-primary mb-3"
-                        disabled={isSubmitting}
-                        type="submit"
-                      >
-                        {isSubmitting ? 'Logging In...' : 'Login'}
-                      </button>
-                    </Form>
-                  )}
-                </Formik>
-                <div>
-                  <p>
-                    Don&apos;t have an account?
-                    <Link to="/sign-up">Create an account</Link>
-                  </p>
-                </div>
-              </div>
+                  Create an account
+                </Link>
+              </p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

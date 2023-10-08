@@ -208,9 +208,31 @@ class Candidate(Resource):
         }
 
         return response_body, 200
+        
+    def delete(self, candidate_id):
+        """
+        Delete a candidate and associated votes.
+
+        :param candidate_id: The ID of the candidate to delete
+        :return: JSON response indicating the deletion status
+        """
+        candidate = CandidateModel.query.get(candidate_id)
+
+        if candidate is None:
+            return {"message": "Candidate not found"}, 404
+
+        VotesModel.query.filter_by(president=candidate.candidate_num).delete()
+        VotesModel.query.filter_by(vice_pres=candidate.candidate_num).delete()
+
+        db.session.delete(candidate)
+        db.session.commit()
+
+        return {
+            "message": "Candidate and associated votes deleted successfully"
+        }, 200
 
 
-api.add_resource(Candidate, '/candidate')
+api.add_resource(Candidate, '/candidate', '/candidate/<int:candidate_id>')
 
 
 class CandidateRegister(Resource):

@@ -71,19 +71,24 @@ function RegisterCandidate() {
     certificate: Yup.string().required('Certificate is required'),
     first_name: Yup.string().required('First Name is required'),
     last_name: Yup.string().required('Last Name is required'),
-    pic_path: Yup.string(),
+    pic_path: Yup.string()
+      .test('valid-pic-path', 'Invalid pic_path', (value) => {
+        // Check if the value is empty or if it meets the criteria for URL or "/images/" path
+        return !value || /^(https?:\/\/.{1,50}|\/images\/.{1,50})$/.test(value);
+      })
+      .nullable(),
     position: Yup.string().required('Position is required'),
   });
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-5">
+    <div>
+      <div>
+        <div>
           {isAuthenticated ? (
             <>
-              <h3 className="title">Register a new candidate</h3>
-              <div className="card">
-                <div className="card-body">
+              <h3>Register a new candidate</h3>
+              <div>
+                <div>
                   {message.length > 0 && (
                     <div className={`alert alert-${style}`}>{message}</div>
                   )}
@@ -95,63 +100,44 @@ function RegisterCandidate() {
                       first_name: '',
                       last_name: '',
                       pic_path: '',
-                      position: 'President',
+                      position: '',
                     }}
                     onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                   >
                     {({ isSubmitting }) => (
                       <Form>
-                        <div className="form-group">
+                        <div>
                           <label htmlFor="candidate_num">
                             Candidate Number
                           </label>
                           <Field
-                            className="form-control"
                             id="candidate_num"
                             name="candidate_num"
                             type="text"
                           />
-                          <ErrorMessage
-                            className="text-danger"
-                            component="div"
-                            name="candidate_num"
-                          />
+                          <ErrorMessage component="div" name="candidate_num" />
                         </div>
-                        <div className="form-group">
+                        <div>
                           <label htmlFor="first_name">First Name</label>
                           <Field
-                            className="form-control"
                             id="first_name"
                             name="first_name"
                             type="text"
                           />
-                          <ErrorMessage
-                            className="text-danger"
-                            component="div"
-                            name="first_name"
-                          />
+                          <ErrorMessage component="div" name="first_name" />
                         </div>
-                        <div className="form-group">
+                        <div>
                           <label htmlFor="last_name">Last Name</label>
-                          <Field
-                            className="form-control"
-                            id="last_name"
-                            name="last_name"
-                            type="text"
-                          />
-                          <ErrorMessage
-                            className="text-danger"
-                            component="div"
-                            name="last_name"
-                          />
+                          <Field id="last_name" name="last_name" type="text" />
+                          <ErrorMessage component="div" name="last_name" />
                         </div>
-                        <div className="form-group">
+                        <div>
                           <label htmlFor="certificate">Certificate</label>
                           <Field
-                            className="form-control"
                             id="certificate"
                             name="certificate"
+                            placeholder="Phd, Diploma ..."
                             type="text"
                           />
                           <ErrorMessage
@@ -160,14 +146,10 @@ function RegisterCandidate() {
                             name="certificate"
                           />
                         </div>
-                        <div className="form-group">
+                        <div>
                           <label htmlFor="position">Position</label>
-                          <Field
-                            as="select"
-                            className="form-control"
-                            id="position"
-                            name="position"
-                          >
+                          <Field as="select" id="position" name="position">
+                            <option>Select a Position</option>
                             <option value="President">President</option>
                             <option value="Vice-President">
                               Vice-President
@@ -180,43 +162,31 @@ function RegisterCandidate() {
                           />
                         </div>
 
-                        <div className="form-group">
+                        <div>
                           <label htmlFor="pic_path">
                             Add path to candidate&apos;s picture
                           </label>
                           <Field
-                            className="form-control"
                             id="pic_path"
                             name="pic_path"
+                            placeholder="/images/... or URL"
                             type="text"
                           />
-                          <ErrorMessage
-                            className="text-danger"
-                            component="div"
-                            name="pic_path"
-                          />
+                          <ErrorMessage component="div" name="pic_path" />
                         </div>
-                        <div className="form-group">
+                        <div>
                           <label htmlFor="agenda">Agenda</label>
                           <Field
                             as="textarea"
-                            className="form-control"
                             id="agenda"
                             name="agenda"
+                            placeholder="For a better tomorrow"
                             rows="4"
                           />
-                          <ErrorMessage
-                            className="text-danger"
-                            component="div"
-                            name="agenda"
-                          />
+                          <ErrorMessage component="div" name="agenda" />
                         </div>
 
-                        <button
-                          className="btn btn-info btn-block"
-                          disabled={isSubmitting}
-                          type="submit"
-                        >
+                        <button disabled={isSubmitting} type="submit">
                           {isSubmitting
                             ? 'Submitting...'
                             : 'Register Candidate'}

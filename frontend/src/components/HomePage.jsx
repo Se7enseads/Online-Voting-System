@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function HomePage({ alert }) {
   const [showLogoutAlert, setShowLogoutAlert] = useState(alert);
@@ -16,49 +16,40 @@ function HomePage({ alert }) {
   }, [showLogoutAlert]);
 
   return (
-    <section className="hero is-white is-fullheight-with-navbar home-page">
-      <div className="hero-body">
-        <div className="container">
-          <div className="columns">
-            <div className="column is-4">
-              <div className="centered-container">
-                <h1 className="title is-italic has-text-success is-1">
-                  Vote App
-                </h1>
-                <h2 className="subtitle has-text-dark is-4">
-                  Login and start voting
-                </h2>
-              </div>
+    <section className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-slate-900">
+      <div className="mx-auto max-w-4xl p-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-indigo-600 dark:text-indigo-300">
+              Vote App
+            </h1>
+            <h2 className="mt-4 text-2xl text-gray-700 dark:text-gray-300">
+              Login and start voting
+            </h2>
+            <div className="mt-6 text-gray-700 dark:text-gray-300">
+              <p className="mb-4">
+                Created a simple University election voting app using Flask and
+                React, where students can register themselves. Once registered,
+                students can log in and cast their votes.
+              </p>
+              <p className="mb-4">
+                Candidate info tab gives you information about the candidates
+                standing for the elections.
+              </p>
+              <p>
+                A new candidate can be registered only by the Admin. Admin can
+                log in and fill a form to register a new candidate for the
+                election.
+              </p>
             </div>
-            <div className="card align-items-center column is-8">
-              <div className=" card-body centered-container">
-                <div className="image-container has-text-centered">
-                  <img
-                    src="public/images/vote2.jpg"
-                    alt="Vote App"
-                    className="img-fluid centered-image"
-                    style={{ maxWidth: '30%', height: 'auto' }}
-                  />
-                </div>
-              </div>
-              <div className="card-body image-text centered-text">
-                <p className="has-text-weight-semibold has-text-dark text-with-shadow">
-                  Created a simple University election voting app using Flask
-                  and React, where students can register themselves. Once
-                  registered, students can log in and cast their votes.
-                </p>
-                <br />
-                <p className="has-text-weight-semibold has-text-dark">
-                  Candidate info tab gives you information about the candidates
-                  standing for the elections.
-                </p>
-                <br />
-                <p className="has-text-weight-semibold has-text-dark">
-                  A new candidate can be registered only by the Admin. Admin can
-                  log in and fill a form to register a new candidate for the
-                  election.
-                </p>
-              </div>
+          </div>
+          <div className="md:order-first">
+            <div className="flex justify-center">
+              <img
+                alt="Vote App"
+                src="/images/vote2.jpg"
+                style={{ height: 'auto', maxWidth: '70%' }}
+              />
             </div>
           </div>
         </div>

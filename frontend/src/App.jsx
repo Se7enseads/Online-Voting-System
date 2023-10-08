@@ -12,29 +12,33 @@ import VoteChart from './components/VoteChart';
 import { useAuth } from './utils/AuthContext';
 
 function App() {
-  const [prez, setPrez] = useState([]);
-  const [vice, setVice] = useState([]);
-  const { updateToken } = useAuth();
+  const { token, updateToken } = useAuth();
   const [showAlert, setShowAlert] = useState(false);
 
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5555/api/candidate', {
-      'Content-Type': 'application/json',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPrez(data.prez);
-        setVice(data.vice);
+    if (token) {
+      fetch('http://localhost:5555/api/profile', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       })
-      .catch((error) => {
-        return `Error fetching data: ${error}`;
-      });
-  }, []);
+        .then((response) => response.json())
+        .then((data) => {
+          setIsAdmin(data.admin);
+        })
+        .catch((error) => {
+          updateToken('');
+          return `Error fetching data: ${error}`;
+        });
+    }
+  }, [token, updateToken]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    sessionStorage.clear('token');
     updateToken('');
     setTimeout(() => {
       navigate('/');
@@ -43,16 +47,20 @@ function App() {
   };
 
   return (
-    <div>
-      <NavBar onLogout={handleLogout} />
+    <div className="dark:bg-slate-900">
+      <NavBar isAdmin={isAdmin} onLogout={handleLogout} token={token} />
       <main>
         <Routes>
           <Route element={<HomePage alert={showAlert} />} exact path="/" />
           <Route
-            element={<CandidateInformation prez={prez} vice={vice} />}
+            element={<CandidateInformation isAdmin={isAdmin} />}
             path="/candidates"
           />
-          <Route element={<Login />} path="/login" />
+          {/* <Route element={<Candidates />} path={'/candidates'} /> */}
+          <Route
+            element={<Login token={token} updateToken={updateToken} />}
+            path="/login"
+          />
           <Route element={<RegisterCandidate />} path="/register" />
           <Route element={<SignUp />} path="/sign-up" />
           <Route element={<VoteChart />} path="/results" />

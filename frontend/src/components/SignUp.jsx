@@ -56,15 +56,13 @@ function SignUp() {
   });
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-4">
-          <div className="card">
-            <div className="card-body">
-              <h3 className="card-title mb-4 text-center">Sign Up</h3>
-              {message && (
-                <div className={`alert alert-${style} mb-4`}>{message}</div>
-              )}
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <h3>Sign Up</h3>
+              {message && <div>{message}</div>}
               <Formik
                 initialValues={{
                   email: '',
@@ -78,75 +76,40 @@ function SignUp() {
               >
                 {({ isSubmitting }) => (
                   <Form>
-                    <div className="form-group mb-3">
+                    <div>
                       <Field
-                        className="form-control"
                         name="nat_id"
                         placeholder="National ID"
                         type="text"
                       />
-                      <ErrorMessage
-                        className="text-danger"
-                        component="div"
-                        name="nat_id"
-                      />
+                      <ErrorMessage component="div" name="nat_id" />
                     </div>
-                    <div className="form-group mb-3">
-                      <Field
-                        className="form-control"
-                        name="email"
-                        placeholder="Email"
-                        type="email"
-                      />
-                      <ErrorMessage
-                        className="text-danger"
-                        component="div"
-                        name="email"
-                      />
+                    <div>
+                      <Field name="email" placeholder="Email" type="email" />
+                      <ErrorMessage component="div" name="email" />
                     </div>
-                    <div className="form-group mb-3">
-                      <Field
-                        className="form-control"
-                        name="name"
-                        placeholder="Name"
-                        type="text"
-                      />
-                      <ErrorMessage
-                        className="text-danger"
-                        component="div"
-                        name="name"
-                      />
+                    <div>
+                      <Field name="name" placeholder="Name" type="text" />
+                      <ErrorMessage component="div" name="name" />
                     </div>
-                    <div className="form-group mb-3">
+                    <div>
                       <Field
-                        className="form-control"
                         name="password1"
                         placeholder="Password"
                         type="password"
                       />
-                      <ErrorMessage
-                        className="text-danger"
-                        component="div"
-                        name="password1"
-                      />
+                      <ErrorMessage component="div" name="password1" />
                     </div>
-                    <div className="form-group mb-4">
+                    <div>
                       <Field
-                        className="form-control"
                         name="password2"
                         placeholder="Confirm Password"
                         type="password"
                       />
-                      <ErrorMessage
-                        className="text-danger"
-                        component="div"
-                        name="password2"
-                      />
+                      <ErrorMessage component="div" name="password2" />
                     </div>
                     <button
-                      className={`btn btn-info btn-block ${
-                        isSubmitting ? 'disabled' : ''
-                      }`}
+                      className={`${isSubmitting ? 'disabled' : ''}`}
                       disabled={isSubmitting}
                       type="submit"
                     >
