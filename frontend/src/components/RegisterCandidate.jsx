@@ -20,7 +20,7 @@ function RegisterCandidate() {
       return;
     }
 
-    fetch('http://localhost:5555/api/profile', {
+    fetch('http://localhost:10000/api/profile', {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ function RegisterCandidate() {
   }, [token]);
 
   const handleSubmit = (values, { setSubmitting }) => {
-    fetch('http://localhost:5555/api/candidate_register', {
+    fetch('http://localhost:10000/api/candidate_register', {
       body: JSON.stringify(values),
       headers: {
         Authorization: `Bearer ${token}`,

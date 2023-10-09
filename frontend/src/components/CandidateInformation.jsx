@@ -7,7 +7,7 @@ function CandidateInformation({ isAdmin }) {
   const [vice, setVice] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5555/api/candidate', {
+    fetch('http://localhost:10000/api/candidate', {
       'Content-Type': 'application/json',
     })
       .then((response) => response.json())

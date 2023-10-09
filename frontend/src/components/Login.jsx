@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 
 function Login({ token, updateToken }) {
   const navigate = useNavigate();
-  const [message, setMessage] = useState('');
   const [style, setStyle] = useState('');
 
   useEffect(() => {
@@ -29,7 +28,7 @@ function Login({ token, updateToken }) {
   });
 
   const handleLogin = (values, { resetForm, setSubmitting }) => {
-    fetch('http://localhost:5555/api/login', {
+    fetch('http://localhost:10000/api/login', {
       body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json',
@@ -50,14 +49,14 @@ function Login({ token, updateToken }) {
       .then((data) => {
         if (style === 'success') {
           toast.success(data.message, {
-            autoClose: 3000, // Auto close the toast after 3 seconds
+            autoClose: 3000,
             position: toast.POSITION.TOP_CENTER,
           });
           resetForm();
           navigate('/');
         } else {
           toast.error(data.message, {
-            autoClose: false, // Don't auto close error toasts
+            autoClose: false,
             position: toast.POSITION.TOP_CENTER,
           });
         }
@@ -80,9 +79,6 @@ function Login({ token, updateToken }) {
           <p className="text-green-600">You are already logged in</p>
         ) : (
           <div>
-            {message.length > 0 && (
-              <div className="mb-4 bg-red-100 p-2 text-red-600">{message}</div>
-            )}
             <Formik
               initialValues={{
                 email: '',

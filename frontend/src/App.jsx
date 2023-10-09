@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      fetch('http://localhost:5555/api/profile', {
+      fetch('http://localhost:10000/api/profile', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',

@@ -1,0 +1,13 @@
+services:
+  - name: web
+    type: web
+    region: frankfurt
+    runtime: python
+    buildCommand: pip install -r requirements.txt && npm install --prefix frontend && npm run build --prefix frontend
+    startCommand: gunicorn -b 127.0.0.1:5555 --chdir backend app:app
+    evnVar:
+      - key: DATABASE_URI
+        value: $DATABASE_URI
+      - key: PYTHON_VERSION
+        value: 3.10.12
+    autoDeploy: false

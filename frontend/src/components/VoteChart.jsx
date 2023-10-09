@@ -5,7 +5,7 @@ function VoteChart() {
   const [chartData, setChartData] = useState({});
 
   const fetchData = () => {
-    fetch('http://localhost:5555/api/votes')
+    fetch('http://localhost:10000/api/votes')
       .then((response) => response.json())
       .then((responseData) => {
         const { data, data1, labels, labels1 } = responseData;

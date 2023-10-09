@@ -10,7 +10,7 @@ function SignUp() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await fetch('http://localhost:5555/api/sign-up', {
+      const response = await fetch('http://localhost:10000/api/sign-up', {
         body: JSON.stringify(values),
         headers: {
           'Content-Type': 'application/json',

@@ -43,13 +43,13 @@ function HomePage({ alert }) {
               </p>
             </div>
           </div>
-          <div className="md:order-first">
+          <div>
             <div className="flex justify-center">
-              <img
-                alt="Vote App"
-                src="/images/vote2.jpg"
-                style={{ height: 'auto', maxWidth: '70%' }}
-              />
+              <iframe
+                title="Election Animation"
+                src="https://lottie.host/?file=cdf99cf4-80f5-40dd-9ea4-ce7cc913f237/rJyNGG2UWA.lottie"
+                className="h-72 w-96"
+              ></iframe>
             </div>
           </div>
         </div>
