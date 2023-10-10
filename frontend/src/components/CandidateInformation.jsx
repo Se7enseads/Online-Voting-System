@@ -7,7 +7,7 @@ function CandidateInformation({ isAdmin }) {
   const [vice, setVice] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:10000/api/candidate', {
+    fetch('http://localhost:5555/api/candidate', {
       'Content-Type': 'application/json',
     })
       .then((response) => response.json())
@@ -55,7 +55,7 @@ function CandidateInformation({ isAdmin }) {
                         {/* <p className="subtitle is-3 ">
                                     {prezCandidate.candidate_num}
                                   </p> */}
-                        <p>&ldquo;{viceCandidate.agenda}&rdquo;</p>
+                        <p>&ldquo;{prezCandidate.agenda}&rdquo;</p>
                         <p className="subtitle">
                           Highest education: {prezCandidate.certificate}
                         </p>

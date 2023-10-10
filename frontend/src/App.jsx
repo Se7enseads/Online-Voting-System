@@ -5,6 +5,7 @@ import CandidateInformation from './components/CandidateInformation';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
+import NotFound from './components/NotFound';
 import Profile from './components/Profile';
 import RegisterCandidate from './components/RegisterCandidate';
 import SignUp from './components/SignUp';
@@ -14,13 +15,14 @@ import { useAuth } from './utils/AuthContext';
 function App() {
   const { token, updateToken } = useAuth();
   const [showAlert, setShowAlert] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (token) {
-      fetch('http://localhost:10000/api/profile', {
+      fetch('http://localhost:5555/api/profile', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -46,9 +48,19 @@ function App() {
     }, 3000);
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <div className="dark:bg-slate-900">
-      <NavBar isAdmin={isAdmin} onLogout={handleLogout} token={token} />
+    <div className={`${darkMode ? 'dark' : null} dark:bg-slate-900`}>
+      <NavBar
+        darkMode={darkMode}
+        isAdmin={isAdmin}
+        onLogout={handleLogout}
+        toggleDarkMode={toggleDarkMode}
+        token={token}
+      />
       <main>
         <Routes>
           <Route element={<HomePage alert={showAlert} />} exact path="/" />
@@ -56,7 +68,6 @@ function App() {
             element={<CandidateInformation isAdmin={isAdmin} />}
             path="/candidates"
           />
-          {/* <Route element={<Candidates />} path={'/candidates'} /> */}
           <Route
             element={<Login token={token} updateToken={updateToken} />}
             path="/login"
@@ -65,6 +76,7 @@ function App() {
           <Route element={<SignUp />} path="/sign-up" />
           <Route element={<VoteChart />} path="/results" />
           <Route element={<Profile />} path="/profile" />
+          <Route element={<NotFound />} />
         </Routes>
       </main>
     </div>

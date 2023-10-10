@@ -10,7 +10,8 @@
     "plugin:react-hooks/recommended",
     "airbnb",
     "plugin:prettier/recommended",
-    "plugin:perfectionist/recommended-natural"
+    "plugin:perfectionist/recommended-natural",
+    "plugin:jsx-a11y/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -22,6 +23,7 @@
     "no-shadow": [0],
     "react/prop-types": [0],
     "react/button-has-type": [0],
-    "jsx-a11y/label-has-associated-control": [0]
+    // "jsx-a11y/label-has-associated-control": [0],
+    "react/jsx-no-useless-fragment": [0]
   }
 }

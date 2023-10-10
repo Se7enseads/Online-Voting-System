@@ -1,6 +1,6 @@
 function Buttons({ id, removeCandidate }) {
   const handleDelete = () => {
-    fetch(`http://localhost:10000/api/candidate/${id}`, {
+    fetch(`http://localhost:5555/api/candidate/${id}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())

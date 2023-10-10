@@ -1,3 +1,4 @@
+import '@dotlottie/player-component';
 import React, { useEffect, useState } from 'react';
 
 function HomePage({ alert }) {
@@ -13,6 +14,7 @@ function HomePage({ alert }) {
         clearTimeout(alertTimeout);
       };
     }
+    return () => {};
   }, [showLogoutAlert]);
 
   return (
@@ -43,14 +45,18 @@ function HomePage({ alert }) {
               </p>
             </div>
           </div>
-          <div>
-            <div className="flex justify-center">
-              <iframe
-                title="Election Animation"
-                src="https://lottie.host/?file=cdf99cf4-80f5-40dd-9ea4-ce7cc913f237/rJyNGG2UWA.lottie"
-                className="h-72 w-96"
-              ></iframe>
-            </div>
+          <div className="flex justify-center">
+            <dotlottie-player
+              autoplay
+              background="transparent"
+              direction="1"
+              hover
+              loop
+              mode="normal"
+              speed="1"
+              src="/images/election.lottie"
+              style={{ height: '300px', width: '300px' }}
+            />
           </div>
         </div>
       </div>

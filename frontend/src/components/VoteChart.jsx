@@ -5,11 +5,10 @@ function VoteChart() {
   const [chartData, setChartData] = useState({});
 
   const fetchData = () => {
-    fetch('http://localhost:10000/api/votes')
+    fetch('http://localhost:5555/api/votes')
       .then((response) => response.json())
       .then((responseData) => {
         const { data, data1, labels, labels1 } = responseData;
-
         const presidentVotes = {
           marker: { color: 'rgba(75, 192, 192, 0.6)' },
           name: 'President Votes',

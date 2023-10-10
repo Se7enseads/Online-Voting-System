@@ -1,3 +1,4 @@
+import '@dotlottie/player-component';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -28,7 +29,7 @@ function Login({ token, updateToken }) {
   });
 
   const handleLogin = (values, { resetForm, setSubmitting }) => {
-    fetch('http://localhost:10000/api/login', {
+    fetch('http://localhost:5555/api/login', {
       body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json',
@@ -72,12 +73,22 @@ function Login({ token, updateToken }) {
   };
 
   return (
-    <div className="h-screen bg-gray-100 p-4 dark:bg-slate-900">
-      <div className="mx-auto mt-10 max-w-md rounded-md bg-white p-3 shadow-md dark:bg-slate-900 dark:shadow-2xl">
-        <h3 className="mb-4 text-2xl font-semibold dark:text-white">Login</h3>
-        {token && token !== 'undefined' && token !== '' ? (
-          <p className="text-green-600">You are already logged in</p>
-        ) : (
+    <div className="h-screen bg-gray-100 p-4 align-middle dark:bg-slate-900">
+      <div className="flex h-full flex-col items-center justify-center md:flex-row">
+        <div className="hidden justify-center md:flex md:w-1/2">
+          <dotlottie-player
+            autoplay
+            background="transparent"
+            direction="1"
+            loop
+            mode="normal"
+            speed="1"
+            src="https://lottie.host/a4492280-8ac0-42be-b0b6-d46933364677/ZL9Jkn4IYn.lottie"
+            style={{ height: '300px', width: '300px' }}
+          />
+        </div>
+        <div className="mx-auto mt-10 max-w-md rounded-md bg-white p-3 shadow-md dark:bg-slate-900 hover:dark:shadow-2xl">
+          <h3 className="mb-4 text-2xl font-semibold dark:text-white">Login</h3>
           <div>
             <Formik
               initialValues={{
@@ -100,7 +111,7 @@ function Login({ token, updateToken }) {
                       className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white"
                       id="email"
                       name="email"
-                      placeholder="Email"
+                      placeholder="Enter Email"
                       type="email"
                     />
                     <ErrorMessage
@@ -140,8 +151,8 @@ function Login({ token, updateToken }) {
               )}
             </Formik>
             <div className="mt-4">
-              <p className="text-gray-600 dark:text-slate-900">
-                Don't have an account?
+              <p className="text-gray-600">
+                Don&apos;t have an account?
                 <Link
                   className="ml-2 text-blue-500 hover:underline dark:text-white"
                   to="/sign-up"
@@ -151,7 +162,7 @@ function Login({ token, updateToken }) {
               </p>
             </div>
           </div>
-        )}
+        </div>
       </div>
       <ToastContainer />
     </div>

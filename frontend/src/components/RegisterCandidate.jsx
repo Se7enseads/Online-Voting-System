@@ -20,7 +20,7 @@ function RegisterCandidate() {
       return;
     }
 
-    fetch('http://localhost:10000/api/profile', {
+    fetch('http://localhost:5555/api/profile', {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -28,7 +28,11 @@ function RegisterCandidate() {
     })
       .then((response) => response.json())
       .then((data) => {
-        data.admin ? setIsAuthenticated(true) : setIsAuthenticated(false);
+        if (data.admin === true) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
       })
       .catch(() => {
         setIsAuthenticated(false);
@@ -36,7 +40,7 @@ function RegisterCandidate() {
   }, [token]);
 
   const handleSubmit = (values, { setSubmitting }) => {
-    fetch('http://localhost:10000/api/candidate_register', {
+    fetch('http://localhost:5555/api/candidate_register', {
       body: JSON.stringify(values),
       headers: {
         Authorization: `Bearer ${token}`,
