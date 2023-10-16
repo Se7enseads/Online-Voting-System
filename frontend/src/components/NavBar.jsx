@@ -19,7 +19,7 @@ function Test2NavBar({ darkMode, isAdmin, onLogout, toggleDarkMode, token }) {
     if (isAdmin) {
       navigation.push({
         name: 'Register Candidate',
-        to: '/candidate_register',
+        to: '/register',
       });
     } else {
       navigation.push({ name: 'Vote', to: '/profile' });
@@ -108,7 +108,7 @@ function Test2NavBar({ darkMode, isAdmin, onLogout, toggleDarkMode, token }) {
   };
 
   return (
-    <header className="absolute inset-x-0 top-0">
+    <header className="absolute inset-x-0 top-0 z-10">
       <nav
         aria-label="Global"
         className="flex items-center justify-between p-5 lg:px-8"

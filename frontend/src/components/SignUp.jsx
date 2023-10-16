@@ -1,10 +1,11 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
+import '@dotlottie/player-component';
 
 function SignUp() {
-  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -20,15 +21,23 @@ function SignUp() {
       setSubmitting(false);
 
       if (response.ok) {
-        setTimeout(() => navigate('/login'), 3000);
-        setMessage('Sign up successful.');
+        const data = await response.json();
+        toast.success(data.message, {
+          autoClose: 2000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+        navigate('/login');
       } else {
         const data = await response.json();
-        setMessage(data.message || 'An error occurred while signing up.');
+        toast.error(data.message, {
+          autoClose: false,
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     } catch (error) {
       setSubmitting(false);
-      setMessage('An error occurred while signing up.');
+
+      toast.error('An error occurred while signing up.');
     }
   };
 
@@ -52,9 +61,22 @@ function SignUp() {
   });
 
   return (
-    <div className="h-screen bg-white text-black dark:bg-slate-900 dark:text-white">
+    <div className="h-screen bg-gray-100 text-black dark:bg-slate-900 dark:text-white">
+      <ToastContainer />
       <div className="flex min-h-screen items-center justify-center">
-        <div className="w-full max-w-md rounded-lg bg-gray-100 p-4 shadow-md dark:bg-gray-800">
+        <div className="hidden md:flex md:w-1/2">
+          <dotlottie-player
+            src="/images/sign-up.lottie"
+            background="transparent"
+            speed="1"
+            style={{ width: '300px', height: '300px' }}
+            direction="1"
+            mode="normal"
+            loop
+            autoplay
+          />
+        </div>
+        <div className="w-full max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-slate-900 hover:dark:shadow-2xl">
           <h3 className="mb-2 text-2xl font-semibold">Sign Up</h3>
           <Formik
             initialValues={{
@@ -71,7 +93,7 @@ function SignUp() {
               <Form>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring dark:bg-gray-700"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
                     name="nat_id"
                     placeholder="National ID"
                     type="text"
@@ -84,7 +106,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring dark:bg-gray-700"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
                     name="email"
                     placeholder="Email"
                     type="email"
@@ -97,7 +119,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring dark:bg-gray-700"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
                     name="name"
                     placeholder="Name"
                     type="text"
@@ -110,7 +132,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring dark:bg-gray-700"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
                     name="password1"
                     placeholder="Password"
                     type="password"
@@ -123,7 +145,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring dark:bg-gray-700"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
                     name="password2"
                     placeholder="Confirm Password"
                     type="password"

@@ -1,8 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
-
+import { useNavigate } from 'react-router';
 import { useAuth } from '../utils/AuthContext';
 import AccessDenied from './AccessDenied';
 
@@ -51,16 +50,16 @@ function RegisterCandidate() {
       .then((response) => {
         if (response.ok) {
           setMessage('Candidate registered successfully.');
-          setStyle('success');
+          setStyle('bg-green-500 text-white');
           setTimeout(() => navigate('/'), 2000);
         } else {
           setMessage('Failed to register candidate.');
-          setStyle('danger');
+          setStyle('bg-red-500 text-white');
         }
       })
       .catch(() => {
         setMessage('An error occurred while registering the candidate.');
-        setStyle('danger');
+        setStyle('bg-red-500 text-white');
       })
       .finally(() => {
         setSubmitting(false);
@@ -85,127 +84,191 @@ function RegisterCandidate() {
   });
 
   return (
-    <div>
-      <div>
-        <div>
-          {isAuthenticated ? (
-            <>
-              <h3>Register a new candidate</h3>
-              <div>
-                <div>
-                  {message.length > 0 && (
-                    <div className={`alert alert-${style}`}>{message}</div>
-                  )}
-                  <Formik
-                    initialValues={{
-                      agenda: '',
-                      candidate_num: '',
-                      certificate: '',
-                      first_name: '',
-                      last_name: '',
-                      pic_path: '',
-                      position: '',
-                    }}
-                    onSubmit={handleSubmit}
-                    validationSchema={validationSchema}
+    <div className="flex min-h-screen items-center justify-center dark:bg-slate-900">
+      {isAuthenticated ? (
+        <div className="mt-10 max-w-md p-4">
+          <h3 className="mb-4 text-2xl font-bold dark:text-white">
+            Register a new candidate
+          </h3>
+          <div className="rounded bg-white p-4 shadow-md">
+            {message.length > 0 && (
+              <div className={`rounded p-2 ${style}`}>{message}</div>
+            )}
+            <Formik
+              initialValues={{
+                agenda: '',
+                candidate_num: '',
+                certificate: '',
+                first_name: '',
+                last_name: '',
+                pic_path: '',
+                position: '',
+              }}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="candidate_num"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Candidate Number
+                    </label>
+                    <Field
+                      id="candidate_num"
+                      name="candidate_num"
+                      type="text"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="candidate_num"
+                      className="mt-1 text-sm text-red-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="first_name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      First Name
+                    </label>
+                    <Field
+                      id="first_name"
+                      name="first_name"
+                      type="text"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="first_name"
+                      className="mt-1 text-sm text-red-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="last_name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Last Name
+                    </label>
+                    <Field
+                      id="last_name"
+                      name="last_name"
+                      type="text"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="last_name"
+                      className="mt-1 text-sm text-red-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="certificate"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Certificate
+                    </label>
+                    <Field
+                      id="certificate"
+                      name="certificate"
+                      placeholder="Phd, Diploma ..."
+                      type="text"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="certificate"
+                      className="mt-1 text-sm text-red-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="position"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Position
+                    </label>
+                    <Field
+                      as="select"
+                      id="position"
+                      name="position"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+                    >
+                      <option>Select a Position</option>
+                      <option value="President">President</option>
+                      <option value="Vice-President">Vice-President</option>
+                    </Field>
+                    <ErrorMessage
+                      component="div"
+                      name="position"
+                      className="mt-1 text-sm text-red-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="pic_path"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Add path to candidate's picture
+                    </label>
+                    <Field
+                      id="pic_path"
+                      name="pic_path"
+                      placeholder="/images/... or URL"
+                      type="text"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="pic_path"
+                      className="mt-1 text-sm text-red-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="agenda"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Agenda
+                    </label>
+                    <Field
+                      as="textarea"
+                      id="agenda"
+                      name="agenda"
+                      placeholder="For a better tomorrow"
+                      rows="4"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="agenda"
+                      className="mt-1 text-sm text-red-500"
+                    />
+                  </div>
+                  <button
+                    disabled={isSubmitting}
+                    type="submit"
+                    className={`rounded bg-indigo-500 p-2 text-white ${
+                      isSubmitting
+                        ? 'cursor-not-allowed opacity-60'
+                        : 'hover:bg-indigo-600'
+                    }`}
                   >
-                    {({ isSubmitting }) => (
-                      <Form>
-                        <div>
-                          <label htmlFor="candidate_num">
-                            Candidate Number
-                          </label>
-                          <Field
-                            id="candidate_num"
-                            name="candidate_num"
-                            type="text"
-                          />
-                          <ErrorMessage component="div" name="candidate_num" />
-                        </div>
-                        <div>
-                          <label htmlFor="first_name">First Name</label>
-                          <Field
-                            id="first_name"
-                            name="first_name"
-                            type="text"
-                          />
-                          <ErrorMessage component="div" name="first_name" />
-                        </div>
-                        <div>
-                          <label htmlFor="last_name">Last Name</label>
-                          <Field id="last_name" name="last_name" type="text" />
-                          <ErrorMessage component="div" name="last_name" />
-                        </div>
-                        <div>
-                          <label htmlFor="certificate">Certificate</label>
-                          <Field
-                            id="certificate"
-                            name="certificate"
-                            placeholder="Phd, Diploma ..."
-                            type="text"
-                          />
-                          <ErrorMessage
-                            className="text-danger"
-                            component="div"
-                            name="certificate"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="position">Position</label>
-                          <Field as="select" id="position" name="position">
-                            <option>Select a Position</option>
-                            <option value="President">President</option>
-                            <option value="Vice-President">
-                              Vice-President
-                            </option>
-                          </Field>
-                          <ErrorMessage
-                            className="text-danger"
-                            component="div"
-                            name="position"
-                          />
-                        </div>
-
-                        <div>
-                          <label htmlFor="pic_path">
-                            Add path to candidate&apos;s picture
-                          </label>
-                          <Field
-                            id="pic_path"
-                            name="pic_path"
-                            placeholder="/images/... or URL"
-                            type="text"
-                          />
-                          <ErrorMessage component="div" name="pic_path" />
-                        </div>
-                        <div>
-                          <label htmlFor="agenda">Agenda</label>
-                          <Field
-                            as="textarea"
-                            id="agenda"
-                            name="agenda"
-                            placeholder="For a better tomorrow"
-                            rows="4"
-                          />
-                          <ErrorMessage component="div" name="agenda" />
-                        </div>
-
-                        <button disabled={isSubmitting} type="submit">
-                          {isSubmitting
-                            ? 'Submitting...'
-                            : 'Register Candidate'}
-                        </button>
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
-              </div>
-            </>
-          ) : (
-            <AccessDenied />
-          )}
+                    {isSubmitting ? 'Submitting...' : 'Register Candidate'}
+                  </button>
+                </Form>
+              )}
+            </Formik>
+          </div>
         </div>
-      </div>
+      ) : (
+        <AccessDenied />
+      )}
     </div>
   );
 }

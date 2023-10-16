@@ -1,24 +1,8 @@
 import '@dotlottie/player-component';
-import React, { useEffect, useState } from 'react';
 
-function HomePage({ alert }) {
-  const [showLogoutAlert, setShowLogoutAlert] = useState(alert);
-
-  useEffect(() => {
-    if (showLogoutAlert) {
-      const alertTimeout = setTimeout(() => {
-        setShowLogoutAlert(false);
-      }, 5000);
-
-      return () => {
-        clearTimeout(alertTimeout);
-      };
-    }
-    return () => {};
-  }, [showLogoutAlert]);
-
+function HomePage() {
   return (
-    <section className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-slate-900">
+    <section className="flex min-h-screen items-center justify-center dark:bg-slate-900">
       <div className="mx-auto max-w-4xl p-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="text-center">
@@ -28,7 +12,7 @@ function HomePage({ alert }) {
             <h2 className="mt-4 text-2xl text-gray-700 dark:text-gray-300">
               Login and start voting
             </h2>
-            <div className="mt-6 text-gray-700 dark:text-gray-300">
+            <div className="cool-font mt-6 text-gray-700 dark:text-gray-300">
               <p className="mb-4">
                 Created a simple University election voting app using Flask and
                 React, where students can register themselves. Once registered,

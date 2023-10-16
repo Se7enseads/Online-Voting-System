@@ -1,16 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.menu-panel-exit {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-}
-
-.menu-panel-exit-active {
-  opacity: 0;
-  transform: translateY(-10px);
+.cool-font {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-style: italic;
 }

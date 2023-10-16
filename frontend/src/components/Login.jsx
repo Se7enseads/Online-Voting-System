@@ -1,6 +1,6 @@
 import '@dotlottie/player-component';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,12 +9,50 @@ import * as Yup from 'yup';
 
 function Login({ token, updateToken }) {
   const navigate = useNavigate();
-  const [style, setStyle] = useState('');
+
+  const handleLogin = async (values, { resetForm, setSubmitting }) => {
+    try {
+      const response = await fetch('http://localhost:5555/api/login', {
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
+
+      setSubmitting(false);
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message, {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+        resetForm('');
+        setTimeout(() => {
+          updateToken(data.access_token);
+        }, 2000);
+      } else {
+        const data = await response.json();
+        toast.error(data.message, {
+          autoClose: false,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    } catch (error) {
+      setSubmitting(false);
+
+      toast.error(data.message, {
+        autoClose: false,
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  };
 
   useEffect(() => {
     if (token && token !== 'undefined' && token !== '') {
       navigate('/');
-    } else if (!token) {
+    } else {
       navigate('/login');
     }
   }, [token, navigate]);
@@ -28,52 +66,9 @@ function Login({ token, updateToken }) {
       .required('Password is required'),
   });
 
-  const handleLogin = (values, { resetForm, setSubmitting }) => {
-    fetch('http://localhost:5555/api/login', {
-      body: JSON.stringify(values),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-      .then((response) => {
-        setSubmitting(false);
-
-        if (response.ok) {
-          setStyle('success');
-          return response.json();
-        }
-
-        setStyle('danger');
-        return response.json();
-      })
-      .then((data) => {
-        if (style === 'success') {
-          toast.success(data.message, {
-            autoClose: 3000,
-            position: toast.POSITION.TOP_CENTER,
-          });
-          resetForm();
-          navigate('/');
-        } else {
-          toast.error(data.message, {
-            autoClose: false,
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
-        updateToken(data.access_token);
-      })
-      .catch(() => {
-        toast.error('An error occurred while logging in.', {
-          autoClose: false,
-          position: toast.POSITION.TOP_CENTER,
-        });
-        setStyle('danger');
-      });
-  };
-
   return (
     <div className="h-screen bg-gray-100 p-4 align-middle dark:bg-slate-900">
+      <ToastContainer />
       <div className="flex h-full flex-col items-center justify-center md:flex-row">
         <div className="hidden justify-center md:flex md:w-1/2">
           <dotlottie-player
@@ -83,7 +78,7 @@ function Login({ token, updateToken }) {
             loop
             mode="normal"
             speed="1"
-            src="https://lottie.host/a4492280-8ac0-42be-b0b6-d46933364677/ZL9Jkn4IYn.lottie"
+            src="/images/login.lottie"
             style={{ height: '300px', width: '300px' }}
           />
         </div>
@@ -101,12 +96,6 @@ function Login({ token, updateToken }) {
               {({ isSubmitting }) => (
                 <Form>
                   <div className="mb-4">
-                    <label
-                      className=" block text-gray-700 dark:text-slate-50"
-                      htmlFor="email"
-                    >
-                      Your Email
-                    </label>
                     <Field
                       className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white"
                       id="email"
@@ -121,12 +110,6 @@ function Login({ token, updateToken }) {
                     />
                   </div>
                   <div className="mb-4">
-                    <label
-                      className="block text-gray-700 dark:text-gray-100"
-                      htmlFor="password"
-                    >
-                      Your Password
-                    </label>
                     <Field
                       className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white"
                       id="password"
@@ -164,7 +147,6 @@ function Login({ token, updateToken }) {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 }

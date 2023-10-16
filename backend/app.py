@@ -208,7 +208,7 @@ class Candidate(Resource):
         }
 
         return response_body, 200
-        
+
     def delete(self, candidate_id):
         """
         Delete a candidate and associated votes.
@@ -417,4 +417,4 @@ app.register_blueprint(api_bp)
 
 
 if __name__ == "__main__":
-    app.run(port=10000, debug=True)
+    app.run(port=5555, debug=True)

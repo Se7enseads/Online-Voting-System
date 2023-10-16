@@ -2,7 +2,7 @@ import '@dotlottie/player-component';
 
 function NotFound() {
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center dark:bg-slate-900">
       <dotlottie-player
         autoplay
         background="transparent"
@@ -10,8 +10,8 @@ function NotFound() {
         loop
         mode="normal"
         speed="1"
-        src="https://lottie.host/b071e8b2-2784-45ea-9773-39da3abc0fbc/lWsktSkePO.lottie"
-        style={{ height: '300px', width: '300px' }}
+        src="/images/404.lottie"
+        style={{ height: '700px', width: '700px' }}
       />
     </div>
   );
