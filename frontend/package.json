@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 --fix"
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "preview": "vite preview"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",

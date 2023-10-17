@@ -36,7 +36,7 @@ function HomePage({ alert }) {
                   <img
                     alt="Vote App"
                     className="img-fluid centered-image"
-                    src="public/images/vote2.jpg"
+                    src="/images/vote2.jpg"
                     style={{ height: 'auto', maxWidth: '30%' }}
                   />
                 </div>
