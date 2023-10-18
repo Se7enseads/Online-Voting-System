@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Buttons from './Buttons';
+import Buttons from '../utils/Buttons';
 
 function CandidateInformation2({ isAdmin }) {
   const [prez, setPrez] = useState([]);

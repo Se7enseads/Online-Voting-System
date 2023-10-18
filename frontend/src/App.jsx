@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { useAuth } from './utils/AuthContext';
-import UnderConstruction from './components/UnderConstruction';
+import UnderConstruction from './utils/UnderConstruction';
 
 const CandidateInformation = React.lazy(() =>
   import('./components/CandidateInformation'),
@@ -10,7 +10,7 @@ const CandidateInformation = React.lazy(() =>
 const HomePage = React.lazy(() => import('./components/HomePage'));
 const Login = React.lazy(() => import('./components/Login'));
 const NavBar = React.lazy(() => import('./components/NavBar'));
-const NotFound = React.lazy(() => import('./components/NotFound'));
+const NotFound = React.lazy(() => import('./utils/NotFound'));
 const Profile = React.lazy(() => import('./components/Profile'));
 const RegisterCandidate = React.lazy(() =>
   import('./components/RegisterCandidate'),

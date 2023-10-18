@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAuth } from '../utils/AuthContext';
-import AccessDenied from './AccessDenied';
+import AccessDenied from '../utils/AccessDenied';
 
 function Profile() {
   const [prez, setPrez] = useState([]);
