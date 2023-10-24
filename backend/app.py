@@ -90,7 +90,7 @@ class Profile(Resource):
 
         voter_exists = voter is not None
 
-        admin = user.admin.lower() == "true"
+        admin = user.admin == "true"
 
         response_body = {
             "prez": [

@@ -1,9 +1,9 @@
+import '@dotlottie/player-component';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
-import '@dotlottie/player-component';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -61,22 +61,22 @@ function SignUp() {
   });
 
   return (
-    <div className="h-screen bg-gray-100 text-black dark:bg-slate-900 dark:text-white">
+    <div className="h-screen p-4 dark:bg-slate-900 dark:text-white">
       <ToastContainer />
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="hidden md:flex md:w-1/2">
+      <div className="flex h-full items-center">
+        <div className="hidden justify-center md:flex md:w-1/2">
           <dotlottie-player
-            src="/images/sign-up.lottie"
-            background="transparent"
-            speed="1"
-            style={{ width: '300px', height: '300px' }}
-            direction="1"
-            mode="normal"
-            loop
             autoplay
+            background="transparent"
+            direction="1"
+            loop
+            mode="normal"
+            speed="1"
+            src="/images/sign-up.lottie"
+            style={{ height: '300px', width: '300px' }}
           />
         </div>
-        <div className="w-full max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-slate-900 hover:dark:shadow-2xl">
+        <div className="mx-auto rounded-lg bg-white p-4 shadow-md dark:bg-slate-800 hover:dark:shadow-2xl">
           <h3 className="mb-2 text-2xl font-semibold">Sign Up</h3>
           <Formik
             initialValues={{
@@ -93,7 +93,7 @@ function SignUp() {
               <Form>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-700 dark:text-white dark:focus:outline"
                     name="nat_id"
                     placeholder="National ID"
                     type="text"
@@ -106,7 +106,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-700 dark:text-white dark:focus:outline"
                     name="email"
                     placeholder="Email"
                     type="email"
@@ -119,7 +119,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-700 dark:text-white dark:focus:outline"
                     name="name"
                     placeholder="Name"
                     type="text"
@@ -132,7 +132,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 dark:border-none dark:bg-gray-700 dark:text-white dark:focus:outline"
                     name="password1"
                     placeholder="Password"
                     type="password"
@@ -145,7 +145,7 @@ function SignUp() {
                 </div>
                 <div className="mb-4">
                   <Field
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white dark:focus:outline"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:outline-none dark:border-none dark:bg-gray-700 dark:text-white dark:focus:outline"
                     name="password2"
                     placeholder="Confirm Password"
                     type="password"

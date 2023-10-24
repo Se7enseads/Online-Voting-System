@@ -29,7 +29,7 @@ function HomePage() {
               </p>
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="hidden justify-center md:flex">
             <dotlottie-player
               autoplay
               background="transparent"

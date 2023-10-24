@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../utils/AuthContext';
+import * as Yup from 'yup';
+
 import AccessDenied from '../utils/AccessDenied';
+import { useAuth } from '../utils/AuthContext';
 
 function RegisterCandidate() {
   const [message, setMessage] = useState('');
@@ -111,153 +112,153 @@ function RegisterCandidate() {
                 <Form>
                   <div className="mb-4">
                     <label
-                      htmlFor="candidate_num"
                       className="block text-sm font-medium text-gray-700"
+                      htmlFor="candidate_num"
                     >
                       Candidate Number
                     </label>
                     <Field
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                       id="candidate_num"
                       name="candidate_num"
                       type="text"
-                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                     />
                     <ErrorMessage
+                      className="mt-1 text-sm text-red-500"
                       component="div"
                       name="candidate_num"
-                      className="mt-1 text-sm text-red-500"
                     />
                   </div>
                   <div className="mb-4">
                     <label
-                      htmlFor="first_name"
                       className="block text-sm font-medium text-gray-700"
+                      htmlFor="first_name"
                     >
                       First Name
                     </label>
                     <Field
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                       id="first_name"
                       name="first_name"
                       type="text"
-                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                     />
                     <ErrorMessage
+                      className="mt-1 text-sm text-red-500"
                       component="div"
                       name="first_name"
-                      className="mt-1 text-sm text-red-500"
                     />
                   </div>
                   <div className="mb-4">
                     <label
-                      htmlFor="last_name"
                       className="block text-sm font-medium text-gray-700"
+                      htmlFor="last_name"
                     >
                       Last Name
                     </label>
                     <Field
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                       id="last_name"
                       name="last_name"
                       type="text"
-                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                     />
                     <ErrorMessage
+                      className="mt-1 text-sm text-red-500"
                       component="div"
                       name="last_name"
-                      className="mt-1 text-sm text-red-500"
                     />
                   </div>
                   <div className="mb-4">
                     <label
-                      htmlFor="certificate"
                       className="block text-sm font-medium text-gray-700"
+                      htmlFor="certificate"
                     >
                       Certificate
                     </label>
                     <Field
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                       id="certificate"
                       name="certificate"
                       placeholder="Phd, Diploma ..."
                       type="text"
-                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                     />
                     <ErrorMessage
+                      className="mt-1 text-sm text-red-500"
                       component="div"
                       name="certificate"
-                      className="mt-1 text-sm text-red-500"
                     />
                   </div>
                   <div className="mb-4">
                     <label
-                      htmlFor="position"
                       className="block text-sm font-medium text-gray-700"
+                      htmlFor="position"
                     >
                       Position
                     </label>
                     <Field
                       as="select"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                       id="position"
                       name="position"
-                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                     >
                       <option>Select a Position</option>
                       <option value="President">President</option>
                       <option value="Vice-President">Vice-President</option>
                     </Field>
                     <ErrorMessage
+                      className="mt-1 text-sm text-red-500"
                       component="div"
                       name="position"
-                      className="mt-1 text-sm text-red-500"
                     />
                   </div>
                   <div className="mb-4">
                     <label
-                      htmlFor="pic_path"
                       className="block text-sm font-medium text-gray-700"
+                      htmlFor="pic_path"
                     >
-                      Add path to candidate's picture
+                      Add path to candidate&apos;s picture
                     </label>
                     <Field
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                       id="pic_path"
                       name="pic_path"
                       placeholder="/images/... or URL"
                       type="text"
-                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                     />
                     <ErrorMessage
+                      className="mt-1 text-sm text-red-500"
                       component="div"
                       name="pic_path"
-                      className="mt-1 text-sm text-red-500"
                     />
                   </div>
                   <div className="mb-4">
                     <label
-                      htmlFor="agenda"
                       className="block text-sm font-medium text-gray-700"
+                      htmlFor="agenda"
                     >
                       Agenda
                     </label>
                     <Field
                       as="textarea"
+                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                       id="agenda"
                       name="agenda"
                       placeholder="For a better tomorrow"
                       rows="4"
-                      className="mt-1 w-full rounded border p-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200"
                     />
                     <ErrorMessage
+                      className="mt-1 text-sm text-red-500"
                       component="div"
                       name="agenda"
-                      className="mt-1 text-sm text-red-500"
                     />
                   </div>
                   <button
-                    disabled={isSubmitting}
-                    type="submit"
                     className={`rounded bg-indigo-500 p-2 text-white ${
                       isSubmitting
                         ? 'cursor-not-allowed opacity-60'
                         : 'hover:bg-indigo-600'
                     }`}
+                    disabled={isSubmitting}
+                    type="submit"
                   >
                     {isSubmitting ? 'Submitting...' : 'Register Candidate'}
                   </button>

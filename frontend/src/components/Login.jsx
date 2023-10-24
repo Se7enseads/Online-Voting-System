@@ -82,7 +82,7 @@ function Login({ token, updateToken }) {
             style={{ height: '300px', width: '300px' }}
           />
         </div>
-        <div className="mx-auto mt-10 max-w-md rounded-md bg-white p-3 shadow-md dark:bg-slate-900 hover:dark:shadow-2xl">
+        <div className="mx-auto mt-10 max-w-md rounded-md bg-white p-3 shadow-md dark:bg-slate-800 hover:dark:shadow-2xl">
           <h3 className="mb-4 text-2xl font-semibold dark:text-white">Login</h3>
           <div>
             <Formik
@@ -97,7 +97,7 @@ function Login({ token, updateToken }) {
                 <Form>
                   <div className="mb-4">
                     <Field
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white"
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-700 dark:text-white"
                       id="email"
                       name="email"
                       placeholder="Enter Email"
@@ -111,7 +111,7 @@ function Login({ token, updateToken }) {
                   </div>
                   <div className="mb-4">
                     <Field
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-800 dark:text-white"
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 no-underline focus:border-blue-500 focus:outline-none dark:border-none dark:bg-gray-700 dark:text-white"
                       id="password"
                       name="password"
                       placeholder="Password"

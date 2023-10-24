@@ -6,11 +6,10 @@ function Buttons({ id, removeCandidate }) {
       method: 'DELETE',
     })
       .then((response) => response.json())
-      .then((data) => {
-        // Show a toast when the candidate is deleted
+      .then(() => {
         toast.success('Candidate deleted successfully', {
+          autoClose: 3000,
           position: 'top-right',
-          autoClose: 3000, // Auto-close the toast after 3 seconds
         });
         removeCandidate(id);
       });
