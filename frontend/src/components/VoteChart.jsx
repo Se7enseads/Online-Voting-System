@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
 
-function VoteChart() {
+function VoteChart({ url }) {
   const [chartData, setChartData] = useState({});
 
   const fetchData = () => {
-    fetch('http://localhost:5555/api/votes')
+    fetch(`${url}/api/votes`)
       .then((response) => response.json())
       .then((responseData) => {
         const { data, data1, labels, labels1 } = responseData;

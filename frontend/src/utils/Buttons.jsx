@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 
-function Buttons({ id, removeCandidate }) {
+function Buttons({ id, removeCandidate, url }) {
   const handleDelete = () => {
-    fetch(`http://localhost:5555/api/candidate/${id}`, {
+    fetch(`${url}/api/candidate/${id}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())

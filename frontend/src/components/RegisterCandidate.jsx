@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import AccessDenied from '../utils/AccessDenied';
 import { useAuth } from '../utils/AuthContext';
 
-function RegisterCandidate() {
+function RegisterCandidate({ url }) {
   const [message, setMessage] = useState('');
   const [style, setStyle] = useState('');
   const { token } = useAuth();
@@ -20,7 +20,7 @@ function RegisterCandidate() {
       return;
     }
 
-    fetch('http://localhost:5555/api/profile', {
+    fetch(`${url}/api/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ function RegisterCandidate() {
   }, [token]);
 
   const handleSubmit = (values, { setSubmitting }) => {
-    fetch('http://localhost:5555/api/candidate_register', {
+    fetch(`${url}/api/candidate_register`, {
       body: JSON.stringify(values),
       headers: {
         Authorization: `Bearer ${token}`,

@@ -5,12 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 
-function SignUp() {
+function SignUp({ url }) {
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await fetch('http://localhost:5555/api/sign-up', {
+      const response = await fetch(`${url}/api/sign-up`, {
         body: JSON.stringify(values),
         headers: {
           'Content-Type': 'application/json',

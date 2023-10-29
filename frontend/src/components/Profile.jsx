@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AccessDenied from '../utils/AccessDenied';
 import { useAuth } from '../utils/AuthContext';
 
-function Profile() {
+function Profile({ url }) {
   const [prez, setPrez] = useState([]);
   const [vice, setVice] = useState([]);
   const [name, setName] = useState('');
@@ -26,7 +26,7 @@ function Profile() {
       return;
     }
 
-    fetch('http://localhost:5555/api/profile', {
+    fetch(`${url}/api/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ function Profile() {
       vicePresident: selectedChoices.vicePresident,
     };
 
-    fetch('http://localhost:5555/api/profile', {
+    fetch('/api/api/profile', {
       body: JSON.stringify(body),
       headers: {
         Authorization: `Bearer ${token}`,

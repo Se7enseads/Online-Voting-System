@@ -27,10 +27,12 @@ function App() {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const url = 'http://localhost:5555';
+
   useEffect(() => {
     if (token) {
       React.startTransition(() => {
-        fetch('http://localhost:5555/api/profile', {
+        fetch(`${url}/api/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -76,17 +78,19 @@ function App() {
           <Routes>
             <Route element={<HomePage />} exact path="/" />
             <Route
-              element={<CandidateInformation isAdmin={isAdmin} />}
+              element={<CandidateInformation isAdmin={isAdmin} url={url} />}
               path="/candidates"
             />
             <Route
-              element={<Login token={token} updateToken={updateToken} />}
+              element={
+                <Login token={token} updateToken={updateToken} url={url} />
+              }
               path="/login"
             />
-            <Route element={<RegisterCandidate />} path="/register" />
-            <Route element={<SignUp />} path="/sign-up" />
+            <Route element={<RegisterCandidate url={url} />} path="/register" />
+            <Route element={<SignUp url={url} />} path="/sign-up" />
             <Route element={<UnderConstruction />} path="/results" />
-            <Route element={<Profile />} path="/profile" />
+            <Route element={<Profile url={url} />} path="/profile" />
             <Route element={<NotFound />} path="*" />
           </Routes>
           <div className="fixed bottom-4 right-4 flex items-center space-x-2">

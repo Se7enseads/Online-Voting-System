@@ -7,12 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 
-function Login({ token, updateToken }) {
+function Login({ token, updateToken, url }) {
   const navigate = useNavigate();
 
   const handleLogin = async (values, { resetForm, setSubmitting }) => {
     try {
-      const response = await fetch('http://localhost:5555/api/login', {
+      const response = await fetch(`${url}/api/login`, {
         body: JSON.stringify(values),
         headers: {
           'Content-Type': 'application/json',

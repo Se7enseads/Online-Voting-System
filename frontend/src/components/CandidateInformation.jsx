@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 
 import Buttons from '../utils/Buttons';
 
-function CandidateInformation2({ isAdmin }) {
+function CandidateInformation2({ isAdmin, url }) {
   const [prez, setPrez] = useState([]);
   const [vice, setVice] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5555/api/candidate', {
+    fetch(`${url}/api/candidate`, {
       'Content-Type': 'application/json',
     })
       .then((response) => response.json())
@@ -97,6 +97,7 @@ function CandidateInformation2({ isAdmin }) {
                         <Buttons
                           id={prezCandidate.id}
                           removeCandidate={removeCandidate}
+                          url={url}
                         />
                       )}
                     </div>
