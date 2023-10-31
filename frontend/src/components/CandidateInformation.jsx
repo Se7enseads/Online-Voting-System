@@ -37,7 +37,6 @@ function CandidateInformation2({ isAdmin, url }) {
           autoplay
           background="transparent"
           direction="1"
-          hover
           loop
           mode="normal"
           speed="1"
