@@ -27,7 +27,7 @@ function App() {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const url = '';
+  const url = 'http://localhost:5555/';
 
   useEffect(() => {
     if (token) {
